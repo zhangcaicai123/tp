@@ -11,6 +11,7 @@ public class Duke {
     void run() {
 
         while (!parser.isExit) {
+
             userCommand = in.nextLine();
             parser.parse(userCommand);
 
