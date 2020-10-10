@@ -14,10 +14,14 @@ public class Parser {
         boolean isExitCommand = userCommand.equals("exit");
 
 
-        if(isAddModCommand){
+        if (isAddModCommand) {
+
             addModule(userCommand);
-        }else if(isExitCommand){
+
+        } else if (isExitCommand) {
+
             isExit = true;
+
         }
 
 
@@ -30,7 +34,6 @@ public class Parser {
         String tutSlot;
         String labSlot;
 
-        boolean isLabExit = command.contains("lab/");
 
         modName = command.substring(command.indexOf("mod/"),command.indexOf("lec/"));
         modName = modName.substring(4).trim();
@@ -38,28 +41,32 @@ public class Parser {
         lecSlot = command.substring(command.indexOf("lec/"),command.indexOf("tut/"));
         lecSlot = lecSlot.substring(4).trim();
 
+        boolean isLabExit = command.contains("lab/");
 
-        if(isLabExit){
+        if (isLabExit) {
+
             tutSlot = command.substring(command.indexOf("tut/"),command.indexOf("lab/"));
             tutSlot = tutSlot.substring(4).trim();
 
             labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
 
-            Module mod = new Module(modName,lecSlot,tutSlot,labSlot);
+            Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
 
-            System.out.println("Module: "+mod.modName);
-            System.out.println("Lecture Slot: "+mod.lecSlot);
-            System.out.println("Tutorial Slot: "+mod.tutSlot);
-            System.out.println("Lab Slot: "+mod.labSlot);
+            System.out.println("Module: " + mod.modName);
+            System.out.println("Lecture Slot: " + mod.lecSlot);
+            System.out.println("Tutorial Slot: " + mod.tutSlot);
+            System.out.println("Lab Slot: " + mod.labSlot);
 
-        }else {
+        } else {
+
             tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
 
-            Module mod = new Module(modName,lecSlot,tutSlot);
+            Module mod = new Module(modName, lecSlot, tutSlot);
 
-            System.out.println("Module: "+mod.modName);
-            System.out.println("Lecture Slot: "+mod.lecSlot);
-            System.out.println("Tutorial Slot: "+mod.tutSlot);
+            System.out.println("Module: " + mod.modName);
+            System.out.println("Lecture Slot: " + mod.lecSlot);
+            System.out.println("Tutorial Slot: " + mod.tutSlot);
+
         }
 
     }

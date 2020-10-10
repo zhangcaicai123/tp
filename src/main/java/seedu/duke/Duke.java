@@ -5,13 +5,15 @@ import java.util.Scanner;
 public class Duke {
 
     Scanner in = new Scanner(System.in);
-    Parser p = new Parser();
+    Parser parser = new Parser();
 
     void run() {
-        while(!p.isExit) {
+
+        while (!parser.isExit) {
             String userCommand = in.nextLine();
-            p.parse(userCommand);
+            parser.parse(userCommand);
         }
+
     }
 
 
