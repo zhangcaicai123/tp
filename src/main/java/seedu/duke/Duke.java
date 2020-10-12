@@ -6,6 +6,7 @@ public class Duke {
 
     Scanner in = new Scanner(System.in);
     Parser parser = new Parser();
+    TimeTable timetable = new TimeTable();
     String userCommand;
 
     void run() {
