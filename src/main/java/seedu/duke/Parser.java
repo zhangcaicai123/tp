@@ -12,6 +12,7 @@ public class Parser {
                 Pattern.matches("^module[\\s]+mod/[\\S\\s]+lec/[\\s\\S]+tut/[\\s\\S]+", userCommand);
 
         boolean isExitCommand = userCommand.equals("exit");
+        boolean isDeleteModule = userCommand.contains("delete m/");
 
 
         if (isAddModCommand) {
@@ -22,6 +23,8 @@ public class Parser {
 
             isExit = true;
 
+        } else if (isDeleteModule) {
+            deleteModule(userCommand);
         }
 
 
@@ -51,6 +54,7 @@ public class Parser {
             labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
 
             Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
+            TimeTable.addModule(mod);
 
             System.out.println("Module: " + mod.modName);
             System.out.println("Lecture Slot: " + mod.lecSlot);
@@ -62,6 +66,7 @@ public class Parser {
             tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
 
             Module mod = new Module(modName, lecSlot, tutSlot);
+            TimeTable.addModule(mod);
 
             System.out.println("Module: " + mod.modName);
             System.out.println("Lecture Slot: " + mod.lecSlot);
@@ -69,6 +74,10 @@ public class Parser {
 
         }
 
+    }
+
+    public void deleteModule(String command) {
+        TimeTable.deleteModule(command);
     }
 
 
