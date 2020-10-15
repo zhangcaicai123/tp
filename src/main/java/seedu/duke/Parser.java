@@ -86,7 +86,7 @@ public class Parser {
         TimeTable.deleteModule(command);
     }
 
-    public void addTask(String command){
+    public void addTask(String command) {
         String modName;
         String description;
 
@@ -102,7 +102,7 @@ public class Parser {
 
     }
 
-    public void deleteTask(String command){
+    public void deleteTask(String command) {
         Integer taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")));
         TaskList.deleteTaskFromList(taskIndex);
     }
