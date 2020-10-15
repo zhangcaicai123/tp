@@ -1,1 +1,1 @@
-James Gosling
+module mod/CG1111 lec/Friday 2-4pm tut/Tuesday 4-5pm lab/Monday 9-12am
