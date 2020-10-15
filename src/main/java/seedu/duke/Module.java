@@ -19,4 +19,8 @@ public class Module {
         this.tutSlot = tut;
     }
 
+    public Module(String mod) {
+        this.modName = mod;
+    }
+
 }
