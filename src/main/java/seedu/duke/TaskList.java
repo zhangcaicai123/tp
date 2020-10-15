@@ -7,11 +7,11 @@ import seedu.duke.Task;
 public class TaskList {
     private static ArrayList<Task> taskList;
 
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList){
         this.taskList = taskList;
     }
 
-    public static void addTaskToList(Task newTask) {
+    public static void addTaskToList(Task newTask){
         taskList.add(newTask);
         System.out.println("Got it. I've added this task:\n" + newTask.description);
         System.out.format("Now you have %s task%s in the list.\n", taskList.size(),

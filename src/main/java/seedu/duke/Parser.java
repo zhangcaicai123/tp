@@ -86,7 +86,7 @@ public class Parser {
         TimeTable.deleteModule(command);
     }
 
-    public void addTask(String command) {
+    public void addTask(String command){
         String modName;
         String description;
 
