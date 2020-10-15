@@ -13,6 +13,7 @@ public class Parser {
 
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
+        boolean isAddTaskCommand = userCommand.contains("task");
 
 
         if (isAddModCommand) {
@@ -25,6 +26,8 @@ public class Parser {
 
         } else if (isDeleteModule) {
             deleteModule(userCommand);
+        } else if (isAddTaskCommand){
+            addTask(userCommand);
         }
 
 
@@ -61,7 +64,7 @@ public class Parser {
             System.out.println("Tutorial Slot: " + mod.tutSlot);
             System.out.println("Lab Slot: " + mod.labSlot);
 
-        } else {
+        } else{
 
             tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
 
@@ -73,12 +76,23 @@ public class Parser {
             System.out.println("Tutorial Slot: " + mod.tutSlot);
 
         }
-
     }
 
     public void deleteModule(String command) {
         TimeTable.deleteModule(command);
     }
 
+    public void addTask(String command){
+        String modName;
+        String description;
+
+        modName = command.substring(command.indexOf("mod/"),command.indexOf("task/"));
+        modName = modName.substring(4).trim();
+
+        description = command.substring(command.indexOf("task/")).substring(5).trim();
+        Task mod = new Task(modName,description);
+        System.out.println("Module: " + mod.modName);
+        System.out.println("Task: "+mod.description);
+    }
 
 }
