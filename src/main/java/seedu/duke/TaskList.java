@@ -22,6 +22,7 @@ public class TaskList {
     public static void deleteTaskFromList(int taskIndex) {
         System.out.println("Noted. I've removed this task:" + taskList.get(taskIndex));
         taskList.remove(taskIndex);
-        System.out.format("Now you have %s task%s in the list.\n", taskList.size(), ((taskList.size() == 1 ? "" : "s")));
+        System.out.format("Now you have %s task%s in the list.\n", taskList.size(),
+                ((taskList.size() == 1 ? "" : "s")));
     }
 }
