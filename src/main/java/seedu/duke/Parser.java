@@ -1,7 +1,6 @@
 package seedu.duke;
 
 import java.util.regex.Pattern;
-import seedu.duke.TaskList;
 
 public class Parser {
 
@@ -36,7 +35,7 @@ public class Parser {
             TimeTable.printWeeklyTimetable();
         } else if (isPrintTodayTimeTable) {
             TimeTable.printTodayTimetable();
-        } else if (isDeleteModule) {
+        } else if (isDeleteTask) {
             deleteTask(userCommand);
         }
 
@@ -109,7 +108,7 @@ public class Parser {
     }
 
     public void deleteTask(String command) {
-        Integer taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")));
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")));
         TaskList.deleteTaskFromList(taskIndex);
     }
 
