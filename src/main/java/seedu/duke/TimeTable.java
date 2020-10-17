@@ -1,14 +1,14 @@
 package seedu.duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Collections;
 
 public class TimeTable {
-    private static ArrayList<Module> modules;
-    static String lineCutOff = "_______________________";
-
-    public TimeTable() {
-        modules = new ArrayList<>();
-    }
+    private static final ArrayList<Module> modules = new ArrayList<>();
+    static String lineCutOff = "_______________________________________________________";
 
     public static void addModule(Module module) {
         modules.add(module);
@@ -40,4 +40,57 @@ public class TimeTable {
             System.out.println(lineCutOff);
         }
     }
+
+    public static void printTodayTimetable() {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        int todayMonth = (calendar.get(Calendar.MONTH) + 1);
+        int todayDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int todayYear = calendar.get(Calendar.YEAR);
+        printToday(todayMonth, todayDay, todayYear);
+    }
+
+    public static void printToday(int month, int day, int year) {
+        System.out.println(lineCutOff);
+        String date = String.format("%4d-%2d-%2d", year, month, day);
+        System.out.println(date);
+        System.out.println(lineCutOff);
+        ArrayList<String> todayList = todayList(date);
+        for (String event : todayList) {
+            System.out.println(event);
+        }
+        System.out.println(lineCutOff);
+    }
+
+    public static void printWeeklyTimetable() {
+        int week = 7;
+        int day = 0;
+        Calendar calendar = Calendar.getInstance();
+
+        while (day < week) {
+            printToday(calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.YEAR));
+            calendar.add(Calendar.DATE, 1);
+            day++;
+        }
+    }
+
+    public static ArrayList<String> todayList(String date) {
+        ArrayList<String> todayList = new ArrayList<>();
+        LocalDate todayDate = LocalDate.parse(date);
+        int weekDay = todayDate.getDayOfWeek().getValue();
+        for (Module module : modules) {
+            if (module.lecDay == weekDay) {
+                todayList.add(module.lecText());
+            } else if (module.tutDay == weekDay) {
+                todayList.add(module.tutText());
+            } else if (module.labDay == weekDay) {
+                todayList.add(module.labText());
+            }
+        }
+        Collections.sort(todayList);
+        return todayList;
+    }
+
+
 }
