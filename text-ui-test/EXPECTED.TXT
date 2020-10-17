@@ -1,5 +1,5 @@
 Hello, this is CEGMods! What can I do for you?
 Module: CG1111
-Lecture Slot: Friday 2-4pm
-Tutorial Slot: Tuesday 4-5pm
-Lab Slot: Monday 9-12am
+Lecture Slot: Fri 10:00-12:00
+Tutorial Slot: Tue 14:00-15:00
+Lab Slot: Mon 9:00-12:00

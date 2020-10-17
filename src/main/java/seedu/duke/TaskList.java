@@ -2,13 +2,11 @@ package seedu.duke;
 
 import java.util.ArrayList;
 
-import seedu.duke.Task;
 
 public class TaskList {
-    private static ArrayList<Task> taskList;
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public TaskList() {
     }
 
     public static void addTaskToList(Task newTask) {
