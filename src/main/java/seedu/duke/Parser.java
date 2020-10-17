@@ -14,8 +14,8 @@ public class Parser {
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
         boolean isAddTaskCommand = userCommand.contains("task");
-
-
+        boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
+        boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         if (isAddModCommand) {
 
             addModule(userCommand);
@@ -28,6 +28,10 @@ public class Parser {
             deleteModule(userCommand);
         } else if (isAddTaskCommand) {
             addTask(userCommand);
+        } else if (isPrintWeeklyTimetable) {
+            TimeTable.printWeeklyTimetable();
+        } else if (isPrintTodayTimeTable) {
+            TimeTable.printTodayTimetable();
         }
 
 
@@ -41,17 +45,17 @@ public class Parser {
         String labSlot;
 
 
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("lec/"));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf("lec/"));
         modName = modName.substring(4).trim();
 
-        lecSlot = command.substring(command.indexOf("lec/"),command.indexOf("tut/"));
+        lecSlot = command.substring(command.indexOf("lec/"), command.indexOf("tut/"));
         lecSlot = lecSlot.substring(4).trim();
 
         boolean isLabExit = command.contains("lab/");
 
         if (isLabExit) {
 
-            tutSlot = command.substring(command.indexOf("tut/"),command.indexOf("lab/"));
+            tutSlot = command.substring(command.indexOf("tut/"), command.indexOf("lab/"));
             tutSlot = tutSlot.substring(4).trim();
 
             labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
@@ -86,13 +90,14 @@ public class Parser {
         String modName;
         String description;
 
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("task/"));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf("task/"));
         modName = modName.substring(4).trim();
 
         description = command.substring(command.indexOf("task/")).substring(5).trim();
-        Task mod = new Task(modName,description);
+        Task mod = new Task(modName, description);
         System.out.println("Module: " + mod.modName);
         System.out.println("Task: " + mod.description);
     }
+
 
 }
