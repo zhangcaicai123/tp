@@ -1,8 +1,11 @@
 package seedu.duke;
 
 import java.util.regex.Pattern;
+import seedu.duke.TaskList;
 
 public class Parser {
+
+
 
     boolean isExit = false;
 
@@ -14,10 +17,9 @@ public class Parser {
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
         boolean isAddTaskCommand = userCommand.contains("task");
+        boolean isDeleteTask = userCommand.contains("delete t/");
         boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
-        boolean isDeleteTask = userCommand.contains("delete t/");
-
 
         if (isAddModCommand) {
 
@@ -28,15 +30,25 @@ public class Parser {
             isExit = true;
 
         } else if (isDeleteModule) {
+
             deleteModule(userCommand);
+
         } else if (isAddTaskCommand) {
+
             addTask(userCommand);
+
         } else if (isPrintWeeklyTimetable) {
+
             TimeTable.printWeeklyTimetable();
+
         } else if (isPrintTodayTimeTable) {
+
             TimeTable.printTodayTimetable();
+
         } else if (isDeleteTask) {
+
             deleteTask(userCommand);
+
         }
 
 
@@ -50,17 +62,17 @@ public class Parser {
         String labSlot;
 
 
-        modName = command.substring(command.indexOf("mod/"), command.indexOf("lec/"));
+        modName = command.substring(command.indexOf("mod/"),command.indexOf("lec/"));
         modName = modName.substring(4).trim();
 
-        lecSlot = command.substring(command.indexOf("lec/"), command.indexOf("tut/"));
+        lecSlot = command.substring(command.indexOf("lec/"),command.indexOf("tut/"));
         lecSlot = lecSlot.substring(4).trim();
 
         boolean isLabExit = command.contains("lab/");
 
         if (isLabExit) {
 
-            tutSlot = command.substring(command.indexOf("tut/"), command.indexOf("lab/"));
+            tutSlot = command.substring(command.indexOf("tut/"),command.indexOf("lab/"));
             tutSlot = tutSlot.substring(4).trim();
 
             labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
@@ -95,11 +107,11 @@ public class Parser {
         String modName;
         String description;
 
-        modName = command.substring(command.indexOf("mod/"), command.indexOf("task/"));
+        modName = command.substring(command.indexOf("mod/"),command.indexOf("task/"));
         modName = modName.substring(4).trim();
 
         description = command.substring(command.indexOf("task/")).substring(5).trim();
-        Task mod = new Task(modName, description);
+        Task mod = new Task(modName,description);
         System.out.println("Module: " + mod.modName);
         System.out.println("Task: " + mod.description);
 
@@ -108,9 +120,8 @@ public class Parser {
     }
 
     public void deleteTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")));
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2).trim());
         TaskList.deleteTaskFromList(taskIndex);
     }
-
 
 }
