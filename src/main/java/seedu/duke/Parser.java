@@ -27,11 +27,17 @@ public class Parser {
             isExit = true;
 
         } else if (isDeleteModule) {
+
             deleteModule(userCommand);
+
         } else if (isAddTaskCommand) {
+
             addTask(userCommand);
-        } else if (isDeleteModule) {
+
+        } else if (isDeleteTask) {
+
             deleteTask(userCommand);
+
         }
 
 
@@ -103,7 +109,7 @@ public class Parser {
     }
 
     public void deleteTask(String command) {
-        Integer taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")));
+        Integer taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2));
         TaskList.deleteTaskFromList(taskIndex);
     }
 
