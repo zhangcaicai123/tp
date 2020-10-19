@@ -6,7 +6,6 @@ public class Duke {
 
     Scanner in = new Scanner(System.in);
     Parser parser = new Parser();
-    TimeTable timetable = new TimeTable();
     String userCommand;
 
     void run() {
@@ -21,7 +20,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         System.out.println("Hello, this is CEGMods! What can I do for you?");
         new Duke().run();

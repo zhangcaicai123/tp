@@ -5,6 +5,8 @@ import seedu.duke.TaskList;
 
 public class Parser {
 
+
+
     boolean isExit = false;
 
     void parse(String userCommand) {
@@ -16,7 +18,8 @@ public class Parser {
         boolean isDeleteModule = userCommand.contains("delete m/");
         boolean isAddTaskCommand = userCommand.contains("task");
         boolean isDeleteTask = userCommand.contains("delete t/");
-
+        boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
+        boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
 
         if (isAddModCommand) {
 
@@ -33,6 +36,14 @@ public class Parser {
         } else if (isAddTaskCommand) {
 
             addTask(userCommand);
+
+        } else if (isPrintWeeklyTimetable) {
+
+            TimeTable.printWeeklyTimetable();
+
+        } else if (isPrintTodayTimeTable) {
+
+            TimeTable.printTodayTimetable();
 
         } else if (isDeleteTask) {
 
@@ -109,7 +120,7 @@ public class Parser {
     }
 
     public void deleteTask(String command) {
-        Integer taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2));
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2).trim());
         TaskList.deleteTaskFromList(taskIndex);
     }
 

@@ -1,2 +1,1 @@
-module mod/CG1111 lec/Friday 2-4pm tut/Tuesday 4-5pm lab/Monday 9-12am
-module mod/CG1111 task/read lecture notes
+module mod/CG1111 lec/Fri 10:00-12:00 tut/Tue 14:00-15:00 lab/Mon 9:00-12:00
