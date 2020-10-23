@@ -78,23 +78,16 @@ public class Parser {
             labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
 
             Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
-            TimeTable.addModule(mod);
 
-            System.out.println("Module: " + mod.modName);
-            System.out.println("Lecture Slot: " + mod.lecSlot);
-            System.out.println("Tutorial Slot: " + mod.tutSlot);
-            System.out.println("Lab Slot: " + mod.labSlot);
+            TimeTable.addModule(mod);
 
         } else {
 
             tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
 
             Module mod = new Module(modName, lecSlot, tutSlot);
-            TimeTable.addModule(mod);
 
-            System.out.println("Module: " + mod.modName);
-            System.out.println("Lecture Slot: " + mod.lecSlot);
-            System.out.println("Tutorial Slot: " + mod.tutSlot);
+            TimeTable.addModule(mod);
 
         }
     }
