@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Duke {
 
