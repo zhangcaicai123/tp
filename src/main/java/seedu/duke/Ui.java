@@ -32,19 +32,20 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
-    public static void dealWithException(String command){
-        if(command.equals("todo")){
+    public static void dealWithException(String command) {
+        if(command.equals("todo")) {
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-        }else if(command.equals("deadline")){
+        } else if(command.equals("deadline")) {
             System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-        }else if(command.equals("event")) {
+        } else if(command.equals("event")) {
             System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
-        }else if(command.contains("done")) {
+        } else if(command.contains("done")) {
             System.out.println("☹ OOPS!!! The done index is out of bound.");
-        }else if(command.contains("delete")) {
+        } else if(command.contains("delete")) {
             System.out.println("☹ OOPS!!! The delete index is out of bound.");
-        }else{
-            System.out.println(("☹ OOPS!!! I'm sorry, but I don't know what that means. Please follow the input format correctly."));
+        } else {
+            System.out.println("☹ OOPS!!! I am sorry, but I don't know what that means." +
+                    "Please follow the input format correctly.");
         }
     }
 }

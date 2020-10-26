@@ -70,7 +70,7 @@ public class Parser {
                 throw new DukeException();
 
             }
-        }catch (DukeException e){
+        } catch (DukeException e) {
 
             Ui.dealWithException(userCommand);
 
