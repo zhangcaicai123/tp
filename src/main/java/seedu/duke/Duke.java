@@ -9,14 +9,14 @@ public class Duke {
     Ui ui = new Ui();
     String userCommand;
 
-    void run() {
+    void run() throws DukeException {
         while (!parser.isExit) {
             userCommand = in.nextLine();
             parser.parse(userCommand);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Ui.printWelcomeMessage();
         new Duke().run();
         Ui.bye();
