@@ -14,5 +14,12 @@ public class Task extends Module {
         this.isDone = true;
     }
 
+    public String getStatusIcon() {
+        return (isDone ? "T" : "F"); //return tick or X symbols
+    }
 
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "]" + this.description;
+    }
 }
