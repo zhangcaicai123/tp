@@ -19,5 +19,6 @@ public class Duke {
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
         new Duke().run();
+        Ui.bye();
     }
 }

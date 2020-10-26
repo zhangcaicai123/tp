@@ -24,50 +24,58 @@ public class Parser {
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
         boolean isPrintProgress = userCommand.contains("progress");
 
-        if (isPrintHelpCommand) {
+        try {
+            if (isPrintHelpCommand) {
 
-            Ui.printHelpMessage();
+                Ui.printHelpMessage();
 
-        } else if (isAddModCommand) {
+            } else if (isAddModCommand) {
 
-            addModule(userCommand);
+                addModule(userCommand);
 
-        } else if (isExitCommand) {
+            } else if (isExitCommand) {
 
-            isExit = true;
+                isExit = true;
 
-        } else if (isDeleteModule) {
+            } else if (isDeleteModule) {
 
-            deleteModule(userCommand);
+                deleteModule(userCommand);
 
-        } else if (isPrintWeeklyTimetable) {
+            } else if (isPrintWeeklyTimetable) {
 
-            TimeTable.printWeeklyTimetable();
+                TimeTable.printWeeklyTimetable();
 
-        } else if (isPrintTodayTimeTable) {
+            } else if (isPrintTodayTimeTable) {
 
-            TimeTable.printTodayTimetable();
+                TimeTable.printTodayTimetable();
 
-        } else if (isDeleteTask) {
+            } else if (isDeleteTask) {
 
-            deleteTask(userCommand);
+                deleteTask(userCommand);
 
-        } else if (isAddProjectTaskCommand) {
+            } else if (isAddProjectTaskCommand) {
 
-            addProjectTask(userCommand);
+                addProjectTask(userCommand);
 
-        } else if (isPrintProjectTaskList) {
+            } else if (isPrintProjectTaskList) {
 
-            ProjectManager.printProjectTaskList(userCommand);
+                ProjectManager.printProjectTaskList(userCommand);
 
-        } else if (isPrintProgress) {
+            } else if (isPrintProgress) {
 
-            ProjectManager.printProgress(userCommand);
-        } /*else if (isAddTaskCommand) {
+                ProjectManager.printProgress(userCommand);
 
-            addTask(userCommand);
+            } else {
 
-        } */
+                throw new DukeException();
+
+            }
+        }catch (DukeException e){
+
+            Ui.dealWithException(userCommand);
+
+        }
+
 
 
     }
