@@ -1,7 +1,6 @@
 package seedu.duke;
 
 import java.util.Scanner;
-import java.util.NoSuchElementException;
 
 public class Duke {
 
@@ -19,7 +18,6 @@ public class Duke {
 
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
-        Ui.printHelpMessage();
         new Duke().run();
     }
 }

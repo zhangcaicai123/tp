@@ -1,27 +1,34 @@
 package seedu.duke;
 
+import java.util.Scanner;
 import java.util.regex.Pattern;
 import seedu.duke.TaskList;
 
 public class Parser {
 
-
-
     boolean isExit = false;
 
     void parse(String userCommand) {
 
+        boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
         boolean isAddModCommand =
                 Pattern.matches("^module[\\s]+mod/[\\S\\s]+lec/[\\s\\S]+tut/[\\s\\S]+", userCommand);
-
+        boolean isAddProjectTaskCommand =
+                Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
-        boolean isAddTaskCommand = userCommand.contains("task");
+        boolean isAddTaskCommand = Pattern.matches("^mod/[\\S\\s]+task/[\\s\\S]+", userCommand);
         boolean isDeleteTask = userCommand.contains("delete t/");
         boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
+        boolean isPrintProjectTaskList = userCommand.contains("project task list");
+        boolean isPrintProgress = userCommand.contains("progress");
 
-        if (isAddModCommand) {
+        if (isPrintHelpCommand) {
+
+            Ui.printHelpMessage();
+
+        } else if (isAddModCommand) {
 
             addModule(userCommand);
 
@@ -32,10 +39,6 @@ public class Parser {
         } else if (isDeleteModule) {
 
             deleteModule(userCommand);
-
-        } else if (isAddTaskCommand) {
-
-            addTask(userCommand);
 
         } else if (isPrintWeeklyTimetable) {
 
@@ -49,7 +52,22 @@ public class Parser {
 
             deleteTask(userCommand);
 
-        }
+        } else if (isAddProjectTaskCommand) {
+
+            addProjectTask(userCommand);
+
+        } else if (isPrintProjectTaskList) {
+
+            ProjectManager.printProjectTaskList(userCommand);
+
+        } else if (isPrintProgress) {
+
+            ProjectManager.printProgress(userCommand);
+        } /*else if (isAddTaskCommand) {
+
+            addTask(userCommand);
+
+        } */
 
 
     }
@@ -115,6 +133,11 @@ public class Parser {
     public void deleteTask(String command) {
         int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2).trim());
         TaskList.deleteTaskFromList(taskIndex);
+    }
+
+    public void addProjectTask(String command) {
+
+        ProjectManager.addProjectTask(command);
     }
 
 }
