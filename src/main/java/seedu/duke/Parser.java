@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,10 +31,9 @@ public class Parser {
     public static void parse(String userCommand, TaskList taskList, Storage storage) {
 
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
-        boolean isAddModCommand =
-                Pattern.matches("^module[\\s]+mod/[\\S\\s]+lec/[\\s\\S]+tut/[\\s\\S]+",
-                        userCommand);
-        boolean isAddProjectTaskCommand = Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
+        boolean isAddModCommand = Pattern.matches("^add[\\s]+module/[\\S\\s]+", userCommand);
+        boolean isAddProjectTaskCommand =
+                Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
         boolean isDeleteTask = userCommand.contains("delete t/");
@@ -77,6 +77,7 @@ public class Parser {
                 deleteTask(taskList, storage, userCommand);
 
             } else if (isAddTask) {
+
                 String type = getTaskType(userCommand);
                 if (type.equals("todo")) {
                     addToDo(taskList, storage, userCommand);
@@ -85,8 +86,11 @@ public class Parser {
                 } else if (type.equals("event")) {
                     addEvent(taskList, storage, userCommand);
                 }
+
             } else if (isAddProjectTaskCommand) {
+
                 addProjectTask(userCommand, taskList, storage);
+
             } else if (isPrintProjectTaskList) {
 
                 ProjectManager.printProjectTaskList(userCommand);
@@ -96,13 +100,21 @@ public class Parser {
                 ProjectManager.printProgress(userCommand);
 
             } else if (isPrintTodayDeadline) {
+
                 TimeTable.printTodayDeadline(taskList);
+
             } else if (isPrintWeeklyDeadline) {
+
                 TimeTable.printWeeklyDeadline(taskList);
+
             } else if (isMarkAsDone) {
+
                 done(taskList, storage, userCommand);
+
             } else if (isFind) {
+
                 find(taskList, userCommand);
+
             } else {
 
                 throw new DukeException();
@@ -118,41 +130,32 @@ public class Parser {
     }
 
     public static void addModule(String command) {
-
-        String modName;
-        String lecSlot;
-        String tutSlot;
-        String labSlot;
-
-
-        modName = command.substring(command.indexOf("mod/"), command.indexOf("lec/"));
-        modName = modName.substring(4).trim();
-
-        lecSlot = command.substring(command.indexOf("lec/"), command.indexOf("tut/"));
-        lecSlot = lecSlot.substring(4).trim();
-
-        boolean isLabExit = command.contains("lab/");
-
-        if (isLabExit) {
-
-            tutSlot = command.substring(command.indexOf("tut/"), command.indexOf("lab/"));
-            tutSlot = tutSlot.substring(4).trim();
-
-            labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
-
-            TimeTable.addModule(mod);
-
+        String moduleCode = command.substring(command.indexOf("/") + 1);
+        boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
+        Scanner in = new Scanner(System.in);
+        if (isModuleExit) {
+            System.out.println("_______________________________________________________");
+            System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
+            System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
+            System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
+            System.out.println("_______________________________________________________");
+            System.out.println("Please enter the time slot for the lectures, tutorials, and labs for this module.");
+            System.out.println("If the time slot does not exit, please enter null.");
+            System.out.print("Lecture slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.print("Tutorial slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.print("Lab slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.println("OK! I have added this module.");
+            System.out.println("_______________________________________________________");
+            TimeTable.addModule(ModDataBase.modules.get(moduleCode));
         } else {
-
-            tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot);
-
-            TimeTable.addModule(mod);
-
+            System.out.println("_______________________________________________________");
+            System.out.println("The module code does not exist.");
+            System.out.println("_______________________________________________________");
         }
+
     }
 
     public static void deleteModule(String command) {

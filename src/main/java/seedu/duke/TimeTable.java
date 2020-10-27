@@ -16,20 +16,21 @@ public class TimeTable {
     static String lineCutOff = "_______________________________________________________";
 
     public static void printModuleWithLab(Module module) {
-        System.out.println("Module: " + module.modName);
+        System.out.println("Module: " + module.moduleCode);
         System.out.println("Lecture Slot: " + module.lecSlot);
         System.out.println("Tutorial Slot: " + module.tutSlot);
         System.out.println("Lab Slot: " + module.labSlot);
     }
 
     public static void printModuleWithoutLab(Module module) {
-        System.out.println("Module: " + module.modName);
+        System.out.println("Module: " + module.moduleCode);
         System.out.println("Lecture Slot: " + module.lecSlot);
         System.out.println("Tutorial Slot: " + module.tutSlot);
     }
 
     public static void addModule(Module module) {
         modules.add(module);
+        /*
         int moduleIndex = checkInsertion(module);
         if (moduleIndex != -1) {
 
@@ -47,6 +48,8 @@ public class TimeTable {
 
             }
         }
+
+         */
     }
 
     public static int checkInsertion(Module module) {
@@ -110,7 +113,7 @@ public class TimeTable {
         }
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
-        if (userCommand.equals(module.modName)) {
+        if (userCommand.equals(module.moduleCode)) {
             modules.set(moduleIndex, module);
         }
 
@@ -127,7 +130,7 @@ public class TimeTable {
                 throw new DukeException();
             } else {
                 for (int i = 0; i < modules.size(); i++) {
-                    if (modules.get(i).modName.contains(details)) {
+                    if (modules.get(i).moduleCode.contains(details)) {
                         modules.remove(i);
                         System.out.println("Noted. I've removed this module");
                         break;
