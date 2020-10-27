@@ -1,7 +1,9 @@
 package seedu.duke;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.NoSuchElementException;
 
 public class Duke {
 
@@ -10,16 +12,17 @@ public class Duke {
     Ui ui = new Ui();
     String userCommand;
 
-    void run() {
+    void run() throws IOException, ParseException {
         while (!parser.isExit) {
             userCommand = in.nextLine();
             parser.parse(userCommand);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
         Ui.printWelcomeMessage();
         Ui.printHelpMessage();
+        ModDataBase.getModFromFile();
         new Duke().run();
     }
 }

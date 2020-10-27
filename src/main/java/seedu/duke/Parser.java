@@ -1,18 +1,18 @@
 package seedu.duke;
 
+import java.util.Scanner;
 import java.util.regex.Pattern;
 import seedu.duke.TaskList;
 
 public class Parser {
-
-
-
-    boolean isExit = false;
-
+//
+//
+//
+      boolean isExit = false;
+//
     void parse(String userCommand) {
 
-        boolean isAddModCommand =
-                Pattern.matches("^module[\\s]+mod/[\\S\\s]+lec/[\\s\\S]+tut/[\\s\\S]+", userCommand);
+        boolean isAddModCommand = Pattern.matches("add[\\s]+module/[\\S\\s]+", userCommand);
 
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
@@ -39,11 +39,11 @@ public class Parser {
 
         } else if (isPrintWeeklyTimetable) {
 
-            TimeTable.printWeeklyTimetable();
+
 
         } else if (isPrintTodayTimeTable) {
 
-            TimeTable.printTodayTimetable();
+
 
         } else if (isDeleteTask) {
 
@@ -56,44 +56,30 @@ public class Parser {
 
     public void addModule(String command) {
 
-        String modName;
-        String lecSlot;
-        String tutSlot;
-        String labSlot;
+        String moduleCode = command.substring(command.indexOf("/")+1).trim();
+        boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
 
-
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("lec/"));
-        modName = modName.substring(4).trim();
-
-        lecSlot = command.substring(command.indexOf("lec/"),command.indexOf("tut/"));
-        lecSlot = lecSlot.substring(4).trim();
-
-        boolean isLabExit = command.contains("lab/");
-
-        if (isLabExit) {
-
-            tutSlot = command.substring(command.indexOf("tut/"),command.indexOf("lab/"));
-            tutSlot = tutSlot.substring(4).trim();
-
-            labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
-
-            TimeTable.addModule(mod);
-
-        } else {
-
-            tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot);
-
-            TimeTable.addModule(mod);
-
+        if (isModuleExit) {
+//            Scanner in = new Scanner(System.in);
+//            System.out.println("lecSlot: ");
+//            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+//            System.out.println("tutSlot: ");
+//            ModDataBase.modules.get(moduleCode).tutSlot = in.nextLine();
+//            System.out.println("labSlot: ");
+//            ModDataBase.modules.get(moduleCode).labSlot = in.nextLine();
+            System.out.println(ModDataBase.modules.get(moduleCode).description);
+            System.out.println(ModDataBase.modules.get(moduleCode).moduleCredit);
+        }else {
+            System.out.println("hahaha");
         }
+
+
+
+
     }
 
     public void deleteModule(String command) {
-        TimeTable.deleteModule(command);
+
     }
 
     public void addTask(String command) {
@@ -104,11 +90,10 @@ public class Parser {
         modName = modName.substring(4).trim();
 
         description = command.substring(command.indexOf("task/")).substring(5).trim();
-        Task mod = new Task(modName,description);
-        System.out.println("Module: " + mod.modName);
-        System.out.println("Task: " + mod.description);
-
-        TaskList.addTaskToList(mod);
+//        Task mod = new Task(modName,description);
+//        System.out.println("Task: " + mod.description);
+//
+//        TaskList.addTaskToList(mod);
 
     }
 
