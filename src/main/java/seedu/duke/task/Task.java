@@ -1,16 +1,17 @@
-package seedu.duke;
+package seedu.duke.task;
 
-public class Task extends Module {
+public class Task  {
     protected String description;
     protected boolean isDone;
 
-    public Task(String mod, String description) {
-        super(mod);
+    public Task( String description) {
         this.description = description;
         this.isDone = false;
     }
-
-    public void taskDone() {
+    public String getDescription() {
+        return this.description;
+    }
+    public void markAsDone() {
         this.isDone = true;
     }
 
@@ -23,9 +24,9 @@ public class Task extends Module {
         return "[" + this.getStatusIcon() + "]" + this.description;
     }
 
-    public String type(){return "todo";}
-
-    public String by(){return null;}
-
-    public String at(){return null;}
+    public String text() {
+        if (this.isDone)
+            return "| 1 | " + description;
+        else return "| 0 | " + description;
+    }
 }

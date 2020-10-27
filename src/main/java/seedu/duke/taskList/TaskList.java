@@ -1,4 +1,4 @@
-package seedu.duke.list;
+package seedu.duke.taskList;
 
 import seedu.duke.task.Task;
 
@@ -7,8 +7,24 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> taskList = new ArrayList<>();
-    public TaskList(){}
-    public ArrayList<Task> getTaskList(){return taskList;}
+
+    public TaskList() {
+    }
+
+    /**
+     * Assign the loaded list to this task list
+     *
+     * @param loadedList the task list loaded from
+     */
+
+    public TaskList(ArrayList<Task> loadedList) {
+        this.taskList = loadedList;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
     /**
      * Add new task to the task list
      *
@@ -30,6 +46,7 @@ public class TaskList {
         printDeleteMessage(taskIndex);
         taskList.remove(taskIndex);
     }
+
     /**
      * Get the task with index
      *
@@ -45,9 +62,11 @@ public class TaskList {
     private void showLine() {
         System.out.println("    ____________________________________________________________");
     }
+
     public int size() {
         return this.taskList.size();
     }
+
     /**
      * Print the whole list
      */
@@ -63,6 +82,7 @@ public class TaskList {
         }
         showLine();
     }
+
     /**
      * Print the message of adding new task
      */

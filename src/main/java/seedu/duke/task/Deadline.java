@@ -1,11 +1,16 @@
-package seedu.duke;
+package seedu.duke.task;
+
+import seedu.duke.task.Task;
 
 public class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String mod, String description, String by) {
-        super(mod,description);
+    public Deadline(String description) {
+        super(description);
+    }
+
+    public void setBy(String by) {
         this.by = by;
     }
 
@@ -13,8 +18,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by + ")";
     }
-    @Override
-    public String type(){return "deadline";}
 
-    @Override public String by(){return this.by;}
+    @Override
+    public String text() {
+        return "D " + super.text() + " | " + by;
+    }
 }

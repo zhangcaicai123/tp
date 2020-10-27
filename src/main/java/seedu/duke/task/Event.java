@@ -1,11 +1,14 @@
-package seedu.duke;
+package seedu.duke.task;
+
 
 public class Event extends Task {
 
     protected String at;
 
-    public Event(String mod, String description, String at) {
-        super(mod,description);
+    public Event(String description ){
+        super(description);
+    }
+    public void setAt(String at) {
         this.at = at;
     }
 
@@ -15,8 +18,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String type(){return "event";}
-
-    @Override
-    public String at(){return this.at;}
+    public String text() {
+        return "E " + super.text() + " | " + at;
+    }
 }

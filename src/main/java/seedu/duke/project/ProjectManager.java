@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.project;
+
+import seedu.duke.task.ProjectTask;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,15 +9,15 @@ public class ProjectManager {
     static String lineCutOff = "_______________________________________________________";
     private static final ArrayList<ProjectTask> projectTasks = new ArrayList<>();
 
-    public static void addProjectTask(String command) {
+    public static ProjectTask addProjectTask(String command) {
 
         String modName;
         String description;
 
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("ptask/"));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf("ptask/"));
         modName = modName.substring(4).trim();
 
-        description = command.substring(command.indexOf("ptask/"),command.indexOf("by/"));
+        description = command.substring(command.indexOf("ptask/"), command.indexOf("by/"));
         description = description.substring(6).trim();
 
         String by;
@@ -27,26 +29,26 @@ public class ProjectManager {
         Scanner in = new Scanner(System.in);
 
         String material = in.nextLine();
-        ProjectTask projectTask = new ProjectTask(modName,description,by,material);
+        ProjectTask projectTask = new ProjectTask(modName, description, by, material);
 
-        System.out.println("Module: " + projectTask.modName);
-        System.out.println("ProjectTask: " + projectTask.description);
-        System.out.println("By: " + projectTask.by);
-        System.out.println("Materials: " + projectTask.material);
+        System.out.println("Module: " + projectTask.getModName());
+        System.out.println("ProjectTask: " + projectTask.getDescription());
+        System.out.println("By: " + projectTask.getBy());
+        System.out.println("Materials: " + projectTask.getMaterial());
         System.out.println(lineCutOff);
-        
-        projectTasks.add(projectTask);
 
+        projectTasks.add(projectTask);
+        return projectTask;
     }
 
     public static void printProjectTaskList(String command) {
         String modName;
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("project"));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
         modName = modName.substring(4).trim();
         System.out.println(modName + "\n");
 
         for (int i = 0; i < projectTasks.size(); i++) {
-            if (projectTasks.get(i).modName.equals(modName)) {
+            if (projectTasks.get(i).getModName().equals(modName)) {
                 System.out.println(i + 1 + ". " + projectTasks.get(i).toString() + "\n");
             }
         }
@@ -56,15 +58,15 @@ public class ProjectManager {
         String modName;
         int numDone = 0;
         int numTotal = 0;
-        modName = command.substring(command.indexOf("mod/"),command.indexOf(" "));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf(" "));
         modName = modName.substring(4).trim();
 
         System.out.println(modName);
 
-        for (int i = 0; i < projectTasks.size(); i++) {
-            if (projectTasks.get(i).modName.equals(modName)) {
+        for (ProjectTask projectTask : projectTasks) {
+            if (projectTask.getModName().equals(modName)) {
                 numTotal++;
-                if (projectTasks.get(i).getStatusIcon().equals('T')) {
+                if (projectTask.getStatusIcon().equals("T")) {
                     numDone++;
                 }
             }
