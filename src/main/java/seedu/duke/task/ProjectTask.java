@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.task.Task;
+
 public class ProjectTask extends Task {
 
     protected String by;

@@ -22,4 +22,10 @@ public class Task extends Module {
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + this.description;
     }
+
+    public String type(){return "todo";}
+
+    public String by(){return null;}
+
+    public String at(){return null;}
 }
