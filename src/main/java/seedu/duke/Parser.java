@@ -1,105 +1,416 @@
 package seedu.duke;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import seedu.duke.TaskList;
+
+import seedu.duke.exception.DukeException;
+import seedu.duke.exception.EmptyDescriptionException;
+import seedu.duke.exception.EmptyFindException;
+import seedu.duke.exception.EmptyIndexException;
+import seedu.duke.exception.EmptyTimeException;
+import seedu.duke.exception.OutOfIndexBound;
+import seedu.duke.exception.ExceptionMessage;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.project.ProjectManager;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.ProjectTask;
+import seedu.duke.task.Event;
+import seedu.duke.task.Task;
+import seedu.duke.task.Todo;
+import seedu.duke.task.Deadline;
 
 public class Parser {
-//
-//
-//
-      boolean isExit = false;
-//
-    void parse(String userCommand) {
 
-        boolean isAddModCommand = Pattern.matches("add[\\s]+module/[\\S\\s]+", userCommand);
+    static boolean isExit = false;
 
+    public static void parse(String userCommand, TaskList taskList, Storage storage) {
+
+        boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
+        boolean isAddModCommand = Pattern.matches("^add[\\s]+module/[\\S\\s]+", userCommand);
+        boolean isAddProjectTaskCommand =
+                Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isExitCommand = userCommand.equals("exit");
         boolean isDeleteModule = userCommand.contains("delete m/");
-        boolean isAddTaskCommand = userCommand.contains("task");
         boolean isDeleteTask = userCommand.contains("delete t/");
-        boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
+        boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
+        boolean isPrintProjectTaskList = userCommand.contains("project task list");
+        boolean isPrintProgress = userCommand.contains("progress");
+        boolean isPrintTodayDeadline = userCommand.equals("today deadline");
+        boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
+        boolean isAddTask = Pattern.matches("^(todo|deadline|event).*",
+                userCommand);
+        boolean isMarkAsDone = Pattern.matches("^done.*", userCommand);
+        boolean isFind = Pattern.matches("^find.*", userCommand);
+        try {
+            if (isPrintHelpCommand) {
 
-        if (isAddModCommand) {
+                Ui.printHelpMessage();
 
-            addModule(userCommand);
+            } else if (isAddModCommand) {
 
-        } else if (isExitCommand) {
+                addModule(userCommand);
 
-            isExit = true;
+            } else if (isExitCommand) {
 
-        } else if (isDeleteModule) {
+                isExit = true;
 
-            deleteModule(userCommand);
+            } else if (isDeleteModule) {
 
-        } else if (isAddTaskCommand) {
+                deleteModule(userCommand);
 
-            addTask(userCommand);
+            } else if (isPrintWeeklyTimetable) {
 
-        } else if (isPrintWeeklyTimetable) {
+                TimeTable.printWeeklyTimetable();
 
+            } else if (isPrintTodayTimeTable) {
 
+                TimeTable.printTodayTimetable();
 
-        } else if (isPrintTodayTimeTable) {
+            } else if (isDeleteTask) {
 
+                deleteTask(taskList, storage, userCommand);
 
+            } else if (isAddTask) {
 
-        } else if (isDeleteTask) {
+                String type = getTaskType(userCommand);
+                if (type.equals("todo")) {
+                    addToDo(taskList, storage, userCommand);
+                } else if (type.equals("deadline")) {
+                    addDeadline(taskList, storage, userCommand);
+                } else if (type.equals("event")) {
+                    addEvent(taskList, storage, userCommand);
+                }
 
-            deleteTask(userCommand);
+            } else if (isAddProjectTaskCommand) {
+
+                addProjectTask(userCommand, taskList, storage);
+
+            } else if (isPrintProjectTaskList) {
+
+                ProjectManager.printProjectTaskList(userCommand);
+
+            } else if (isPrintProgress) {
+
+                ProjectManager.printProgress(userCommand);
+
+            } else if (isPrintTodayDeadline) {
+
+                TimeTable.printTodayDeadline(taskList);
+
+            } else if (isPrintWeeklyDeadline) {
+
+                TimeTable.printWeeklyDeadline(taskList);
+
+            } else if (isMarkAsDone) {
+
+                done(taskList, storage, userCommand);
+
+            } else if (isFind) {
+
+                find(taskList, userCommand);
+
+            } else {
+
+                throw new DukeException();
+
+            }
+        } catch (DukeException e) {
+
+            Ui.dealWithException(userCommand);
 
         }
 
 
     }
 
-    public void addModule(String command) {
-
-        String moduleCode = command.substring(command.indexOf("/")+1).trim();
+    public static void addModule(String command) {
+        String moduleCode = command.substring(command.indexOf("/")+1);
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
-
         if (isModuleExit) {
-//            Scanner in = new Scanner(System.in);
-//            System.out.println("lecSlot: ");
-//            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
-//            System.out.println("tutSlot: ");
-//            ModDataBase.modules.get(moduleCode).tutSlot = in.nextLine();
-//            System.out.println("labSlot: ");
-//            ModDataBase.modules.get(moduleCode).labSlot = in.nextLine();
-            System.out.println(ModDataBase.modules.get(moduleCode).description);
-            System.out.println(ModDataBase.modules.get(moduleCode).moduleCredit);
-        }else {
-            System.out.println("hahaha");
+            Scanner in = new Scanner(System.in);
+            System.out.println("_______________________________________________________");
+            System.out.println("Module code: "+ModDataBase.modules.get(moduleCode).moduleCode);
+            System.out.println("Title: "+ModDataBase.modules.get(moduleCode).title);
+            System.out.println("Description: "+ModDataBase.modules.get(moduleCode).description);
+            System.out.println("_______________________________________________________");
+            System.out.println("Please enter the time slot for the lectures, " +
+                    "tutorials, and labs for this module.");
+            System.out.println("If the time slot does not exit, please enter null.");
+            System.out.print("Lecture slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.print("Tutorial slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.print("Lab slot: ");
+            ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+            System.out.println("OK! I have added this module.");
+            System.out.println("_______________________________________________________");
+            TimeTable.addModule(ModDataBase.modules.get(moduleCode));
+        } else {
+            System.out.println("_______________________________________________________");
+            System.out.println("The module code does not exist.");
+            System.out.println("_______________________________________________________");
         }
 
+    }
 
+    public static void deleteModule(String command) {
+        TimeTable.deleteModule(command);
+    }
 
+    /**
+     * Find task in the task list with keyword.
+     * @param command  user input
+     * @param taskList the list of all tasks input
+     * @exception EmptyFindException if no keyword is input
+     */
+    private static void find(TaskList taskList, String command) {
+        try {
+            String keyword = Parser.getFind(command);
+            taskList.printSearchResult(keyword);
+        } catch (EmptyFindException e) {
+            ExceptionMessage.printEmptyKeywordMessage();
+        }
+    }
+
+    public static void addProjectTask(String command, TaskList taskList, Storage storage) {
+
+        ProjectTask projectTask = ProjectManager.addProjectTask(command);
+        try {
+            taskList.addTask(projectTask);
+            storage.appendToFile(projectTask.text() + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static String getTaskType(String command) {
+        String pattern = "^(todo|deadline|event).*";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(command);
+        m.find();
+        return m.group(1);
 
     }
 
-    public void deleteModule(String command) {
-
+    /**
+     * Get the description of todo task.
+     * @param command user input
+     * @return the description of user's input todo task
+     * @throws EmptyDescriptionException If description is null
+     */
+    public static String getTodo(String command) throws EmptyDescriptionException {
+        String todoPattern = "^todo (.*)";
+        Pattern r = Pattern.compile(todoPattern);
+        Matcher m = r.matcher(command);
+        if (Pattern.matches("^todo *", command)) {
+            throw new EmptyDescriptionException();
+        } else {
+            m.find();
+            return m.group(1).trim();
+        }
     }
 
-    public void addTask(String command) {
-        String modName;
-        String description;
-
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("task/"));
-        modName = modName.substring(4).trim();
-
-        description = command.substring(command.indexOf("task/")).substring(5).trim();
-//        Task mod = new Task(modName,description);
-//        System.out.println("Task: " + mod.description);
-//
-//        TaskList.addTaskToList(mod);
-
+    /**
+     * Get the task description for deadline and event.
+     * @param command user command
+     * @return the task description of user's input deadline or event
+     * @throws EmptyDescriptionException If description is null
+     */
+    public static String getTask(String command) throws EmptyDescriptionException {
+        String pattern = "(event|deadline)( .* )(/at|/by)( .*)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(command);
+        if (Pattern.matches("event|deadline *", command)) {
+            throw new EmptyDescriptionException();
+        }
+        m.find();
+        return m.group(2).trim();
     }
 
-    public void deleteTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2).trim());
-        TaskList.deleteTaskFromList(taskIndex);
+    /**
+     * Add todo task to the task list.
+     * @param taskList the list of all tasks input
+     * @param storage  the file stores all tasks in the list
+     * @param command user input command
+     */
+    private static void addToDo(TaskList taskList, Storage storage, String command) {
+        try {
+            Todo taskToAdd = new Todo(getTodo(command));
+            taskList.addTask(taskToAdd);
+            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+        } catch (EmptyDescriptionException e) {
+            ExceptionMessage.printEmptyDescriptionExceptionMessage("todo");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Add deadline task to the task list.
+     *
+     * @param taskList the list of all tasks input
+     * @param storage  the file stores all tasks in the list
+     * @param command user input command
+     */
+    private static void addDeadline(TaskList taskList, Storage storage, String command) {
+        try {
+            String by = Parser.getTime(command);
+            Deadline taskToAdd = new Deadline(Parser.getTask(command));
+            taskToAdd.setBy(by);
+            taskList.addTask(taskToAdd);
+            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+        } catch (EmptyDescriptionException e) {
+            ExceptionMessage.printEmptyDescriptionExceptionMessage("deadline");
+        } catch (EmptyTimeException e) {
+            ExceptionMessage.printEmptyTimeExceptionMessage("deadline");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Add event to the task list.
+     *
+     * @param taskList the list of all tasks input
+     * @param storage  the file stores all tasks in the list
+     * @param command user input command
+     */
+    private static void addEvent(TaskList taskList, Storage storage, String command) {
+        try {
+            String at = Parser.getTime(command);
+            Event taskToAdd = new Event(Parser.getTask(command));
+            taskToAdd.setAt(at);
+            taskList.addTask(taskToAdd);
+            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+        } catch (EmptyDescriptionException e) {
+            ExceptionMessage.printEmptyDescriptionExceptionMessage("event");
+        } catch (EmptyTimeException e) {
+            ExceptionMessage.printEmptyTimeExceptionMessage("event");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Returns the time for event or deadline.
+     * Accept dates in yyyy-mm-dd format (e.g., 2019-10-15)
+     * and print in a different format such as MMM dd yyyy e.g., (Oct 15 2019)
+     * @param command user input command
+     * @return time for event or deadline task
+     * @throws EmptyTimeException If no String for time information is found
+     */
+    public static String getTime(String command) throws EmptyTimeException {
+        String pattern = "(event|deadline)( .* )(/at|/by)(.*)";
+        String time;
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(command);
+        if (m.find()) {
+            time = m.group(4).trim();
+        } else {
+            throw new EmptyTimeException();
+        }
+        String timePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";//yyyy-mm-dd format
+        boolean isDate = Pattern.matches(timePattern, time);
+        if (isDate) {
+            LocalDate date = LocalDate.parse(time);
+            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
+        } else {
+            return time;
+        }
+    }
+
+    /**
+     * Get the keyword of finding task command.
+     * @param command user input command
+     * @return the keyword that user wants to search in the task list
+     * @throws EmptyFindException If no keyword is found
+     */
+    public static String getFind(String command) throws EmptyFindException {
+        String pattern = "find *";
+        if (Pattern.matches(pattern, command)) {
+            throw new EmptyFindException();
+        } else {
+            return command.substring(command.indexOf(" ") + 1);
+        }
+    }
+
+    /**
+     * Get indext of task that need to be deleted or mark as done.
+     * @param taskList the list of all tasks input
+     * @param command user input command
+     * @return index the index of task that user wants to delete or mark as done
+     * @throws OutOfIndexBound     If the index is larger than size of list
+     * @throws EmptyIndexException If user does not input any integer
+     */
+    public static int getIndex(TaskList taskList, String command) throws OutOfIndexBound, EmptyIndexException {
+        String pattern = "(done|delete)( )(\\d+)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(command);
+        int index;
+        if (Pattern.matches("done|delete *", command)) {
+            throw new EmptyIndexException();
+        } else {
+            m.find();
+            index = Integer.parseInt(m.group(3));
+        }
+        if (taskList.size() < index || index < 1) {
+            throw new OutOfIndexBound();
+        }
+        return index;
+    }
+
+
+    /**
+     * Execute done command.
+     *
+     * @param taskList the list of all tasks input
+     * @param storage  the file stores all tasks in the list
+     * @param command user input command
+     * @exception EmptyIndexException if no index is input
+     */
+    private static void done(TaskList taskList, Storage storage, String command) {
+        try {
+            int index = Parser.getIndex(taskList, command) - 1;
+            Task taskToMark = taskList.get(index);
+            taskToMark.markAsDone();
+            Ui.printMarkMessage(taskToMark);
+            storage.updateDoneToFile(index, taskList);
+        } catch (OutOfIndexBound e) {
+            ExceptionMessage.printOutOfIndexBoundMessage();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (EmptyIndexException e) {
+            ExceptionMessage.printEmptyIndexExceptionMessage();
+        }
+    }
+
+    /**
+     * Delete task from task list.
+     *
+     * @param taskList the list of all tasks input
+     * @param storage  the file stores all tasks in the list
+     * @param command user input command
+     */
+    private static void deleteTask(TaskList taskList, Storage storage, String command) {
+        try {
+            int index = Parser.getIndex(taskList, command) - 1;
+            taskList.deleteTask(index);
+            storage.deleteTaskFromFile(index);
+            taskList.printNumOfTasksInList();
+        } catch (OutOfIndexBound e) {
+            ExceptionMessage.printOutOfIndexBoundMessage();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (EmptyIndexException e) {
+            ExceptionMessage.printEmptyIndexExceptionMessage();
+        }
     }
 
 }
