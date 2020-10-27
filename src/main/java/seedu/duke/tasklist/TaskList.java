@@ -1,4 +1,4 @@
-package seedu.duke.taskList;
+package seedu.duke.tasklist;
 
 import seedu.duke.task.Task;
 
@@ -12,7 +12,7 @@ public class TaskList {
     }
 
     /**
-     * Assign the loaded list to this task list
+     * Assign the loaded list to this task list.
      *
      * @param loadedList the task list loaded from
      */
@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Add new task to the task list
+     * Add new task to the task list.
      *
      * @param taskToAdd the task that needs to be added to the list
      */
@@ -37,7 +37,7 @@ public class TaskList {
     }
 
     /**
-     * Delete task from the task list with index of task
+     * Delete task from the task list with index of task.
      *
      * @param taskIndex the index of task which needs to be deleted
      */
@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * Get the task with index
+     * Get the task with index.
      *
      * @param index the index of task
      * @return task
@@ -68,7 +68,7 @@ public class TaskList {
     }
 
     /**
-     * Print the whole list
+     * Print the whole list.
      */
     public void printList() {
         showLine();
@@ -78,13 +78,14 @@ public class TaskList {
                 System.out.println("      " + (this.taskList.indexOf(task) + 1) + "." + task);
             }
         } else {
-            System.out.println("	 You don't have any task in your list.");
+            System.out.printf("\tYou don't have any task in your list.%n");
         }
         showLine();
     }
 
     /**
-     * Print the message of adding new task
+     * Print the message of adding new task.
+     * @param task task needs to add
      */
     private void printAddMessage(Task task) {
         showLine();
@@ -93,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * Print the number of tasks in the list
+     * Print the number of tasks in the list.
      */
     public void printNumOfTasksInList() {
         if (this.taskList.size() == 1) {
@@ -107,19 +108,19 @@ public class TaskList {
     }
 
     /**
-     * Print the message of deleting a task
+     * Print the message of deleting a task.
      *
      * @param index the index of task that needs to be deleted
      */
     public void printDeleteMessage(int index) {
         showLine();
-        System.out.println("	 Noted. I've removed this task:");
+        System.out.printf("\tNoted. I've removed this task:%n");
         System.out.printf("\t   %s%n", this.taskList.get(index));
     }
 
 
     /**
-     * Find all the tasks which contain the keyword
+     * Find all the tasks which contain the keyword.
      *
      * @param keyword keyword to find task
      * @return the list of tasks which contain the keyword
@@ -128,13 +129,15 @@ public class TaskList {
     private ArrayList<Task> find(String keyword) {
         ArrayList<Task> findList = new ArrayList<>();
         for (Task task : this.taskList) {
-            if (task.getDescription().contains(keyword)) findList.add(task);
+            if (task.getDescription().contains(keyword)) {
+                findList.add(task);
+            }
         }
         return findList;
     }
 
     /**
-     * Print the list of searching keyword in task list
+     * Print the list of searching keyword in task list.
      *
      * @param keyword keyword to find task
      */
@@ -143,12 +146,12 @@ public class TaskList {
         ArrayList<Task> results = find(keyword);
         showLine();
         if (this.size() > 0) {
-            System.out.println("     Here are the matching tasks in your list:");
+            System.out.printf("\tHere are the matching tasks in your list:%n");
             for (Task task : results) {
-                System.out.println("      " + (results.indexOf(task) + 1) + "." + task);
+                System.out.println("\t" + (results.indexOf(task) + 1) + "." + task);
             }
         } else {
-            System.out.println("	 You don't have any matching task in your list.");
+            System.out.printf("\tYou don't have any matching task in your list.%n");
         }
         showLine();
     }

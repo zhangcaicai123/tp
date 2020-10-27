@@ -1,16 +1,18 @@
 package seedu.duke.task;
 
-public class Task  {
+public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task( String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
     public String getDescription() {
         return this.description;
     }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -25,8 +27,10 @@ public class Task  {
     }
 
     public String text() {
-        if (this.isDone)
+        if (this.isDone) {
             return "| 1 | " + description;
-        else return "| 0 | " + description;
+        } else {
+            return "| 0 | " + description;
+        }
     }
 }

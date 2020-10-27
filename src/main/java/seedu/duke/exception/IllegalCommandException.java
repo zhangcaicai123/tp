@@ -1,3 +1,4 @@
 package seedu.duke.exception;
-public class IllegalCommandException extends Exception{
+
+public class IllegalCommandException extends Exception {
 }

@@ -2,7 +2,7 @@ package seedu.duke;
 
 import seedu.duke.exception.DukeException;
 import seedu.duke.storage.Storage;
-import seedu.duke.taskList.TaskList;
+import seedu.duke.tasklist.TaskList;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class Duke {
     Scanner in = new Scanner(System.in);
     Ui ui = new Ui();
     String userCommand;
-    Storage storage=new Storage();
+    Storage storage = new Storage();
     TaskList tasks;
 
     void run() {

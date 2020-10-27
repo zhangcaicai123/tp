@@ -9,7 +9,7 @@ import java.util.Collections;
 
 import seedu.duke.exception.DukeException;
 import seedu.duke.task.Task;
-import seedu.duke.taskList.TaskList;
+import seedu.duke.tasklist.TaskList;
 
 public class TimeTable {
     private static final ArrayList<Module> modules = new ArrayList<>();
@@ -177,8 +177,8 @@ public class TimeTable {
         System.out.println(lineCutOff);
         System.out.println("Today's Deadline (haven't done):");
         System.out.println(lineCutOff);
-        ArrayList<String> DeadlineList = todayDeadline(date, taskList);
-        for (String ddl : DeadlineList) {
+        ArrayList<String> deadlineList = todayDeadline(date, taskList);
+        for (String ddl : deadlineList) {
             System.out.println(ddl);
         }
     }
@@ -229,15 +229,16 @@ public class TimeTable {
     }
 
     public static ArrayList<String> todayDeadline(String date, TaskList taskList) {
-        ArrayList<String> todayDDL = new ArrayList<>();
+        ArrayList<String> todayDeadline = new ArrayList<>();
         for (Task task : taskList.getTaskList()) {
             //deadline task
             if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
-                if (date.equals("date"))
-                    todayDDL.add(task.text());
+                if (date.equals("date")) {
+                    todayDeadline.add(task.text());
+                }
             }
         }
-        return todayDDL;
+        return todayDeadline;
     }
 
 }

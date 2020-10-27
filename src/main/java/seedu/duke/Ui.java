@@ -46,7 +46,8 @@ public class Ui {
         } else if (command.contains("delete")) {
             System.out.println(" OOPS!!! The delete index is out of bound.");
         } else {
-            System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. Please follow the input format correctly."));
+            System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. "
+                    + "Please follow the input format correctly."));
         }
     }
 
@@ -56,13 +57,13 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("	 There are some errors when loading file.");
+        System.out.printf("\tThere are some errors when loading file.%n");
     }
 
     public static void printMarkMessage(Task task) {
         showLine();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task);
+        System.out.printf(" \tNice! I've marked this task as done:%n");
+        System.out.println("\t  " + task);
         showLine();
     }
 
