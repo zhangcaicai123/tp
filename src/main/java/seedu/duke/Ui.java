@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.task.Task;
+
 public class Ui {
     static String lineCutOff = "_______________________________________________________";
 
@@ -32,19 +34,36 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
-    public static void dealWithException(String command){
-        if(command.equals("todo")){
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-        }else if(command.equals("deadline")){
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-        }else if(command.equals("event")) {
-            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
-        }else if(command.contains("done")) {
-            System.out.println("☹ OOPS!!! The done index is out of bound.");
-        }else if(command.contains("delete")) {
-            System.out.println("☹ OOPS!!! The delete index is out of bound.");
-        }else{
-            System.out.println(("☹ OOPS!!! I'm sorry, but I don't know what that means. Please follow the input format correctly."));
+    public static void dealWithException(String command) {
+        if (command.equals("todo")) {
+            System.out.println(" OOPS!!! The description of a todo cannot be empty.");
+        } else if (command.equals("deadline")) {
+            System.out.println(" OOPS!!! The description of a deadline cannot be empty.");
+        } else if (command.equals("event")) {
+            System.out.println(" OOPS!!! The description of a event cannot be empty.");
+        } else if (command.contains("done")) {
+            System.out.println(" OOPS!!! The done index is out of bound.");
+        } else if (command.contains("delete")) {
+            System.out.println(" OOPS!!! The delete index is out of bound.");
+        } else {
+            System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. Please follow the input format correctly."));
         }
     }
+
+    //print horizontal line
+    public static void showLine() {
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public void showLoadingError() {
+        System.out.println("	 There are some errors when loading file.");
+    }
+
+    public static void printMarkMessage(Task task) {
+        showLine();
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + task);
+        showLine();
+    }
+
 }

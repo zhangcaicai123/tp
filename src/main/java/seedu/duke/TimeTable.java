@@ -7,6 +7,9 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.Collections;
 
+import seedu.duke.exception.DukeException;
+import seedu.duke.task.Task;
+import seedu.duke.taskList.TaskList;
 
 public class TimeTable {
     private static final ArrayList<Module> modules = new ArrayList<>();
@@ -30,7 +33,7 @@ public class TimeTable {
         int moduleIndex = checkInsertion(module);
         if (moduleIndex != -1) {
 
-            checkModuleKeep(module,moduleIndex);
+            checkModuleKeep(module, moduleIndex);
 
         } else {
 
@@ -146,10 +149,10 @@ public class TimeTable {
         int todayMonth = (calendar.get(Calendar.MONTH) + 1);
         int todayDay = calendar.get(Calendar.DAY_OF_MONTH);
         int todayYear = calendar.get(Calendar.YEAR);
-        printToday(todayMonth, todayDay, todayYear);
+        printDailyTimetable(todayMonth, todayDay, todayYear);
     }
 
-    public static void printToday(int month, int day, int year) {
+    public static void printDailyTimetable(int month, int day, int year) {
         System.out.println(lineCutOff);
         String date = String.format("%4d-%2d-%2d", year, month, day);
         System.out.println(date);
@@ -158,7 +161,40 @@ public class TimeTable {
         for (String event : todayList) {
             System.out.println(event);
         }
+
+    }
+
+    public static void printTodayDeadline(TaskList taskList) {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        int todayMonth = (calendar.get(Calendar.MONTH) + 1);
+        int todayDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int todayYear = calendar.get(Calendar.YEAR);
+        printDailyDeadline(todayMonth, todayDay, todayYear, taskList);
+    }
+
+    public static void printDailyDeadline(int month, int day, int year, TaskList taskList) {
+        String date = String.format("%4d-%2d-%2d", year, month, day);
         System.out.println(lineCutOff);
+        System.out.println("Today's Deadline (haven't done):");
+        System.out.println(lineCutOff);
+        ArrayList<String> DeadlineList = todayDeadline(date, taskList);
+        for (String ddl : DeadlineList) {
+            System.out.println(ddl);
+        }
+    }
+
+    public static void printWeeklyDeadline(TaskList taskList) {
+        int week = 7;
+        int day = 0;
+        Calendar calendar = Calendar.getInstance();
+
+        while (day < week) {
+            printDailyDeadline(calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.YEAR), taskList);
+            calendar.add(Calendar.DATE, 1);
+            day++;
+        }
     }
 
     public static void printWeeklyTimetable() {
@@ -167,7 +203,7 @@ public class TimeTable {
         Calendar calendar = Calendar.getInstance();
 
         while (day < week) {
-            printToday(calendar.get(Calendar.MONTH) + 1,
+            printDailyTimetable(calendar.get(Calendar.MONTH) + 1,
                     calendar.get(Calendar.DAY_OF_MONTH),
                     calendar.get(Calendar.YEAR));
             calendar.add(Calendar.DATE, 1);
@@ -192,5 +228,16 @@ public class TimeTable {
         return todayList;
     }
 
+    public static ArrayList<String> todayDeadline(String date, TaskList taskList) {
+        ArrayList<String> todayDDL = new ArrayList<>();
+        for (Task task : taskList.getTaskList()) {
+            //deadline task
+            if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
+                if (date.equals("date"))
+                    todayDDL.add(task.text());
+            }
+        }
+        return todayDDL;
+    }
 
 }
