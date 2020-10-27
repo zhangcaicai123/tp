@@ -30,23 +30,26 @@ public class TimeTable {
 
     public static void addModule(Module module) {
         modules.add(module);
-//        int moduleIndex = checkInsertion(module);
-//        if (moduleIndex != -1) {
-//
-//            checkModuleKeep(module, moduleIndex);
-//
-//        } else {
-//
-//            if (module.labSlot == null) {
-//
-//                printModuleWithoutLab(module);
-//
-//            } else {
-//
-//                printModuleWithLab(module);
-//
-//            }
-//        }
+        /*
+        int moduleIndex = checkInsertion(module);
+        if (moduleIndex != -1) {
+
+            checkModuleKeep(module, moduleIndex);
+
+        } else {
+
+            if (module.labSlot == null) {
+
+                printModuleWithoutLab(module);
+
+            } else {
+
+                printModuleWithLab(module);
+
+            }
+        }
+
+         */
     }
 
     public static int checkInsertion(Module module) {

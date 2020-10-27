@@ -28,7 +28,7 @@ public class ModDataBase {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("src/main/java/data/allModInfo.json"));
         JSONArray moduleList = (JSONArray) obj;
-        moduleList.forEach(module->parseModule((JSONObject) module));
+        moduleList.forEach(module -> parseModule((JSONObject) module));
 
     }
 

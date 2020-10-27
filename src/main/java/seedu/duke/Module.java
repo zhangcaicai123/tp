@@ -47,30 +47,30 @@ public class Module {
     public int weekOfDay(String day) {
         int dayValue = 0;
         switch (day) {
-            case "Sun":
-                dayValue = 1;
-                break;
-            case "Mon":
-                dayValue = 2;
-                break;
-            case "Tue":
-                dayValue = 3;
-                break;
-            case "Wed":
-                dayValue = 4;
-                break;
-            case "Thur":
-                dayValue = 5;
-                break;
-            case "Fri":
-                dayValue = 6;
-                break;
-            case "Sat":
-                dayValue = 7;
-                break;
-            default:
-                System.out.println("Sorry, the day value was not recognized. ");
-                System.exit(1);
+        case "Sun":
+            dayValue = 1;
+            break;
+        case "Mon":
+            dayValue = 2;
+            break;
+        case "Tue":
+            dayValue = 3;
+            break;
+        case "Wed":
+            dayValue = 4;
+            break;
+        case "Thur":
+            dayValue = 5;
+            break;
+        case "Fri":
+            dayValue = 6;
+            break;
+        case "Sat":
+            dayValue = 7;
+            break;
+        default:
+            System.out.println("Sorry, the day value was not recognized. ");
+            System.exit(1);
         }
         return dayValue;
 

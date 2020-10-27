@@ -130,17 +130,16 @@ public class Parser {
     }
 
     public static void addModule(String command) {
-        String moduleCode = command.substring(command.indexOf("/")+1);
+        String moduleCode = command.substring(command.indexOf("/") + 1);
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
+        Scanner in = new Scanner(System.in);
         if (isModuleExit) {
-            Scanner in = new Scanner(System.in);
             System.out.println("_______________________________________________________");
-            System.out.println("Module code: "+ModDataBase.modules.get(moduleCode).moduleCode);
-            System.out.println("Title: "+ModDataBase.modules.get(moduleCode).title);
-            System.out.println("Description: "+ModDataBase.modules.get(moduleCode).description);
+            System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
+            System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
+            System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
             System.out.println("_______________________________________________________");
-            System.out.println("Please enter the time slot for the lectures, " +
-                    "tutorials, and labs for this module.");
+            System.out.println("Please enter the time slot for the lectures, tutorials, and labs for this module.");
             System.out.println("If the time slot does not exit, please enter null.");
             System.out.print("Lecture slot: ");
             ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
