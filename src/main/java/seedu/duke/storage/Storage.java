@@ -2,12 +2,23 @@ package seedu.duke.storage;
 
 
 import seedu.duke.exception.DukeException;
-import seedu.duke.task.*;
-import seedu.duke.taskList.TaskList;
+import seedu.duke.task.ProjectTask;
+import seedu.duke.task.Event;
+import seedu.duke.task.Task;
+import seedu.duke.task.Todo;
+import seedu.duke.task.Deadline;
+import seedu.duke.tasklist.TaskList;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.String;
 
 public class Storage {
     private final String projectRoot = System.getProperty("user.dir");
@@ -18,23 +29,25 @@ public class Storage {
     }
 
     /**
-     * Create directory if the directory does not exist
+     * Create directory if the directory does not exist.
      *
      * @param directoryName directory path name
      * @return true if the directory exist or have been successfully created
-     * false if fail to create the directory
+     *         false if fail to create the directory
      */
     public boolean createDirectory(String directoryName) {
+        boolean result;
         File dir = new File(directoryName);
         if (!dir.exists()) {
-            return dir.mkdirs();
+            result = dir.mkdirs();
         } else {
-            return true;
+            result = true;
         }
+        return result;
     }
 
     /**
-     * Create the data file to store task list
+     * Create the data file to store task list.
      *
      * @param pathName      the absolute path name of data file
      * @param directoryName the directory path name
@@ -47,9 +60,10 @@ public class Storage {
     }
 
     /**
-     * Load data file to current task list
+     * Load data file to current task list.
      *
      * @return loaded task list
+     * @throws DukeException if the text in data file cannot recognized as a task
      */
     public ArrayList<Task> load() throws DukeException {
         File loadFile = new File(this.filePath);
@@ -65,7 +79,9 @@ public class Storage {
             }
             while (true) {
                 assert file != null;
-                if (!file.hasNext()) break;
+                if (!file.hasNext()) {
+                    break;
+                }
                 String text = file.nextLine();
                 Task taskToLoad = parserTask(text);
                 loadList.add(taskToLoad);
@@ -78,38 +94,38 @@ public class Storage {
     }
 
     /**
-     * Transfer the line in data file into task to load
+     * Transfer the line in data file into task to load.
      *
      * @param text each line of the data file
      * @return task need to load
      * @throws DukeException if the text in data file cannot recognized as a task
      */
     private Task parserTask(String text) throws DukeException {
-        Task taskToLoad;
+        Task taskToLoad = null;
         String time;
         String modName;
         //split each line into task description, done status and deadline/event time
-        String[] Text = text.trim().split(" \\| ");
-        String description = Text[2];
-        String status = Text[1];
+        String[] texts = text.trim().split(" \\| ");
+        String description = texts[2];
+        String status = texts[1];
         if (text.startsWith("T")) {
             //Todo
             taskToLoad = new Todo(description);
         } else if (text.startsWith("D")) {
             //Deadline
             taskToLoad = new Deadline(description);
-            time = Text[3];
+            time = texts[3];
             ((Deadline) taskToLoad).setBy(time);
         } else if (text.startsWith("E")) {
             //Event
             taskToLoad = new Event(description);
-            time = Text[3];
+            time = texts[3];
             ((Event) taskToLoad).setAt(time);
         } else if (text.startsWith("P")) {
             //Project task
-            String material = Text[5];
-            modName = Text[3];
-            time = Text[4];
+            String material = texts[5];
+            modName = texts[3];
+            time = texts[4];
             taskToLoad = new ProjectTask(modName, description, time, material);
         } else {
             throw new DukeException();
@@ -121,7 +137,7 @@ public class Storage {
     }
 
     /**
-     * Update done status for the task in file
+     * Update done status for the task in file.
      *
      * @param index    the index of task in the list that needs to be marked as done
      * @param taskList the list contains all tasks
@@ -154,7 +170,7 @@ public class Storage {
     }
 
     /**
-     * Delete the task from data file
+     * Delete the task from data file.
      *
      * @param index the index of task in the list that needs to be deleted
      * @throws IOException if cannot open, read or write the file
@@ -183,7 +199,7 @@ public class Storage {
     }
 
     /**
-     * Add new line to the end of data file
+     * Add new line to the end of data file.
      *
      * @param textToAppend text needs to be added
      * @throws IOException if cannot open and write the file

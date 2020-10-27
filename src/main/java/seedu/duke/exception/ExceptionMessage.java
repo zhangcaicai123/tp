@@ -1,6 +1,6 @@
 package seedu.duke.exception;
 
-public class exception {
+public class ExceptionMessage extends Exception {
     public static void printLine() {
         System.out.println("    ____________________________________________________________");
     }
