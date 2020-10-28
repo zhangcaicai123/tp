@@ -1,6 +1,5 @@
 package seedu.duke.task;
 
-import seedu.duke.task.Task;
 
 public class Deadline extends Task {
 

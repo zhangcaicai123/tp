@@ -24,7 +24,7 @@ public class Module {
         String tutDay = this.tutSlot.substring(0, this.tutSlot.indexOf(" "));
         this.tutDay = weekOfDay(tutDay);
         this.tutTime = this.tutSlot.substring(this.tutSlot.indexOf(" ")).trim();
-        if (this.labSlot != null) {
+        if (this.labSlot != "null") {
             String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
             this.labDay = weekOfDay(labDay);
             this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();

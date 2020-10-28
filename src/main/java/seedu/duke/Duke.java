@@ -22,7 +22,6 @@ public class Duke {
             //load tasks in data file to current task list
             tasks = new TaskList(storage.load());
 
-            //
             ModDataBase.getModFromFile();
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -39,6 +38,5 @@ public class Duke {
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
         new Duke().run();
-        Ui.bye();
     }
 }
