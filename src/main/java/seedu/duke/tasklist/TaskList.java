@@ -145,7 +145,7 @@ public class TaskList {
     public void printSearchResult(String keyword) {
         ArrayList<Task> results = find(keyword);
         showLine();
-        if (this.size() > 0) {
+        if (results.size() > 0) {
             System.out.printf("\tHere are the matching tasks in your list:%n");
             for (Task task : results) {
                 System.out.println("\t" + (results.indexOf(task) + 1) + "." + task);

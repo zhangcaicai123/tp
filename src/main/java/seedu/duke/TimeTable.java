@@ -3,11 +3,11 @@ package seedu.duke;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.Locale;
 import java.util.Collections;
 
-import seedu.duke.exception.DukeException;
 import seedu.duke.task.Task;
 import seedu.duke.tasklist.TaskList;
 
@@ -15,47 +15,58 @@ public class TimeTable {
     private static final ArrayList<Module> modules = new ArrayList<>();
     static String lineCutOff = "_______________________________________________________";
 
-    public static void printModuleWithLab(Module module) {
+    public static void printModule(Module module) {
         System.out.println("Module: " + module.moduleCode);
         System.out.println("Lecture Slot: " + module.lecSlot);
         System.out.println("Tutorial Slot: " + module.tutSlot);
         System.out.println("Lab Slot: " + module.labSlot);
+        System.out.println(lineCutOff);
     }
 
-    public static void printModuleWithoutLab(Module module) {
-        System.out.println("Module: " + module.moduleCode);
-        System.out.println("Lecture Slot: " + module.lecSlot);
-        System.out.println("Tutorial Slot: " + module.tutSlot);
-    }
-
-    public static void addModule(Module module) {
-        modules.add(module);
-        /*
-        int moduleIndex = checkInsertion(module);
-        if (moduleIndex != -1) {
-
-            checkModuleKeep(module, moduleIndex);
-
-        } else {
-
-            if (module.labSlot == null) {
-
-                printModuleWithoutLab(module);
-
+    public static void addModule(String command) {
+        String moduleCode = command.substring(command.indexOf("/") + 1);
+        boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
+        Scanner in = new Scanner(System.in);
+        try {
+            if (isModuleExit) {
+                System.out.println(lineCutOff);
+                System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
+                System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
+                System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
+                System.out.println(lineCutOff);
+                System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
+                System.out.println("If the time slot does not exit, please enter null.");
+                System.out.print("Lecture slot: ");
+                ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+                System.out.print("Tutorial slot: ");
+                ModDataBase.modules.get(moduleCode).tutSlot = in.nextLine();
+                System.out.print("Lab slot: ");
+                ModDataBase.modules.get(moduleCode).labSlot = in.nextLine();
+                System.out.println("Noted! I have added this module.");
+                System.out.println(lineCutOff);
             } else {
 
-                printModuleWithLab(module);
-
+                throw new NoSuchElementException();
             }
+        } catch (NoSuchElementException e) {
+            System.out.println(lineCutOff);
+            System.out.println("There is no such module.");
+            System.out.println(lineCutOff);
         }
 
-         */
+        Module module = ModDataBase.modules.get(moduleCode);
+
+        modules.add(module);
+        int moduleIndex = checkInsertion(module);
+        if (moduleIndex != -1) {
+            checkModule(module, moduleIndex);
+        }
     }
 
     public static int checkInsertion(Module module) {
         int i;
         if (modules.size() > 1) {
-            if (module.labSlot == null) {
+            if (module.labSlot.equals("null")) {
 
                 for (i = 0; i < modules.size(); i++) {
 
@@ -94,23 +105,12 @@ public class TimeTable {
         return -1;
     }
 
-    public static void checkModuleKeep(Module module, int moduleIndex) {
-        System.out.println(lineCutOff);
+    public static void checkModule(Module module, int moduleIndex) {
         System.out.println("OOPS!!! There is a time conflict.");
         System.out.println(lineCutOff);
         System.out.println("Which module do you want to keep? Please enter the module name.");
-        if (modules.get(moduleIndex).labSlot == null) {
-
-            printModuleWithoutLab(modules.get(moduleIndex));
-
-        } else {
-            printModuleWithLab(modules.get(moduleIndex));
-        }
-        if (module.labSlot == null) {
-            printModuleWithoutLab(module);
-        } else {
-            printModuleWithLab(module);
-        }
+        printModule(modules.get(moduleIndex));
+        printModule(module);
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
         if (userCommand.equals(module.moduleCode)) {
@@ -122,25 +122,22 @@ public class TimeTable {
 
     public static void deleteModule(String line) {
         try {
-            if (line.equals("delete")) {
-                throw new DukeException();
-            }
-            String details = line.substring(line.indexOf('/') + 1);
+            String modCode = line.substring(line.indexOf('/') + 1);
             if (modules.size() == 0) {
-                throw new DukeException();
+                throw new NoSuchElementException();
             } else {
                 for (int i = 0; i < modules.size(); i++) {
-                    if (modules.get(i).moduleCode.contains(details)) {
+                    if (modules.get(i).moduleCode.contains(modCode)) {
                         modules.remove(i);
                         System.out.println("Noted. I've removed this module");
                         break;
                     }
                     if (i == modules.size() - 1) {
-                        throw new DukeException();
+                        throw new NoSuchElementException();
                     }
                 }
             }
-        } catch (DukeException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(lineCutOff);
             System.out.println("OOPS!!! There is no such module.");
             System.out.println(lineCutOff);
