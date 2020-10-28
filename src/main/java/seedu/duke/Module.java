@@ -1,10 +1,14 @@
 package seedu.duke;
 
 public class Module {
-    String modName;
+
+    String moduleCode;
+    String title;
+    String description;
+    String moduleCredit;
     String lecSlot;
     String tutSlot;
-    String labSlot = null;
+    String labSlot;
     int lecDay;
     int tutDay;
     int labDay;
@@ -12,24 +16,6 @@ public class Module {
     String tutTime;
     String labTime;
 
-    public Module(String mod, String lec, String tut, String lab) {
-        this.modName = mod;
-        this.lecSlot = lec;
-        this.tutSlot = tut;
-        this.labSlot = lab;
-        setSlot();
-    }
-
-    public Module(String mod, String lec, String tut) {
-        this.modName = mod;
-        this.lecSlot = lec;
-        this.tutSlot = tut;
-        setSlot();
-    }
-
-    public Module(String mod) {
-        this.modName = mod;
-    }
 
     public void setSlot() {
         String lecDay = this.lecSlot.substring(0, this.lecSlot.indexOf(" "));
@@ -47,15 +33,15 @@ public class Module {
     }
 
     public String lecText() {
-        return this.lecTime + " " + this.modName + " lecture";
+        return this.lecTime + " " + this.moduleCode + " lecture";
     }
 
     public String tutText() {
-        return this.tutTime + " " + this.modName + " tutorial";
+        return this.tutTime + " " + this.moduleCode + " tutorial";
     }
 
     public String labText() {
-        return this.labTime + " " + this.modName + " lab";
+        return this.labTime + " " + this.moduleCode + " lab";
     }
 
     public int weekOfDay(String day) {
@@ -89,4 +75,5 @@ public class Module {
         return dayValue;
 
     }
+
 }

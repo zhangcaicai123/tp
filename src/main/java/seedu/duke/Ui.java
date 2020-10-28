@@ -14,12 +14,10 @@ public class Ui {
 
     public static void printHelpMessage() {
         System.out.println(lineCutOff);
-        System.out.println("1. Add a module: module mod/<MODULE_CODE> "
-                + "lec/<LECTURE_DAY> <LECTURE_TIME> tut/<TUTORIAL_DAY> <TUTORIAL_TIME> "
-                + "lab/<LAB_DAY> <LAB_TIME> (lab slot is optional)\n"
+        System.out.println("1. Add a module: add module/<MODULE_CODE>\n"
                 + "2. Delete a module: delete m/<MODULE_CODE>\n"
                 + "3. View today's timetable: today timetable\n"
-                + "4. View weekly timetable: weekly timetable\n"
+                + "4. View weekly timetable: this week timetable\n"
                 + "5. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE> \n"
                 + "6. View project task list: mod/<MODULE_CODE> project task list\n"
                 + "7. View project progress: mod/<MODULE_CODE> progress\n"
