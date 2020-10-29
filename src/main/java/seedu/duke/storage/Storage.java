@@ -1,6 +1,8 @@
 package seedu.duke.storage;
 
 
+import seedu.duke.Module;
+import seedu.duke.TimeTable;
 import seedu.duke.exception.DukeException;
 import seedu.duke.task.ProjectTask;
 import seedu.duke.task.Event;
@@ -19,11 +21,13 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.String;
+import java.util.Timer;
 
 public class Storage {
-    private final String projectRoot = System.getProperty("user.dir");
-    private final String directory = projectRoot + "/data";
-    private final String filePath = directory + "/duke.txt";
+    private static final String projectRoot = System.getProperty("user.dir");
+    private static final String directory = projectRoot + "/data";
+    private static final String filePathOfTask = directory + "/duke.txt";
+    private static final String filePathOfModule = directory + "/module.txt";
 
     public Storage() {
     }
@@ -35,7 +39,7 @@ public class Storage {
      * @return true if the directory exist or have been successfully created
      *         false if fail to create the directory
      */
-    public boolean createDirectory(String directoryName) {
+    public static boolean createDirectory(String directoryName) {
         boolean result;
         File dir = new File(directoryName);
         if (!dir.exists()) {
@@ -52,7 +56,7 @@ public class Storage {
      * @param pathName      the absolute path name of data file
      * @param directoryName the directory path name
      */
-    public void createFile(String pathName, String directoryName) {
+    public static void createFile(String pathName, String directoryName) {
         boolean mkdirs = createDirectory(directoryName);
         if (mkdirs) {
             File f = new File(pathName);
@@ -65,11 +69,11 @@ public class Storage {
      * @return loaded task list
      * @throws DukeException if the text in data file cannot recognized as a task
      */
-    public ArrayList<Task> load() throws DukeException {
-        File loadFile = new File(this.filePath);
+    public ArrayList<Task> loadTask() throws DukeException {
+        File loadFile = new File(this.filePathOfTask);
         ArrayList<Task> loadList = new ArrayList<>();
         if (!loadFile.exists()) {
-            createFile(this.filePath, directory);
+            createFile(this.filePathOfTask, directory);
         } else {
             Scanner file = null;
             try {
@@ -87,7 +91,7 @@ public class Storage {
                 loadList.add(taskToLoad);
             }
             file.close();
-            System.out.println("List has been loaded successfully.");
+            System.out.println("Task list has been loaded successfully.");
 
         }
         return loadList;
@@ -145,7 +149,7 @@ public class Storage {
      */
     public void updateDoneToFile(int index, TaskList taskList) throws IOException {
         File newFile = new File(directory + "/data-new.txt");
-        File f = new File(this.filePath);
+        File f = new File(this.filePathOfTask);
         BufferedReader reader = new BufferedReader(new FileReader(f));
         PrintWriter writer = new PrintWriter(newFile);
         String line;
@@ -177,7 +181,7 @@ public class Storage {
      */
     public void deleteTaskFromFile(int index) throws IOException {
         File newFile = new File(directory + "/data-new.txt");
-        File f = new File(this.filePath);
+        File f = new File(this.filePathOfTask);
         BufferedReader reader = new BufferedReader(new FileReader(f));
         PrintWriter writer = new PrintWriter(newFile);
         String line;
@@ -205,7 +209,126 @@ public class Storage {
      * @throws IOException if cannot open and write the file
      */
     public void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(filePathOfTask, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    /**
+     * Load data file to current module list.
+     *
+     * @return loaded task list
+     * @throws DukeException if the text in data file cannot recognized as a module
+     */
+    public ArrayList<Module> loadModule() throws DukeException {
+        File loadFile = new File(this.filePathOfModule);
+        ArrayList<Module> loadList = new ArrayList<>();
+        if (!loadFile.exists()) {
+            createFile(this.filePathOfModule, directory);
+        } else {
+            Scanner file = null;
+            try {
+                file = new Scanner(loadFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (true) {
+                assert file != null;
+                if (!file.hasNext()) {
+                    break;
+                }
+                String text = file.nextLine();
+                Module moduleToLoad = parserModule(text);
+                loadList.add(moduleToLoad);
+            }
+            file.close();
+            System.out.println("Module list has been loaded successfully.");
+
+        }
+        return loadList;
+    }
+
+    /**
+     * Transfer the line in data file into task to load.
+     *
+     * @param text each line of the data file
+     * @return module need to load
+     * @throws DukeException if the text in data file cannot recognized as a task
+     */
+    private Module parserModule(String text) throws DukeException {
+        Module module = new Module();
+        //split each line into task description, done status and deadline/event time
+        String[] texts = text.split("\\|");
+        if (texts.length == 3) {
+            module.moduleCode = texts[0];
+            module.lecSlot = texts[1];
+            module.tutSlot = texts[2];
+        } else if (texts.length == 4) {
+            module.moduleCode = texts[0];
+            module.lecSlot = texts[1];
+            module.tutSlot = texts[2];
+            module.labSlot = texts[3];
+        }
+        module.setSlot();
+        return module;
+    }
+
+    /**
+     * Delete the module from data file.
+     *
+     * @param index the index of module in the list that needs to be deleted
+     * @throws IOException if cannot open, read or write the file
+     */
+    public static void deleteModuleFromFile(int index) throws IOException {
+        File newFile = new File(directory + "/data-new.txt");
+        File f = new File(filePathOfModule);
+        BufferedReader reader = new BufferedReader(new FileReader(f));
+        PrintWriter writer = new PrintWriter(newFile);
+        String line;
+        int lineNum = 0;
+        while ((line = reader.readLine()) != null) {
+            if (lineNum == index) {
+                lineNum++;
+                continue;
+            }
+            lineNum++;
+            writer.flush();
+        }
+        reader.close();
+        writer.close();
+        //replace original data file with new data file
+        f.delete();
+        newFile.renameTo(f);
+    }
+
+    /**
+     * Update module to file.
+     *
+     * @param modules contains the details of modules
+     */
+    public static void updateModuleToFile(ArrayList<Module> modules) {
+        try {
+            File f = new File(filePathOfModule);
+            FileWriter fw = new FileWriter(filePathOfModule);
+            for (Module module : modules) {
+                if (module != null) {
+                    fw.write(module.toString() + System.lineSeparator());
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong with IO stream.\n");
+        }
+    }
+
+    /**
+     * Add new line to the end of data file.
+     *
+     * @param textToAppend text needs to be added
+     * @throws IOException if cannot open and write the file
+     */
+    public static void appendToFileModule(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePathOfModule, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
