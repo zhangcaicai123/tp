@@ -1,151 +1,131 @@
 package seedu.duke;
 
-import java.util.Scanner;
+import java.text.ParseException;
 import java.util.regex.Pattern;
-import seedu.duke.TaskList;
+
+import seedu.duke.command.Command;
+import seedu.duke.exception.DukeException;
+import seedu.duke.tasklist.TaskList;
+import seedu.duke.storage.Storage;
 
 public class Parser {
 
-    boolean isExit = false;
+    static boolean isExit = false;
 
-    void parse(String userCommand) {
+    public void parse(String userCommand, TaskList taskList, Storage storage) {
 
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
-        boolean isAddModCommand =
-                Pattern.matches("^module[\\s]+mod/[\\S\\s]+lec/[\\s\\S]+tut/[\\s\\S]+", userCommand);
+        boolean isExitCommand = userCommand.toLowerCase().equals("exit");
+        boolean isAddModCommand = Pattern.matches("^add[\\s]+mod/[\\S\\s]+", userCommand);
+        boolean isAddTask = Pattern.matches("^(todo|deadline|event).*",
+                userCommand);
         boolean isAddProjectTaskCommand =
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
-        boolean isExitCommand = userCommand.equals("exit");
-        boolean isDeleteModule = userCommand.contains("delete m/");
-        boolean isAddTaskCommand = Pattern.matches("^mod/[\\S\\s]+task/[\\s\\S]+", userCommand);
-        boolean isDeleteTask = userCommand.contains("delete t/");
-        boolean isPrintWeeklyTimetable = userCommand.equals("weekly timetable");
+        boolean isDeleteModule = userCommand.contains("delete mod/");
+        boolean isDeleteTask = userCommand.contains("delete task/");
+        boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
-        boolean isPrintProgress = userCommand.contains("progress");
+        boolean isPrintProgress = userCommand.toLowerCase().contains("progress");
+        boolean isPrintTodayDeadline = userCommand.equals("today deadline");
+        boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
+
+        boolean isMarkAsDone = Pattern.matches("^done.*", userCommand);
+        boolean isFind = Pattern.matches("^find.*", userCommand);
 
         try {
             if (isPrintHelpCommand) {
 
-                Ui.printHelpMessage();
-
-            } else if (isAddModCommand) {
-
-                addModule(userCommand);
+                Command.printHelpMessage();
 
             } else if (isExitCommand) {
 
                 isExit = true;
+                Command.printByeMessage();
+
+            } else if (isAddModCommand) {
+
+                Command.addModule(userCommand);
 
             } else if (isDeleteModule) {
 
-                deleteModule(userCommand);
+                Command.deleteModule(userCommand);
 
             } else if (isPrintWeeklyTimetable) {
 
-                TimeTable.printWeeklyTimetable();
+                Command.printWeeklyTimetable(taskList);
 
             } else if (isPrintTodayTimeTable) {
 
-                TimeTable.printTodayTimetable();
+                Command.printTodayTimetable(taskList);
 
             } else if (isDeleteTask) {
 
-                deleteTask(userCommand);
+                Command.deleteTask(taskList, storage, userCommand);
+
+            } else if (isAddTask) {
+
+                String type = Command.getTaskType(userCommand);
+
+                switch (type) {
+                case "todo":
+
+                    Command.addToDo(taskList, storage, userCommand);
+
+                    break;
+                case "deadline":
+
+                    Command.addDeadline(taskList, storage, userCommand);
+
+                    break;
+                case "event":
+
+                    Command.addEvent(taskList, storage, userCommand);
+
+                    break;
+                default:
+                    break;
+                }
 
             } else if (isAddProjectTaskCommand) {
 
-                addProjectTask(userCommand);
+                Command.addProjectTask(userCommand, taskList, storage);
 
             } else if (isPrintProjectTaskList) {
 
-                ProjectManager.printProjectTaskList(userCommand);
+                Command.printProjectTaskList(userCommand);
 
             } else if (isPrintProgress) {
 
-                ProjectManager.printProgress(userCommand);
+                Command.printProgress(userCommand);
+
+            } else if (isPrintTodayDeadline) {
+
+                Command.printTodayDeadline(taskList);
+
+            } else if (isPrintWeeklyDeadline) {
+
+                Command.printWeeklyDeadline(taskList);
+
+            } else if (isMarkAsDone) {
+
+                Command.done(taskList, storage, userCommand);
+
+            } else if (isFind) {
+
+                Command.find(taskList, userCommand);
 
             } else {
 
                 throw new DukeException();
 
             }
-        } catch (DukeException e) {
+        } catch (DukeException | ParseException e) {
 
             Ui.dealWithException(userCommand);
 
         }
 
-
-
-    }
-
-    public void addModule(String command) {
-
-        String modName;
-        String lecSlot;
-        String tutSlot;
-        String labSlot;
-
-
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("lec/"));
-        modName = modName.substring(4).trim();
-
-        lecSlot = command.substring(command.indexOf("lec/"),command.indexOf("tut/"));
-        lecSlot = lecSlot.substring(4).trim();
-
-        boolean isLabExit = command.contains("lab/");
-
-        if (isLabExit) {
-
-            tutSlot = command.substring(command.indexOf("tut/"),command.indexOf("lab/"));
-            tutSlot = tutSlot.substring(4).trim();
-
-            labSlot = command.substring(command.indexOf("lab/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot, labSlot);
-
-            TimeTable.addModule(mod);
-
-        } else {
-
-            tutSlot = command.substring(command.indexOf("tut/")).substring(4).trim();
-
-            Module mod = new Module(modName, lecSlot, tutSlot);
-
-            TimeTable.addModule(mod);
-
-        }
-    }
-
-    public void deleteModule(String command) {
-        TimeTable.deleteModule(command);
-    }
-
-    public void addTask(String command) {
-        String modName;
-        String description;
-
-        modName = command.substring(command.indexOf("mod/"),command.indexOf("task/"));
-        modName = modName.substring(4).trim();
-
-        description = command.substring(command.indexOf("task/")).substring(5).trim();
-        Task mod = new Task(modName,description);
-        System.out.println("Module: " + mod.modName);
-        System.out.println("Task: " + mod.description);
-
-        TaskList.addTaskToList(mod);
-
-    }
-
-    public void deleteTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(command.indexOf("t/")).substring(2).trim());
-        TaskList.deleteTaskFromList(taskIndex);
-    }
-
-    public void addProjectTask(String command) {
-
-        ProjectManager.addProjectTask(command);
     }
 
 }

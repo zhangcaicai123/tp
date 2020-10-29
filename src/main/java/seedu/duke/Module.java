@@ -1,7 +1,14 @@
 package seedu.duke;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 public class Module {
-    String modName;
+
+    String moduleCode;
+    String title;
+    String description;
+    String moduleCredit;
     String lecSlot;
     String tutSlot;
     String labSlot = null;
@@ -11,24 +18,17 @@ public class Module {
     String lecTime;
     String tutTime;
     String labTime;
+    LocalTime lecBegin;
+    LocalTime tutBegin;
+    LocalTime labBegin;
+    LocalTime lecEnd;
+    LocalTime tutEnd;
+    LocalTime labEnd;
+    Duration lecDuration;
+    Duration tutDuration;
+    Duration labDuration;
 
-    public Module(String mod, String lec, String tut, String lab) {
-        this.modName = mod;
-        this.lecSlot = lec;
-        this.tutSlot = tut;
-        this.labSlot = lab;
-        setSlot();
-    }
-
-    public Module(String mod, String lec, String tut) {
-        this.modName = mod;
-        this.lecSlot = lec;
-        this.tutSlot = tut;
-        setSlot();
-    }
-
-    public Module(String mod) {
-        this.modName = mod;
+    public Module() {
     }
 
     public void setSlot() {
@@ -38,24 +38,33 @@ public class Module {
         String tutDay = this.tutSlot.substring(0, this.tutSlot.indexOf(" "));
         this.tutDay = weekOfDay(tutDay);
         this.tutTime = this.tutSlot.substring(this.tutSlot.indexOf(" ")).trim();
+        this.lecBegin = beginTime(this.lecTime);
+        this.lecEnd = endTime(this.lecTime);
+        this.tutBegin = beginTime(this.tutTime);
+        this.tutEnd = endTime(this.tutTime);
+        this.lecDuration = setInterval(this.lecBegin, this.lecEnd);
+        this.tutDuration = setInterval(this.tutBegin, this.tutEnd);
         if (this.labSlot != null) {
             String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
             this.labDay = weekOfDay(labDay);
             this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();
+            this.labBegin = beginTime(this.labTime);
+            this.labEnd = endTime(this.labTime);
+            this.labDuration = setInterval(this.labBegin, this.labEnd);
         }
 
     }
 
     public String lecText() {
-        return this.lecTime + " " + this.modName + " lecture";
+        return this.lecTime + " " + this.moduleCode + " lecture";
     }
 
     public String tutText() {
-        return this.tutTime + " " + this.modName + " tutorial";
+        return this.tutTime + " " + this.moduleCode + " tutorial";
     }
 
     public String labText() {
-        return this.labTime + " " + this.modName + " lab";
+        return this.labTime + " " + this.moduleCode + " lab";
     }
 
     public int weekOfDay(String day) {
@@ -88,5 +97,17 @@ public class Module {
         }
         return dayValue;
 
+    }
+
+    public LocalTime beginTime(String timeInterval) {
+        return LocalTime.parse(timeInterval.substring(0, timeInterval.indexOf("-")).trim());
+    }
+
+    public LocalTime endTime(String timeInterval) {
+        return LocalTime.parse(timeInterval.substring(timeInterval.indexOf("-") + 1).trim());
+    }
+
+    public Duration setInterval(LocalTime begin, LocalTime end) {
+        return Duration.between(begin, end);
     }
 }
