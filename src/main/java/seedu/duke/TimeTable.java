@@ -38,7 +38,7 @@ public class TimeTable {
     }
 
     public static void addModule(String command) throws IOException {
-        String moduleCode = command.substring(command.indexOf("/") + 1);
+        String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
         Scanner in = new Scanner(System.in);
         Module module = new Module();
@@ -51,6 +51,7 @@ public class TimeTable {
                 System.out.println(lineCutOff);
                 module = ModDataBase.modules.get(moduleCode);
                 System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
+                System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
                 System.out.println("If the time slot does not exit, please enter null.");
                 System.out.print("Lecture slot: ");
                 module.lecSlot = in.nextLine();
@@ -58,7 +59,7 @@ public class TimeTable {
                 module.tutSlot = in.nextLine();
                 System.out.println("Does this modules have lab?[Y/N]");
                 String isHaveLab = in.nextLine();
-                if (isHaveLab.equals("Y")) {
+                if (isHaveLab.equalsIgnoreCase("Y")) {
                     System.out.print("Lab slot: ");
                     module.labSlot = in.nextLine();
                 }
@@ -166,7 +167,7 @@ public class TimeTable {
 
     public static void deleteModule(String line) {
         try {
-            String modCode = line.substring(line.indexOf('/') + 1);
+            String modCode = line.substring(line.indexOf('/') + 1).toUpperCase();
             if (modules.size() == 0) {
                 throw new NoSuchElementException();
             } else {
