@@ -30,7 +30,7 @@ public class Parser {
         boolean isPrintProgress = userCommand.toLowerCase().contains("progress");
         boolean isPrintTodayDeadline = userCommand.equals("today deadline");
         boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
-
+        boolean isPrintTaskList = userCommand.equals("task list");
         boolean isMarkAsDone = Pattern.matches("^done.*", userCommand);
         boolean isFind = Pattern.matches("^find.*", userCommand);
 
@@ -116,6 +116,8 @@ public class Parser {
 
                 Command.find(taskList, userCommand);
 
+            } else if (isPrintTaskList) {
+                TaskList.printList();
             } else {
 
                 throw new DukeException();
