@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import com.sun.jdi.IntegerValue;
 import seedu.duke.TimeTable;
 import seedu.duke.Ui;
 import seedu.duke.exception.EmptyDescriptionException;
@@ -19,9 +20,8 @@ import seedu.duke.task.ProjectTask;
 import seedu.duke.tasklist.TaskList;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.text.ParseException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,19 +44,20 @@ public class Command {
         TimeTable.deleteModule(userCommand);
     }
 
-    public static void printWeeklyTimetable() {
-        TimeTable.printWeeklyTimetable();
+    public static void printWeeklyTimetable(TaskList taskList) throws ParseException {
+        TimeTable.printWeeklyTimetable(taskList);
     }
 
-    public static void printTodayTimetable() {
-        TimeTable.printTodayTimetable();
+    public static void printTodayTimetable(TaskList taskList) throws ParseException {
+        TimeTable.printTodayTimetable(taskList);
     }
 
     /**
      * Add todo task to the task list.
+     *
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
-     * @param command user input command
+     * @param command  user input command
      */
     public static void addToDo(TaskList taskList, Storage storage, String command) {
         try {
@@ -75,7 +76,7 @@ public class Command {
      *
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
-     * @param command user input command
+     * @param command  user input command
      */
     public static void addDeadline(TaskList taskList, Storage storage, String command) {
         try {
@@ -98,15 +99,57 @@ public class Command {
      *
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
-     * @param command user input command
+     * @param command  user input command
      */
     public static void addEvent(TaskList taskList, Storage storage, String command) {
         try {
+            Scanner in = new Scanner(System.in);
             String at = getTime(command);
+            System.out.println("Please type the duration of the event in hours:(e.g. 1, 0.5)");
+            long duration = Long.parseLong(in.nextLine());
             Event taskToAdd = new Event(getTask(command));
             taskToAdd.setAt(at);
-            taskList.addTask(taskToAdd);
-            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+            taskToAdd.setDuration(duration);
+            Event conflictEvent = TimeTable.checkEventConflict(taskToAdd, taskList);
+            if (conflictEvent == null && !TimeTable.checkEventModuleConflict(taskToAdd)) {
+                taskToAdd.setAt(at);
+                taskList.addTask(taskToAdd);
+                storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+            } else if (conflictEvent != null) {
+                while (conflictEvent != null) {
+                    System.out.println("Oops!There is a time conflict with your previous event.");
+                    System.out.println("Which one do you want to keep?");
+                    System.out.println("Type 1 for " + conflictEvent.getDescription()
+                            + " 2 for " + taskToAdd.getDescription());
+                    int index = in.nextInt();
+                    System.out.println("Do you want to re-allocate the other one?[Y/N]");
+                    String isChange = in.nextLine();
+                    if (isChange.equals("Y")) {
+                        System.out.println("Please enter a new time for this event:");
+                        String time = in.next();
+                        if (index == 1) {
+                            taskToAdd.setAt(time);
+                        } else {
+                            conflictEvent.setAt(time);
+                        }
+                    } else {
+                        if (index == 2) {
+                            taskList.deleteTask(taskList.getTaskList().indexOf(conflictEvent));
+                            storage.deleteTaskFromFile(index);
+                            taskList.printNumOfTasksInList();
+                        }
+                    }
+                    conflictEvent = TimeTable.checkEventConflict(taskToAdd, taskList);
+                }
+            } else {
+                //conflict with module
+                while (TimeTable.checkEventModuleConflict(taskToAdd)) {
+                    System.out.println("Oops!There is a time conflict with your module.");
+                    System.out.println("Please enter a new time for your event :");
+                    String newAt = in.nextLine();
+                    taskToAdd.setAt(newAt);
+                }
+            }
         } catch (EmptyDescriptionException e) {
             ExceptionMessage.printEmptyDescriptionExceptionMessage("event");
         } catch (EmptyTimeException e) {
@@ -121,8 +164,8 @@ public class Command {
      *
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
-     * @param command user input command
-     * @exception EmptyIndexException if no index is input
+     * @param command  user input command
+     * @throws EmptyIndexException if no index is input
      */
     public static void done(TaskList taskList, Storage storage, String command) {
         try {
@@ -145,7 +188,7 @@ public class Command {
      *
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
-     * @param command user input command
+     * @param command  user input command
      */
     public static void deleteTask(TaskList taskList, Storage storage, String command) {
         try {
@@ -164,6 +207,7 @@ public class Command {
 
     /**
      * Get the description of todo task.
+     *
      * @param command user input
      * @return the description of user's input todo task
      * @throws EmptyDescriptionException If description is null
@@ -182,6 +226,7 @@ public class Command {
 
     /**
      * Get the task description for deadline and event.
+     *
      * @param command user command
      * @return the task description of user's input deadline or event
      * @throws EmptyDescriptionException If description is null
@@ -201,12 +246,14 @@ public class Command {
      * Returns the time for event or deadline.
      * Accept dates in yyyy-mm-dd format (e.g., 2019-10-15)
      * and print in a different format such as MMM dd yyyy e.g., (Oct 15 2019)
+     *
      * @param command user input command
      * @return time for event or deadline task
      * @throws EmptyTimeException If no String for time information is found
      */
     public static String getTime(String command) throws EmptyTimeException {
-        String pattern = "(event|deadline)( .* )(/at|/by)(.*)";
+        String pattern = "(event|deadline)( .* )(/at|/by)( \\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d)";
+        //yyyy-mm-dd HH:MM format
         String time;
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
@@ -215,14 +262,7 @@ public class Command {
         } else {
             throw new EmptyTimeException();
         }
-        String timePattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d";//yyyy-mm-dd format
-        boolean isDate = Pattern.matches(timePattern, time);
-        if (isDate) {
-            LocalDate date = LocalDate.parse(time);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
-        } else {
-            return time;
-        }
+        return time;
     }
 
     public static void addProjectTask(String command, TaskList taskList, Storage storage) {
@@ -253,9 +293,10 @@ public class Command {
 
     /**
      * Find task in the task list with keyword.
+     *
      * @param command  user input
      * @param taskList the list of all tasks input
-     * @exception EmptyFindException if no keyword is input
+     * @throws EmptyFindException if no keyword is input
      */
     public static void find(TaskList taskList, String command) {
         try {
@@ -268,6 +309,7 @@ public class Command {
 
     /**
      * Get the keyword of finding task command.
+     *
      * @param command user input command
      * @return the keyword that user wants to search in the task list
      * @throws EmptyFindException If no keyword is found
@@ -283,8 +325,9 @@ public class Command {
 
     /**
      * Get index of task that need to be deleted or mark as done.
+     *
      * @param taskList the list of all tasks input
-     * @param command user input command
+     * @param command  user input command
      * @return index the index of task that user wants to delete or mark as done
      * @throws OutOfIndexBound     If the index is larger than size of list
      * @throws EmptyIndexException If user does not input any integer
