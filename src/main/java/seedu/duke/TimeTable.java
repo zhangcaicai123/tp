@@ -24,15 +24,10 @@ public class TimeTable {
 
     public TimeTable() {
     }
+
     public TimeTable(ArrayList<Module> loadedList) {
         this.modules = loadedList;
-        for (int i=0; i< modules.size();i++) {
-            printModule(modules.get(i));
-        }
     }
-    /*public ArrayList<Module> getTimeTable() {
-        return modules;
-    }*/
 
     public static void printModule(Module module) {
         System.out.println("Module: " + module.moduleCode);
@@ -67,9 +62,6 @@ public class TimeTable {
                     System.out.print("Lab slot: ");
                     module.labSlot = in.nextLine();
                 }
-                System.out.println("Noted! I have added this module.");
-                System.out.println(lineCutOff);
-                module.setSlot();
             } else {
 
                 throw new NoSuchElementException();
@@ -80,13 +72,19 @@ public class TimeTable {
             System.out.println(lineCutOff);
         }
 
-        modules.add(module);
-        String moduleToAdd = module.moduleCode + "|" + module.lecSlot + "|"
-                + module.tutSlot + "|" + module.labSlot;
-        Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
-        int moduleIndex = checkInsertion(module);
-        if (moduleIndex != -1) {
-            checkModule(module, moduleIndex);
+        module.setSlot();
+        if (module.isSetSlotSuccess) {
+            int moduleIndex = checkInsertion(module);
+            if (moduleIndex != -1) {
+                checkModule(module, moduleIndex);
+            } else {
+                modules.add(module);
+                String moduleToAdd;
+                moduleToAdd = module.toString();
+                Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
+                System.out.println("Noted! I have added this module.");
+                System.out.println(lineCutOff);
+            }
         }
     }
 
@@ -147,12 +145,10 @@ public class TimeTable {
                 }
             }
         }
-
-
         return -1;
     }
 
-    public static void checkModule(Module module, int moduleIndex) {
+    public static void checkModule(Module module, int moduleIndex) throws IOException {
         System.out.println("OOPS!!! There is a time conflict.");
         System.out.println(lineCutOff);
         System.out.println("Which module do you want to keep? Please enter the module name.");
@@ -162,6 +158,7 @@ public class TimeTable {
         String userCommand = in.nextLine();
         if (userCommand.equals(module.moduleCode)) {
             modules.set(moduleIndex, module);
+            Storage.updateModuleToFile(modules);
         }
 
         System.out.println("Got it! I have add " + userCommand + " to timetable.");
@@ -176,7 +173,7 @@ public class TimeTable {
                 for (int i = 0; i < modules.size(); i++) {
                     if (modules.get(i).moduleCode.contains(modCode)) {
                         modules.remove(i);
-                        Storage.deleteModuleFromFile(i);
+                        Storage.updateModuleToFile(modules);
                         System.out.println("Noted. I've removed this module");
                         break;
                     }
@@ -185,7 +182,7 @@ public class TimeTable {
                     }
                 }
             }
-        } catch (NoSuchElementException | IOException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(lineCutOff);
             System.out.println("OOPS!!! There is no such module.");
             System.out.println(lineCutOff);

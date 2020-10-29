@@ -2,6 +2,7 @@ package seedu.duke.storage;
 
 
 import seedu.duke.Module;
+import seedu.duke.TimeTable;
 import seedu.duke.exception.DukeException;
 import seedu.duke.task.ProjectTask;
 import seedu.duke.task.Event;
@@ -20,6 +21,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.String;
+import java.util.Timer;
 
 public class Storage {
     private static final String projectRoot = System.getProperty("user.dir");
@@ -89,7 +91,7 @@ public class Storage {
                 loadList.add(taskToLoad);
             }
             file.close();
-            System.out.println("List has been loaded successfully.");
+            System.out.println("Task list has been loaded successfully.");
 
         }
         return loadList;
@@ -213,10 +215,10 @@ public class Storage {
     }
 
     /**
-     * Load data file to current task list.
+     * Load data file to current module list.
      *
      * @return loaded task list
-     * @throws DukeException if the text in data file cannot recognized as a task
+     * @throws DukeException if the text in data file cannot recognized as a module
      */
     public ArrayList<Module> loadModule() throws DukeException {
         File loadFile = new File(this.filePathOfModule);
@@ -236,7 +238,6 @@ public class Storage {
                     break;
                 }
                 String text = file.nextLine();
-                System.out.println(text);
                 Module moduleToLoad = parserModule(text);
                 loadList.add(moduleToLoad);
             }
@@ -251,24 +252,31 @@ public class Storage {
      * Transfer the line in data file into task to load.
      *
      * @param text each line of the data file
-     * @return task need to load
+     * @return module need to load
      * @throws DukeException if the text in data file cannot recognized as a task
      */
     private Module parserModule(String text) throws DukeException {
         Module module = new Module();
         //split each line into task description, done status and deadline/event time
         String[] texts = text.split("\\|");
-        module.moduleCode = texts[0];
-        module.lecSlot = texts[1];
-        module.tutSlot = texts[2];
-        module.labSlot = texts[3];
+        if (texts.length == 3) {
+            module.moduleCode = texts[0];
+            module.lecSlot = texts[1];
+            module.tutSlot = texts[2];
+        } else if (texts.length == 4) {
+            module.moduleCode = texts[0];
+            module.lecSlot = texts[1];
+            module.tutSlot = texts[2];
+            module.labSlot = texts[3];
+        }
+        module.setSlot();
         return module;
     }
 
     /**
-     * Delete the task from data file.
+     * Delete the module from data file.
      *
-     * @param index the index of task in the list that needs to be deleted
+     * @param index the index of module in the list that needs to be deleted
      * @throws IOException if cannot open, read or write the file
      */
     public static void deleteModuleFromFile(int index) throws IOException {
@@ -284,7 +292,6 @@ public class Storage {
                 continue;
             }
             lineNum++;
-            writer.println(line);
             writer.flush();
         }
         reader.close();
@@ -292,6 +299,26 @@ public class Storage {
         //replace original data file with new data file
         f.delete();
         newFile.renameTo(f);
+    }
+
+    /**
+     * Update module to file.
+     *
+     * @param modules contains the details of modules
+     */
+    public static void updateModuleToFile(ArrayList<Module> modules) {
+        try {
+            File f = new File(filePathOfModule);
+            FileWriter fw = new FileWriter(filePathOfModule);
+            for (Module module : modules) {
+                if (module != null) {
+                    fw.write(module.toString() + System.lineSeparator());
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong with IO stream.\n");
+        }
     }
 
     /**
