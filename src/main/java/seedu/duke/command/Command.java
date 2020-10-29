@@ -1,6 +1,5 @@
 package seedu.duke.command;
 
-import com.sun.jdi.IntegerValue;
 import seedu.duke.TimeTable;
 import seedu.duke.Ui;
 import seedu.duke.exception.EmptyDescriptionException;
@@ -30,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class Command {
 
-    public static void addModule(String userCommand) {
+    public static void addModule(String userCommand) throws IOException {
         TimeTable.addModule(userCommand);
     }
 

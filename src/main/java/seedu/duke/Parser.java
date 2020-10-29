@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.regex.Pattern;
 
@@ -120,7 +121,7 @@ public class Parser {
                 throw new DukeException();
 
             }
-        } catch (DukeException | ParseException e) {
+        } catch (DukeException | ParseException | IOException e) {
 
             Ui.dealWithException(userCommand);
 

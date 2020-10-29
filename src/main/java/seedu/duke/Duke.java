@@ -6,6 +6,7 @@ import seedu.duke.storage.Storage;
 import seedu.duke.tasklist.TaskList;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,13 +16,15 @@ public class Duke {
     String userCommand;
     Storage storage = new Storage();
     TaskList tasks;
+    TimeTable modules;
     Parser parser = new Parser();
 
     void run() {
 
         try {
             //load tasks in data file to current task list
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTask());
+            modules = new TimeTable(storage.loadModule());
 
             ModDataBase.getModFromFile();
         } catch (DukeException e) {
