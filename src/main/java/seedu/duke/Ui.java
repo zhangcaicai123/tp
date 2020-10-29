@@ -24,7 +24,8 @@ public class Ui {
                 + "8. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE> \n"
                 + "9. View project task list: mod/<MODULE_CODE> project task list\n"
                 + "10. View project progress: mod/<MODULE_CODE> progress\n"
-                + "11. Exit CEGMods: exit"
+                + "11. View task list: task list\n"
+                + "12. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
     }

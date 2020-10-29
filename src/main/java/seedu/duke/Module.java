@@ -80,25 +80,25 @@ public class Module {
         int dayValue = 0;
         switch (day) {
         case "Sun":
-            dayValue = 1;
+            dayValue = 7;
             break;
         case "Mon":
-            dayValue = 2;
+            dayValue = 1;
             break;
         case "Tue":
-            dayValue = 3;
+            dayValue = 2;
             break;
         case "Wed":
-            dayValue = 4;
+            dayValue = 3;
             break;
         case "Thur":
-            dayValue = 5;
+            dayValue = 4;
             break;
         case "Fri":
-            dayValue = 6;
+            dayValue = 5;
             break;
         case "Sat":
-            dayValue = 7;
+            dayValue = 6;
             break;
         default:
             System.out.println("Sorry, the day value was not recognized. ");

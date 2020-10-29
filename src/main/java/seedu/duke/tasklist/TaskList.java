@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public TaskList() {
     }
@@ -58,7 +58,7 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
-    private void showLine() {
+    private static void showLine() {
         System.out.println("    ____________________________________________________________");
     }
 
@@ -69,12 +69,12 @@ public class TaskList {
     /**
      * Print the whole list.
      */
-    public void printList() {
+    public static void printList() {
         showLine();
-        if (this.size() > 0) {
+        if (taskList.size() > 0) {
             System.out.println("     Here are the tasks in your list:");
-            for (Task task : this.taskList) {
-                System.out.println("      " + (this.taskList.indexOf(task) + 1) + "." + task);
+            for (Task task : taskList) {
+                System.out.println("      " + (taskList.indexOf(task) + 1) + "." + task);
             }
         } else {
             System.out.printf("\tYou don't have any task in your list.%n");
