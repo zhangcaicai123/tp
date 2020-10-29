@@ -23,7 +23,7 @@ public class Parser {
         boolean isAddProjectTaskCommand =
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isDeleteModule = userCommand.contains("delete mod/");
-        boolean isDeleteTask = userCommand.contains("delete task/");
+        boolean isDeleteTask = userCommand.contains("delete");
         boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
