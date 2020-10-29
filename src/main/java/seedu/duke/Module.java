@@ -5,13 +5,13 @@ import java.time.LocalTime;
 
 public class Module {
 
-    String moduleCode;
+    public String moduleCode;
     String title;
     String description;
     String moduleCredit;
-    String lecSlot;
-    String tutSlot;
-    String labSlot = null;
+    public String lecSlot;
+    public String tutSlot;
+    public String labSlot = null;
     int lecDay;
     int tutDay;
     int labDay;
@@ -28,7 +28,7 @@ public class Module {
     Duration tutDuration;
     Duration labDuration;
 
-    public Module() {
+    public Module(){
     }
 
     public void setSlot() {

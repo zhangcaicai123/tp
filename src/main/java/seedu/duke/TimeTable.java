@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,13 +13,26 @@ import java.util.NoSuchElementException;
 import java.util.Locale;
 import java.util.Collections;
 
+import seedu.duke.storage.Storage;
 import seedu.duke.task.Event;
 import seedu.duke.task.Task;
 import seedu.duke.tasklist.TaskList;
 
 public class TimeTable {
-    private static final ArrayList<Module> modules = new ArrayList<>();
+    private static ArrayList<Module> modules = new ArrayList<>();
     static String lineCutOff = "_______________________________________________________";
+
+    public TimeTable() {
+    }
+    public TimeTable(ArrayList<Module> loadedList) {
+        this.modules = loadedList;
+        for (int i=0; i< modules.size();i++) {
+            printModule(modules.get(i));
+        }
+    }
+    /*public ArrayList<Module> getTimeTable() {
+        return modules;
+    }*/
 
     public static void printModule(Module module) {
         System.out.println("Module: " + module.moduleCode);
@@ -28,7 +42,7 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-    public static void addModule(String command) {
+    public static void addModule(String command) throws IOException {
         String moduleCode = command.substring(command.indexOf("/") + 1);
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
         Scanner in = new Scanner(System.in);
@@ -67,6 +81,9 @@ public class TimeTable {
         }
 
         modules.add(module);
+        String moduleToAdd = module.moduleCode + "|" + module.lecSlot + "|"
+                + module.tutSlot + "|" + module.labSlot;
+        Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
         int moduleIndex = checkInsertion(module);
         if (moduleIndex != -1) {
             checkModule(module, moduleIndex);
@@ -159,6 +176,7 @@ public class TimeTable {
                 for (int i = 0; i < modules.size(); i++) {
                     if (modules.get(i).moduleCode.contains(modCode)) {
                         modules.remove(i);
+                        Storage.deleteModuleFromFile(i);
                         System.out.println("Noted. I've removed this module");
                         break;
                     }
@@ -167,7 +185,7 @@ public class TimeTable {
                     }
                 }
             }
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | IOException e) {
             System.out.println(lineCutOff);
             System.out.println("OOPS!!! There is no such module.");
             System.out.println(lineCutOff);

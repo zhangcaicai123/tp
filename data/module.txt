@@ -1,0 +1,2 @@
+CS1010|Fri 11:00-12:00|Tue 10:00-11:00|null
+null|null|null|null
