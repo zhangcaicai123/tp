@@ -58,7 +58,6 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
-
     private void showLine() {
         System.out.println("    ____________________________________________________________");
     }
