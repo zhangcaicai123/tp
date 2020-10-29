@@ -15,6 +15,7 @@ public class Duke {
     String userCommand;
     Storage storage = new Storage();
     TaskList tasks;
+    Parser parser = new Parser();
 
     void run() {
 
@@ -31,7 +32,7 @@ public class Duke {
         }
         while (!Parser.isExit) {
             userCommand = in.nextLine();
-            Parser.parse(userCommand, tasks, storage);
+            parser.parse(userCommand, tasks, storage);
         }
     }
 

@@ -1,3 +1,0 @@
-T | 0 | lab report
-D | 0 | assignment | Sunday
-D | 0 | assignment | hahaha

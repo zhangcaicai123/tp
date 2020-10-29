@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.text.ParseException;
 import java.util.regex.Pattern;
 
 import seedu.duke.command.Command;
@@ -11,7 +12,7 @@ public class Parser {
 
     static boolean isExit = false;
 
-    public static void parse(String userCommand, TaskList taskList, Storage storage) {
+    public void parse(String userCommand, TaskList taskList, Storage storage) {
 
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
         boolean isExitCommand = userCommand.toLowerCase().equals("exit");
@@ -46,17 +47,17 @@ public class Parser {
 
                 Command.addModule(userCommand);
 
-            }  else if (isDeleteModule) {
+            } else if (isDeleteModule) {
 
                 Command.deleteModule(userCommand);
 
             } else if (isPrintWeeklyTimetable) {
 
-                Command.printWeeklyTimetable();
+                Command.printWeeklyTimetable(taskList);
 
             } else if (isPrintTodayTimeTable) {
 
-                Command.printTodayTimetable();
+                Command.printTodayTimetable(taskList);
 
             } else if (isDeleteTask) {
 
@@ -66,18 +67,24 @@ public class Parser {
 
                 String type = Command.getTaskType(userCommand);
 
-                if (type.equals("todo")) {
+                switch (type) {
+                case "todo":
 
                     Command.addToDo(taskList, storage, userCommand);
 
-                } else if (type.equals("deadline")) {
+                    break;
+                case "deadline":
 
                     Command.addDeadline(taskList, storage, userCommand);
 
-                } else if (type.equals("event")) {
+                    break;
+                case "event":
 
                     Command.addEvent(taskList, storage, userCommand);
 
+                    break;
+                default:
+                    break;
                 }
 
             } else if (isAddProjectTaskCommand) {
@@ -113,7 +120,7 @@ public class Parser {
                 throw new DukeException();
 
             }
-        } catch (DukeException e) {
+        } catch (DukeException | ParseException e) {
 
             Ui.dealWithException(userCommand);
 

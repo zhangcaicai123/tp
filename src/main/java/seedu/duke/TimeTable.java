@@ -1,13 +1,18 @@
 package seedu.duke;
 
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.Locale;
 import java.util.Collections;
 
+import seedu.duke.task.Event;
 import seedu.duke.task.Task;
 import seedu.duke.tasklist.TaskList;
 
@@ -27,6 +32,7 @@ public class TimeTable {
         String moduleCode = command.substring(command.indexOf("/") + 1);
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
         Scanner in = new Scanner(System.in);
+        Module module = new Module();
         try {
             if (isModuleExit) {
                 System.out.println(lineCutOff);
@@ -34,16 +40,22 @@ public class TimeTable {
                 System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
                 System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
                 System.out.println(lineCutOff);
+                module = ModDataBase.modules.get(moduleCode);
                 System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
                 System.out.println("If the time slot does not exit, please enter null.");
                 System.out.print("Lecture slot: ");
-                ModDataBase.modules.get(moduleCode).lecSlot = in.nextLine();
+                module.lecSlot = in.nextLine();
                 System.out.print("Tutorial slot: ");
-                ModDataBase.modules.get(moduleCode).tutSlot = in.nextLine();
-                System.out.print("Lab slot: ");
-                ModDataBase.modules.get(moduleCode).labSlot = in.nextLine();
+                module.tutSlot = in.nextLine();
+                System.out.println("Does this modules have lab?[Y/N]");
+                String isHaveLab = in.nextLine();
+                if (isHaveLab.equals("Y")) {
+                    System.out.print("Lab slot: ");
+                    module.labSlot = in.nextLine();
+                }
                 System.out.println("Noted! I have added this module.");
                 System.out.println(lineCutOff);
+                module.setSlot();
             } else {
 
                 throw new NoSuchElementException();
@@ -53,8 +65,6 @@ public class TimeTable {
             System.out.println("There is no such module.");
             System.out.println(lineCutOff);
         }
-
-        Module module = ModDataBase.modules.get(moduleCode);
 
         modules.add(module);
         int moduleIndex = checkInsertion(module);
@@ -66,42 +76,62 @@ public class TimeTable {
     public static int checkInsertion(Module module) {
         int i;
         if (modules.size() > 1) {
-            if (module.labSlot.equals("null")) {
 
-                for (i = 0; i < modules.size(); i++) {
+            for (i = 0; i < modules.size(); i++) {
 
-                    if (module.lecSlot.equals(modules.get(i).lecSlot)
-                            || module.lecSlot.equals(modules.get(i).tutSlot)) {
+                if (checkTimeConflict(module.lecBegin, module.lecEnd,
+                        modules.get(i).lecBegin, modules.get(i).lecEnd)) {
+
+                    return i;
+
+                } else if (checkTimeConflict(module.lecBegin, module.lecEnd,
+                        modules.get(i).tutBegin, modules.get(i).tutEnd)) {
+
+                    return i;
+
+                } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
+                        modules.get(i).lecBegin, modules.get(i).lecEnd)) {
+                    return i;
+                } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
+                        modules.get(i).tutBegin, modules.get(i).tutEnd)) {
+                    return i;
+                }
+                if (module.labSlot != null) {
+                    if (checkTimeConflict(module.labBegin, module.labEnd,
+                            modules.get(i).lecBegin, modules.get(i).lecEnd)) {
 
                         return i;
 
-                    } else if (module.tutSlot.equals(modules.get(i).lecSlot)
-                            || module.tutSlot.equals(modules.get(i).tutSlot)) {
+                    } else if (checkTimeConflict(module.labBegin, module.labEnd,
+                            modules.get(i).tutBegin, modules.get(i).tutEnd)) {
 
                         return i;
 
                     }
                 }
-            } else {
-
-                for (i = 0; i < modules.size(); i++) {
-
-                    if (module.lecSlot.equals(modules.get(i).lecSlot)
-                            || module.lecSlot.equals(modules.get(i).tutSlot)
-                            || module.lecSlot.equals(modules.get(i).labSlot)) {
+                if (modules.get(i).labSlot != null) {
+                    if (checkTimeConflict(module.lecBegin, module.lecEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd)) {
 
                         return i;
 
-                    } else if (module.tutSlot.equals(modules.get(i).lecSlot)
-                            || module.tutSlot.equals(modules.get(i).tutSlot)
-                            || module.tutSlot.equals(modules.get(i).labSlot)) {
+                    } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd)) {
 
                         return i;
 
+                    }
+                }
+                if (modules.get(i).labSlot != null && module.labSlot != null) {
+                    if (checkTimeConflict(module.labBegin, module.labEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd)) {
+                        return i;
                     }
                 }
             }
         }
+
+
         return -1;
     }
 
@@ -144,20 +174,20 @@ public class TimeTable {
         }
     }
 
-    public static void printTodayTimetable() {
+    public static void printTodayTimetable(TaskList taskList) throws ParseException {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         int todayMonth = (calendar.get(Calendar.MONTH) + 1);
         int todayDay = calendar.get(Calendar.DAY_OF_MONTH);
         int todayYear = calendar.get(Calendar.YEAR);
-        printDailyTimetable(todayMonth, todayDay, todayYear);
+        printDailyTimetable(todayMonth, todayDay, todayYear, taskList);
     }
 
-    public static void printDailyTimetable(int month, int day, int year) {
+    public static void printDailyTimetable(int month, int day, int year, TaskList taskList) throws ParseException {
         System.out.println(lineCutOff);
-        String date = String.format("%4d-%2d-%2d", year, month, day);
+        String date = String.format("%4d-%02d-%02d", year, month, day);
         System.out.println(date);
         System.out.println(lineCutOff);
-        ArrayList<String> todayList = todayList(date);
+        ArrayList<String> todayList = todayList(date, taskList);
         for (String event : todayList) {
             System.out.println(event);
         }
@@ -173,7 +203,7 @@ public class TimeTable {
     }
 
     public static void printDailyDeadline(int month, int day, int year, TaskList taskList) {
-        String date = String.format("%4d-%2d-%2d", year, month, day);
+        String date = String.format("%4d-%02d-%02d", year, month, day);
         System.out.println(lineCutOff);
         System.out.println("Today's Deadline (haven't done):");
         System.out.println(lineCutOff);
@@ -197,7 +227,7 @@ public class TimeTable {
         }
     }
 
-    public static void printWeeklyTimetable() {
+    public static void printWeeklyTimetable(TaskList taskList) throws ParseException {
         int week = 7;
         int day = 0;
         Calendar calendar = Calendar.getInstance();
@@ -205,15 +235,16 @@ public class TimeTable {
         while (day < week) {
             printDailyTimetable(calendar.get(Calendar.MONTH) + 1,
                     calendar.get(Calendar.DAY_OF_MONTH),
-                    calendar.get(Calendar.YEAR));
+                    calendar.get(Calendar.YEAR), taskList);
             calendar.add(Calendar.DATE, 1);
             day++;
         }
     }
 
-    public static ArrayList<String> todayList(String date) {
+    public static ArrayList<String> todayList(String date, TaskList taskList) throws ParseException {
         ArrayList<String> todayList = new ArrayList<>();
-        LocalDate todayDate = LocalDate.parse(date);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate todayDate = LocalDate.parse(date, dtf);
         int weekDay = todayDate.getDayOfWeek().getValue();
         for (Module module : modules) {
             if (module.lecDay == weekDay) {
@@ -222,6 +253,14 @@ public class TimeTable {
                 todayList.add(module.tutText());
             } else if (module.labDay == weekDay) {
                 todayList.add(module.labText());
+            }
+        }
+        for (Task task : taskList.getTaskList()) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStatusIcon().equals("F") && event.beginTime.toLocalDate().equals(todayDate)) {
+                    todayList.add(event.calendarFormat());
+                }
             }
         }
         Collections.sort(todayList);
@@ -241,4 +280,65 @@ public class TimeTable {
         return todayDeadline;
     }
 
+    public static Event checkEventConflict(Event insertEvent, TaskList taskList) {
+        for (Task task : taskList.getTaskList()) {
+            if (task instanceof Event) {
+                Event existEvent = (Event) task;
+                if (existEvent.getStatusIcon().equals("F")) {
+                    if (checkDateTimeConflict(existEvent.beginTime, existEvent.endTime,
+                            insertEvent.beginTime, insertEvent.endTime)) {
+                        return existEvent;
+                    }
+
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean checkDateTimeConflict(LocalDateTime beginA, LocalDateTime endA,
+                                                LocalDateTime beginB, LocalDateTime endB) {
+        if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
+            return true;
+        } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkTimeConflict(LocalTime beginA, LocalTime endA, LocalTime beginB, LocalTime endB) {
+        if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
+            return true;
+        } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkEventModuleConflict(Event insertEvent) {
+        int weekday = insertEvent.beginTime.getDayOfWeek().getValue();
+        for (Module module : modules) {
+            if (weekday == module.lecDay) {
+                if (checkTimeConflict(insertEvent.beginTime.toLocalTime(),
+                        insertEvent.endTime.toLocalTime(), module.lecBegin, module.lecEnd)) {
+                    return true;
+                }
+            } else if (weekday == module.tutDay) {
+                if (checkTimeConflict(insertEvent.beginTime.toLocalTime(),
+                        insertEvent.endTime.toLocalTime(), module.tutBegin, module.tutEnd)) {
+                    return true;
+                }
+            } else if (module.labSlot != null) {
+                if (weekday == module.labDay) {
+                    if (checkTimeConflict(insertEvent.beginTime.toLocalTime(),
+                            insertEvent.endTime.toLocalTime(), module.labBegin, module.labEnd)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
