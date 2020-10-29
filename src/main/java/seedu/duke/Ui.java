@@ -21,9 +21,9 @@ public class Ui {
                 + "5. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE> \n"
                 + "6. View project task list: mod/<MODULE_CODE> project task list\n"
                 + "7. View project progress: mod/<MODULE_CODE> progress\n"
-                + "8. Add a todo task: todo [Task description]"
-                + "9. Add an event: event [Task description] /at xxxx-xx-xx xx:xx"
-                + "10. Add a deadline: deadline [task] /by xxxx-xx-xx xx:xx"
+                + "8. Add a todo task: todo [Task description]\n"
+                + "9. Add an event: event [Task description] /at xxxx-xx-xx xx:xx\n"
+                + "10. Add a deadline: deadline [task] /by xxxx-xx-xx xx:xx\n"
                 + "11. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
