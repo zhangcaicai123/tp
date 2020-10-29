@@ -16,12 +16,15 @@ public class Ui {
         System.out.println(lineCutOff);
         System.out.println("1. Add a module: add mod/<MODULE_CODE>\n"
                 + "2. Delete a module: delete mod/<MODULE_CODE>\n"
-                + "3. View today's timetable: today timetable\n"
-                + "4. View weekly timetable: this week timetable\n"
-                + "5. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE> \n"
-                + "6. View project task list: mod/<MODULE_CODE> project task list\n"
-                + "7. View project progress: mod/<MODULE_CODE> progress\n"
-                + "8. Exit CEGMods: exit"
+                + "3. Add a task to do: todo <DESCRIPTION>\n"
+                + "4. Add a deadline: deadline <DESCRIPTION> by/<yyyy-mm-dd hh-mm>\n"
+                + "5. Add an event: event <DESCRIPTION> at/<yyyy-mm-dd hh-mm>\n"
+                + "6. View today's timetable: today timetable\n"
+                + "7. View weekly timetable: this week timetable\n"
+                + "8. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE> \n"
+                + "9. View project task list: mod/<MODULE_CODE> project task list\n"
+                + "10. View project progress: mod/<MODULE_CODE> progress\n"
+                + "11. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
     }

@@ -6,7 +6,6 @@ import seedu.duke.Ui;
 import seedu.duke.exception.EmptyDescriptionException;
 import seedu.duke.exception.EmptyIndexException;
 import seedu.duke.exception.ExceptionMessage;
-import seedu.duke.exception.OutOfIndexBound;
 import seedu.duke.exception.EmptyTimeException;
 import seedu.duke.exception.EmptyFindException;
 import seedu.duke.project.ProjectManager;
@@ -20,6 +19,9 @@ import seedu.duke.task.ProjectTask;
 import seedu.duke.tasklist.TaskList;
 
 import java.io.IOException;
+import java.lang.IndexOutOfBoundsException;
+import java.lang.NullPointerException;
+import java.lang.NumberFormatException;
 import java.text.ParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -64,8 +66,9 @@ public class Command {
             Todo taskToAdd = new Todo(getTodo(command));
             taskList.addTask(taskToAdd);
             storage.appendToFile(taskToAdd.text() + System.lineSeparator());
-        } catch (EmptyDescriptionException e) {
-            ExceptionMessage.printEmptyDescriptionExceptionMessage("todo");
+        } catch (NumberFormatException | NullPointerException e) {
+            //ExceptionMessage.printEmptyDescriptionExceptionMessage("todo");
+            System.out.printf("\t  OOPS!!! The description of a todo cannot be empty.%n");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -174,8 +177,8 @@ public class Command {
             taskToMark.markAsDone();
             Ui.printMarkMessage(taskToMark);
             storage.updateDoneToFile(index, taskList);
-        } catch (OutOfIndexBound e) {
-            ExceptionMessage.printOutOfIndexBoundMessage();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.printf("\t  OOPS!!! You seem to input wrong index of the task.%n");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } catch (EmptyIndexException e) {
@@ -196,8 +199,8 @@ public class Command {
             taskList.deleteTask(index);
             storage.deleteTaskFromFile(index);
             taskList.printNumOfTasksInList();
-        } catch (OutOfIndexBound e) {
-            ExceptionMessage.printOutOfIndexBoundMessage();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.printf("\t  OOPS!!! You seem to input wrong index of the task.%n");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } catch (EmptyIndexException e) {
@@ -212,16 +215,12 @@ public class Command {
      * @return the description of user's input todo task
      * @throws EmptyDescriptionException If description is null
      */
-    public static String getTodo(String command) throws EmptyDescriptionException {
+    public static String getTodo(String command) {
         String todoPattern = "^todo (.*)";
         Pattern r = Pattern.compile(todoPattern);
         Matcher m = r.matcher(command);
-        if (Pattern.matches("^todo *", command)) {
-            throw new EmptyDescriptionException();
-        } else {
-            m.find();
-            return m.group(1).trim();
-        }
+        m.find();
+        return m.group(1).trim();
     }
 
     /**
@@ -329,10 +328,9 @@ public class Command {
      * @param taskList the list of all tasks input
      * @param command  user input command
      * @return index the index of task that user wants to delete or mark as done
-     * @throws OutOfIndexBound     If the index is larger than size of list
      * @throws EmptyIndexException If user does not input any integer
      */
-    public static int getIndex(TaskList taskList, String command) throws OutOfIndexBound, EmptyIndexException {
+    public static int getIndex(TaskList taskList, String command) throws EmptyIndexException {
         String pattern = "(done|delete)( )(\\d+)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
@@ -342,9 +340,6 @@ public class Command {
         } else {
             m.find();
             index = Integer.parseInt(m.group(3));
-        }
-        if (taskList.size() < index || index < 1) {
-            throw new OutOfIndexBound();
         }
         return index;
     }
