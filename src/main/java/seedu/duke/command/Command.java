@@ -171,7 +171,7 @@ public class Command {
      */
     public static void done(TaskList taskList, Storage storage, String command) {
         try {
-            int index = getIndex(taskList, command) - 1;
+            int index = getIndex(command) - 1;
             Task taskToMark = taskList.get(index);
             taskToMark.markAsDone();
             Ui.printMarkMessage(taskToMark);
@@ -194,7 +194,7 @@ public class Command {
      */
     public static void deleteTask(TaskList taskList, Storage storage, String command) {
         try {
-            int index = getIndex(taskList, command) - 1;
+            int index = getIndex(command) - 1;
             taskList.deleteTask(index);
             storage.deleteTaskFromFile(index);
             taskList.printNumOfTasksInList();
@@ -324,17 +324,16 @@ public class Command {
     /**
      * Get index of task that need to be deleted or mark as done.
      *
-     * @param taskList the list of all tasks input
      * @param command  user input command
      * @return index the index of task that user wants to delete or mark as done
      * @throws EmptyIndexException If user does not input any integer
      */
-    public static int getIndex(TaskList taskList, String command) throws EmptyIndexException {
-        String pattern = "(done|delete)( )(\\d+)";
+    public static int getIndex(String command) throws EmptyIndexException {
+        String pattern = "(done|delete)( task/)(\\d+)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
         int index;
-        if (Pattern.matches("done|delete *", command)) {
+        if (Pattern.matches("done|delete task/ *", command)) {
             throw new EmptyIndexException();
         } else {
             m.find();
