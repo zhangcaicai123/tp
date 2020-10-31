@@ -47,7 +47,7 @@ public class Module {
             this.tutEnd = endTime(this.tutTime);
             this.lecDuration = setInterval(this.lecBegin, this.lecEnd);
             this.tutDuration = setInterval(this.tutBegin, this.tutEnd);
-            if(!TimeTable.checkTimeDayConflict(lecBegin,lecEnd,tutBegin,tutEnd,this.lecDay,this.tutDay)) {
+            if (!TimeTable.checkTimeDayConflict(lecBegin,lecEnd,tutBegin,tutEnd,this.lecDay,this.tutDay)) {
                 if (this.labSlot != null) {
                     String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
                     this.labDay = weekOfDay(labDay);
@@ -56,7 +56,8 @@ public class Module {
                     this.labEnd = endTime(this.labTime);
                     this.labDuration = setInterval(this.labBegin, this.labEnd);
                     if (TimeTable.checkTimeDayConflict(lecBegin,lecEnd,labBegin,labEnd,this.lecDay,this.labDay)
-                            ||TimeTable.checkTimeDayConflict(labBegin,labEnd,tutBegin,tutEnd,this.labDay,this.tutDay)) {
+                            || TimeTable.checkTimeDayConflict(labBegin,labEnd,tutBegin,tutEnd,
+                            this.labDay,this.tutDay)) {
                         isSetSlotSuccess = false;
                     }
                 }
