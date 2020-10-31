@@ -72,7 +72,6 @@ public class TimeTable {
             System.out.println("There is no such module.");
             System.out.println(lineCutOff);
         }
-
         module.setSlot();
         if (module.isSetSlotSuccess) {
             int moduleIndex = checkInsertion(module);
@@ -375,4 +374,5 @@ public class TimeTable {
             return false;
         }
     }
+
 }
