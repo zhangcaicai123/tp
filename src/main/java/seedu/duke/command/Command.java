@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 public class Command {
 
-    public static void addModule(String userCommand) throws IOException {
+    public static void addModule(String userCommand) throws IOException, org.json.simple.parser.ParseException {
         TimeTable.addModule(userCommand);
     }
 

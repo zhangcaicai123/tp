@@ -25,7 +25,6 @@ public class Duke {
             //load tasks in data file to current task list
             tasks = new TaskList(storage.loadTask());
             modules = new TimeTable(storage.loadModule());
-
             ModDataBase.getModFromFile();
         } catch (DukeException e) {
             ui.showLoadingError();

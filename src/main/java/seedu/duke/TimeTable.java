@@ -37,7 +37,7 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-    public static void addModule(String command) throws IOException {
+    public static void addModule(String command) throws IOException, org.json.simple.parser.ParseException {
         String moduleCode = command.substring(command.indexOf("/") + 1);
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
         Scanner in = new Scanner(System.in);
