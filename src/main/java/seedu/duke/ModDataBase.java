@@ -28,7 +28,7 @@ public class ModDataBase {
     public static void getModFromFile() throws IOException, ParseException {
 
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader("src/main/java/data/allModInfo.json"));
+        Object obj = parser.parse(new FileReader("data/AllModsInfo.json"));
         JSONArray moduleList = (JSONArray) obj;
         moduleList.forEach(module -> parseModule((JSONObject) module));
 

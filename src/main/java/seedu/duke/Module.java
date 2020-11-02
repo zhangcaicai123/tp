@@ -30,7 +30,7 @@ public class Module {
     Duration labDuration;
     boolean isSetSlotSuccess = true;
 
-    public Module(){
+    public Module() {
     }
 
     public void setSlot() {
@@ -47,13 +47,28 @@ public class Module {
             this.tutEnd = endTime(this.tutTime);
             this.lecDuration = setInterval(this.lecBegin, this.lecEnd);
             this.tutDuration = setInterval(this.tutBegin, this.tutEnd);
-            if (this.labSlot != null) {
-                String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
-                this.labDay = weekOfDay(labDay);
-                this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();
-                this.labBegin = beginTime(this.labTime);
-                this.labEnd = endTime(this.labTime);
-                this.labDuration = setInterval(this.labBegin, this.labEnd);
+            if (!TimeTable.checkTimeDayConflict(lecBegin,lecEnd,tutBegin,tutEnd,this.lecDay,this.tutDay)) {
+                if (this.labSlot != null) {
+                    String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
+                    this.labDay = weekOfDay(labDay);
+                    this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();
+                    this.labBegin = beginTime(this.labTime);
+                    this.labEnd = endTime(this.labTime);
+                    this.labDuration = setInterval(this.labBegin, this.labEnd);
+                    if (TimeTable.checkTimeDayConflict(lecBegin,lecEnd,labBegin,labEnd,this.lecDay,this.labDay)
+                            || TimeTable.checkTimeDayConflict(labBegin,labEnd,tutBegin,tutEnd,
+                            this.labDay,this.tutDay)) {
+                        isSetSlotSuccess = false;
+                    }
+                }
+            } else {
+                isSetSlotSuccess = false;
+            }
+            if (!isSetSlotSuccess) {
+                System.out.println(lineCutOff);
+                System.out.println("OOPS!!! Cannot add this module because of the time conflict between slots.");
+                System.out.println("Please carefully check your module timetable and add the module again.");
+                System.out.println(lineCutOff);
             }
         } catch (StringIndexOutOfBoundsException e) {
             isSetSlotSuccess = false;
@@ -80,25 +95,25 @@ public class Module {
         int dayValue = 0;
         switch (day) {
         case "Sun":
-            dayValue = 1;
+            dayValue = 7;
             break;
         case "Mon":
-            dayValue = 2;
+            dayValue = 1;
             break;
         case "Tue":
-            dayValue = 3;
+            dayValue = 2;
             break;
         case "Wed":
-            dayValue = 4;
+            dayValue = 3;
             break;
         case "Thur":
-            dayValue = 5;
+            dayValue = 4;
             break;
         case "Fri":
-            dayValue = 6;
+            dayValue = 5;
             break;
         case "Sat":
-            dayValue = 7;
+            dayValue = 6;
             break;
         default:
             System.out.println("Sorry, the day value was not recognized. ");
@@ -129,4 +144,5 @@ public class Module {
         }
         return moduleToAdd;
     }
+
 }

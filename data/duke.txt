@@ -1,1 +1,2 @@
-T | 0 | lab report
+
+P | 0 | write main part | CG2271 | Mon 16:00 | NA

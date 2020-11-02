@@ -37,8 +37,8 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-    public static void addModule(String command) throws IOException, org.json.simple.parser.ParseException {
-        String moduleCode = command.substring(command.indexOf("/") + 1);
+    public static void addModule(String command) throws IOException {
+        String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
         Scanner in = new Scanner(System.in);
         Module module = new Module();
@@ -51,6 +51,7 @@ public class TimeTable {
                 System.out.println(lineCutOff);
                 module = ModDataBase.modules.get(moduleCode);
                 System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
+                System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
                 System.out.println("If the time slot does not exit, please enter null.");
                 System.out.print("Lecture slot: ");
                 module.lecSlot = in.nextLine();
@@ -58,7 +59,7 @@ public class TimeTable {
                 module.tutSlot = in.nextLine();
                 System.out.println("Does this modules have lab?[Y/N]");
                 String isHaveLab = in.nextLine();
-                if (isHaveLab.equals("Y")) {
+                if (isHaveLab.equalsIgnoreCase("Y")) {
                     System.out.print("Lab slot: ");
                     module.labSlot = in.nextLine();
                 }
@@ -71,7 +72,6 @@ public class TimeTable {
             System.out.println("There is no such module.");
             System.out.println(lineCutOff);
         }
-
         module.setSlot();
         if (module.isSetSlotSuccess) {
             int moduleIndex = checkInsertion(module);
@@ -94,52 +94,56 @@ public class TimeTable {
 
             for (i = 0; i < modules.size(); i++) {
 
-                if (checkTimeConflict(module.lecBegin, module.lecEnd,
-                        modules.get(i).lecBegin, modules.get(i).lecEnd)) {
+                if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
+                        modules.get(i).lecBegin, modules.get(i).lecEnd,
+                        module.lecDay,modules.get(i).lecDay)) {
 
                     return i;
 
-                } else if (checkTimeConflict(module.lecBegin, module.lecEnd,
-                        modules.get(i).tutBegin, modules.get(i).tutEnd)) {
+                } else if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
+                        modules.get(i).tutBegin, modules.get(i).tutEnd,
+                        module.lecDay,modules.get(i).tutDay)) {
 
                     return i;
 
-                } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
-                        modules.get(i).lecBegin, modules.get(i).lecEnd)) {
+                } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
+                        modules.get(i).lecBegin, modules.get(i).lecEnd,
+                        module.tutDay,modules.get(i).lecDay)) {
                     return i;
-                } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
-                        modules.get(i).tutBegin, modules.get(i).tutEnd)) {
+                } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
+                        modules.get(i).tutBegin, modules.get(i).tutEnd,
+                        module.tutDay,modules.get(i).tutDay)) {
                     return i;
                 }
                 if (module.labSlot != null) {
-                    if (checkTimeConflict(module.labBegin, module.labEnd,
-                            modules.get(i).lecBegin, modules.get(i).lecEnd)) {
+                    if (checkTimeDayConflict(module.labBegin, module.labEnd,
+                            modules.get(i).lecBegin, modules.get(i).lecEnd,module.labDay,modules.get(i).lecDay)) {
 
                         return i;
 
-                    } else if (checkTimeConflict(module.labBegin, module.labEnd,
-                            modules.get(i).tutBegin, modules.get(i).tutEnd)) {
+                    } else if (checkTimeDayConflict(module.labBegin, module.labEnd,
+                            modules.get(i).tutBegin, modules.get(i).tutEnd,module.labDay,modules.get(i).tutDay)) {
 
                         return i;
 
                     }
                 }
                 if (modules.get(i).labSlot != null) {
-                    if (checkTimeConflict(module.lecBegin, module.lecEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd)) {
+                    if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd,module.lecDay,modules.get(i).labDay)) {
 
                         return i;
 
-                    } else if (checkTimeConflict(module.tutBegin, module.tutEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd)) {
+                    } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd,module.tutDay,modules.get(i).labDay)) {
 
                         return i;
 
                     }
                 }
                 if (modules.get(i).labSlot != null && module.labSlot != null) {
-                    if (checkTimeConflict(module.labBegin, module.labEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd)) {
+                    if (checkTimeDayConflict(module.labBegin, module.labEnd,
+                            modules.get(i).labBegin, modules.get(i).labEnd,module.labDay,modules.get(i).labDay)) {
                         return i;
                     }
                 }
@@ -166,7 +170,7 @@ public class TimeTable {
 
     public static void deleteModule(String line) {
         try {
-            String modCode = line.substring(line.indexOf('/') + 1);
+            String modCode = line.substring(line.indexOf('/') + 1).toUpperCase();
             if (modules.size() == 0) {
                 throw new NoSuchElementException();
             } else {
@@ -317,6 +321,8 @@ public class TimeTable {
             return true;
         } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
             return true;
+        } else if (beginA.isEqual(beginB)) {
+            return true;
         } else {
             return false;
         }
@@ -326,6 +332,8 @@ public class TimeTable {
         if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
             return true;
         } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
+            return true;
+        } else if (beginA.equals(beginB)) {
             return true;
         } else {
             return false;
@@ -356,4 +364,15 @@ public class TimeTable {
         }
         return false;
     }
+
+    public static boolean checkTimeDayConflict(LocalTime beginA, LocalTime endA,
+                                               LocalTime beginB, LocalTime endB,
+                                               int weekDayA, int weekDayB) {
+        if (weekDayA == weekDayB) {
+            return checkTimeConflict(beginA,endA,beginB,endB);
+        } else {
+            return false;
+        }
+    }
+
 }
