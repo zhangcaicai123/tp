@@ -6,7 +6,18 @@ public class Ui {
     static String lineCutOff = "_______________________________________________________";
 
     public static void printWelcomeMessage() {
+        String logo =
+                  "#######  #######  #######  ###     ###               # \n"
+                + "#        #        #     #  #  #   #  #               # \n"
+                + "#        #        #        #   # #   #               # \n"
+                + "#        #######  # #####  #   # #   #  ######  ######  #####\n"
+                + "#        #        #     #  #   # #   #  #    #  #    #  ##   \n"
+                + "#        #        #     #  #   # #   #  #    #  #    #    ## \n"
+                + "#######  #######  #######  #   ###   #  ######  ######  #####";
+
+
         System.out.println(lineCutOff);
+        System.out.println(logo);
         System.out.println("Hello, this is CEGMods! What can I do for you?\n"
                 + "Enter 'help' to get more information.");
         System.out.println(lineCutOff);

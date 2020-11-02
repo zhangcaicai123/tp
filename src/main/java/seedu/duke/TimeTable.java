@@ -37,54 +37,88 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
+    public static boolean isModuleExist(String moduleCode) {
+        for (int i = 0;i < modules.size(); i++) {
+            if (modules.get(i).moduleCode.equals(moduleCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void addModule(String command) throws IOException {
         String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
-        boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
-        Scanner in = new Scanner(System.in);
-        Module module = new Module();
-        try {
-            if (isModuleExit) {
-                System.out.println(lineCutOff);
-                System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
-                System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
-                System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
-                System.out.println(lineCutOff);
-                module = ModDataBase.modules.get(moduleCode);
-                System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
-                System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
-                System.out.println("If the time slot does not exit, please enter null.");
-                System.out.print("Lecture slot: ");
-                module.lecSlot = in.nextLine();
-                System.out.print("Tutorial slot: ");
-                module.tutSlot = in.nextLine();
-                System.out.println("Does this modules have lab?[Y/N]");
-                String isHaveLab = in.nextLine();
-                if (isHaveLab.equalsIgnoreCase("Y")) {
-                    System.out.print("Lab slot: ");
-                    module.labSlot = in.nextLine();
-                }
-            } else {
+        boolean isModuleExist = isModuleExist(moduleCode);
+        if (!isModuleExist) {
+            boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
+            Scanner in = new Scanner(System.in);
+            Module module = new Module();
+            try {
+                if (isModuleExit) {
+                    System.out.println(lineCutOff);
+                    System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
+                    System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
+                    System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
+                    System.out.println(lineCutOff);
+                    module = ModDataBase.modules.get(moduleCode);
+                    System.out.println("Please enter your time slots for lectures, tutorials, "
+                            + "and labs for this module.");
+                    System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
+                    System.out.println("If the time slot does not exit, please enter null.");
+                    System.out.print("Lecture slot: ");
+                    module.lecSlot = in.nextLine();
+                    System.out.print("Tutorial slot: ");
+                    module.tutSlot = in.nextLine();
+                    System.out.println("Does this modules have lab?[Y/N]");
+                    String isHaveLab = in.nextLine();
+                    if (isHaveLab.equalsIgnoreCase("Y")) {
+                        System.out.print("Lab slot: ");
+                        module.labSlot = in.nextLine();
+                    }
+                } else {
 
-                throw new NoSuchElementException();
-            }
-        } catch (NoSuchElementException e) {
-            System.out.println(lineCutOff);
-            System.out.println("There is no such module.");
-            System.out.println(lineCutOff);
-        }
-        module.setSlot();
-        if (module.isSetSlotSuccess) {
-            int moduleIndex = checkInsertion(module);
-            if (moduleIndex != -1) {
-                checkModule(module, moduleIndex);
-            } else {
-                modules.add(module);
-                String moduleToAdd;
-                moduleToAdd = module.toString();
-                Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
-                System.out.println("Noted! I have added this module.");
+                    throw new NoSuchElementException();
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println(lineCutOff);
+                System.out.println("There is no such module.");
                 System.out.println(lineCutOff);
             }
+            module.setSlot();
+            if (module.isSetSlotSuccess) {
+                int moduleIndex = checkInsertion(module);
+                if (moduleIndex != -1) {
+                    checkModule(module, moduleIndex);
+                } else {
+                    modules.add(module);
+                    String moduleToAdd;
+                    moduleToAdd = module.toString();
+                    Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
+                    System.out.println("Noted! I have added this module.");
+                    System.out.println("Is there any task you want to add for this module? Y/N");
+                    String isHaveTask = in.nextLine();
+                    if (isHaveTask.equalsIgnoreCase("Y")) {
+                        System.out.println("Please enter T for todo, D for deadline, E for event, "
+                                + "P for project subtask.");
+                        String taskType = in.nextLine();
+                        if (taskType.equalsIgnoreCase("T")) {
+                            System.out.println("Add a task to do: todo <DESCRIPTION>");
+                        } else if (taskType.equalsIgnoreCase("D")) {
+                            System.out.println("Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>");
+                        } else if (taskType.equalsIgnoreCase("E")) {
+                            System.out.println("Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>");
+                        } else if (taskType.equalsIgnoreCase("P")) {
+                            System.out.println("Add a project subtask: mod/<MODULE_CODE> "
+                                    + "ptask/<DESCRIPTION> by/<DEADLINE>");
+                        }
+                    } else {
+                        System.out.println(lineCutOff);
+                    }
+                }
+            }
+        } else {
+            System.out.println("You have already add this module.\n"
+                    + "Please enter another module code.");
         }
     }
 
