@@ -1,1 +1,1 @@
-T | 0 | lab report
+D | 0 | assignment | 2020-11-03 23:59

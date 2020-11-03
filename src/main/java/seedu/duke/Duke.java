@@ -4,9 +4,7 @@ import org.json.simple.parser.ParseException;
 import seedu.duke.exception.DukeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.tasklist.TaskList;
-
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Scanner;
 
 public class Duke {
@@ -25,13 +23,14 @@ public class Duke {
             //load tasks in data file to current task list
             tasks = new TaskList(storage.loadTask());
             modules = new TimeTable(storage.loadModule());
-
+            storage.loadJson();
             ModDataBase.getModFromFile();
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         } catch (IOException | ParseException e) {
-            System.out.println("Some errors occurred in module database.");
+            System.out.println("Some errors occurred during the process of fetching data.");
+            System.out.println("Please check your Internet Connection.");
         }
         while (!Parser.isExit) {
             userCommand = in.nextLine();
