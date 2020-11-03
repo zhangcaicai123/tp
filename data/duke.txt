@@ -1,2 +1,1 @@
-
-P | 0 | write main part | CG2271 | Mon 16:00 | NA
+D | 0 | assignment | 2020-11-03 23:59
