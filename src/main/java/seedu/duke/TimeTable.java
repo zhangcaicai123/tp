@@ -103,6 +103,11 @@ public class TimeTable {
                     System.out.println("Noted! I have added this module.");
                     System.out.println("Is there any task you want to add for this module? Y/N");
                     String isHaveTask = in.nextLine();
+                    while (!isHaveTask.equalsIgnoreCase("Y") &&
+                            !isHaveTask.equalsIgnoreCase("N")) {
+                        System.out.println("Is there any task you want to add for this module? Y/N");
+                        isHaveTask = in.nextLine();
+                    }
                     if (isHaveTask.equalsIgnoreCase("Y")) {
                         System.out.println("Please enter T for todo, D for deadline, E for event, "
                                 + "P for project subtask.");

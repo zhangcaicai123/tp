@@ -84,14 +84,14 @@ public class Module {
             }
             if (!isSetSlotSuccess) {
                 System.out.println(lineCutOff);
-                System.out.println("OOPS!!! Cannot add this module because of the time conflict between slots.");
+                System.out.println("OOPS!!! Cannot add " + this.moduleCode + " because of the time conflict between slots.");
                 System.out.println("Please carefully check your module timetable and add the module again.");
                 System.out.println(lineCutOff);
             }
         } catch (StringIndexOutOfBoundsException e) {
             isSetSlotSuccess = false;
             System.out.println(lineCutOff);
-            System.out.println("OOPS!!! Cannot add this module.");
+            System.out.println("OOPS!!! Cannot add " + this.moduleCode + ".");
             System.out.println("Please carefully follow the time format.");
             System.out.println(lineCutOff);
         }
