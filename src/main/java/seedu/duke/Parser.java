@@ -123,7 +123,7 @@ public class Parser {
                 throw new DukeException();
 
             }
-        } catch (DukeException | ParseException | IOException e) {
+        } catch (DukeException | ParseException | IOException | org.json.simple.parser.ParseException e) {
 
             Ui.dealWithException(userCommand);
 

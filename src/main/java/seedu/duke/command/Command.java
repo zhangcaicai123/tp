@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class Command {
 
-    public static void addModule(String userCommand) throws IOException {
+    public static void addModule(String userCommand) throws IOException, org.json.simple.parser.ParseException {
         TimeTable.addModule(userCommand);
     }
 
@@ -265,11 +265,13 @@ public class Command {
 
     public static void addProjectTask(String command, TaskList taskList, Storage storage) {
         ProjectTask projectTask = ProjectManager.addProjectTask(command);
-        try {
-            taskList.addTask(projectTask);
-            storage.appendToFile(projectTask.text() + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+        if (projectTask != null) {
+            try {
+                taskList.addTask(projectTask);
+                storage.appendToFile(projectTask.text() + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 

@@ -1,8 +1,6 @@
 package seedu.duke.storage;
 
-
 import seedu.duke.Module;
-import seedu.duke.TimeTable;
 import seedu.duke.exception.DukeException;
 import seedu.duke.task.ProjectTask;
 import seedu.duke.task.Event;
@@ -10,7 +8,6 @@ import seedu.duke.task.Task;
 import seedu.duke.task.Todo;
 import seedu.duke.task.Deadline;
 import seedu.duke.tasklist.TaskList;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
@@ -18,16 +15,21 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.String;
-import java.util.Timer;
 
 public class Storage {
     private static final String projectRoot = System.getProperty("user.dir");
     private static final String directory = projectRoot + "/data";
     private static final String filePathOfTask = directory + "/duke.txt";
     private static final String filePathOfModule = directory + "/module.txt";
+    private static final String filePathOfJson = directory + "/AllModsInfo.json";
 
     public Storage() {
     }
@@ -332,5 +334,24 @@ public class Storage {
         fw.write(textToAppend);
         fw.close();
     }
+
+    public void loadJson() throws IOException {
+
+        File f = new File(filePathOfJson);
+
+        if (!f.exists()) {
+            System.out.println("Loading information....please wait.");
+            createFile(filePathOfJson, directory);
+            URL url = new URL("https://api.nusmods.com/v2/2019-2020/moduleInfo.json");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            InputStream in = url.openStream();
+            Files.copy(in, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Module information has been loaded successfully");
+        }
+
+    }
+
 
 }
