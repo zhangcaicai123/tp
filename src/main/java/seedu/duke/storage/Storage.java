@@ -274,7 +274,7 @@ public class Storage {
             module.moduleCode = texts[0];
             module.lecSlot = texts[1];
             module.tutSlot = texts[2];
-            if (texts[3] != null) {
+            if (!texts[3].equals("null")) {
                 module.labSlot = texts[3];
             } else {
                 module.labSlot = null;

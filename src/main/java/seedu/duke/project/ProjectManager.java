@@ -24,10 +24,10 @@ public class ProjectManager {
         String by;
         by = command.substring(command.indexOf("by/")).substring(3).trim();
 
-        boolean isModuleExist = TimeTable.isModuleExist(modName);
+        boolean isModuleAdded = TimeTable.isModuleAdded(modName);
         boolean isAddModule = false;
         Scanner in = new Scanner(System.in);
-        if (!isModuleExist) {
+        if (!isModuleAdded) {
             System.out.println("Are you sure you want to add this project subtask?\n"
                     + "It seems that you did not add this module. Y/N");
             String isAdd = in.nextLine();

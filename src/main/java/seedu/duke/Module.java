@@ -84,14 +84,15 @@ public class Module {
             }
             if (!isSetSlotSuccess) {
                 System.out.println(lineCutOff);
-                System.out.println("OOPS!!! Cannot add this module because of the time conflict between slots.");
+                System.out.println("OOPS!!! Cannot add " + this.moduleCode
+                        + " because of the time conflict between slots.");
                 System.out.println("Please carefully check your module timetable and add the module again.");
                 System.out.println(lineCutOff);
             }
         } catch (StringIndexOutOfBoundsException e) {
             isSetSlotSuccess = false;
             System.out.println(lineCutOff);
-            System.out.println("OOPS!!! Cannot add this module.");
+            System.out.println("OOPS!!! Cannot add " + this.moduleCode + ".");
             System.out.println("Please carefully follow the time format.");
             System.out.println(lineCutOff);
         }
@@ -114,27 +115,28 @@ public class Module {
     }
 
     public int weekOfDay(String day) {
+        day = day.toLowerCase();
         int dayValue = 0;
         switch (day) {
-        case "Sun":
+        case "sun":
             dayValue = 7;
             break;
-        case "Mon":
+        case "mon":
             dayValue = 1;
             break;
-        case "Tue":
+        case "tue":
             dayValue = 2;
             break;
-        case "Wed":
+        case "wed":
             dayValue = 3;
             break;
-        case "Thur":
+        case "thur":
             dayValue = 4;
             break;
-        case "Fri":
+        case "fri":
             dayValue = 5;
             break;
-        case "Sat":
+        case "sat":
             dayValue = 6;
             break;
         default:
