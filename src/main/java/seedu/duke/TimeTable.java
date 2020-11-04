@@ -67,9 +67,15 @@ public class TimeTable {
                     System.out.println("If the time slot does not exit, please enter null.");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = in.nextLine();
+                    System.out.println("Does this module have another lecture slot?[Y/N]");
+                    String isHaveAnotherLec = in.nextLine();
+                    if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
+                        System.out.print("Another lab slot: ");
+                        module.lecSlot2 = in.nextLine();
+                    }
                     System.out.print("Tutorial slot: ");
                     module.tutSlot = in.nextLine();
-                    System.out.println("Does this modules have lab?[Y/N]");
+                    System.out.println("Does this module have lab?[Y/N]");
                     String isHaveLab = in.nextLine();
                     if (isHaveLab.equalsIgnoreCase("Y")) {
                         System.out.print("Lab slot: ");
@@ -181,7 +187,49 @@ public class TimeTable {
                         return i;
                     }
                 }
+                if (modules.get(i).lecSlot2 != null) {
+                    if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
+                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.lecDay,modules.get(i).lecDay2)) {
+
+                        return i;
+
+                    } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
+                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.tutDay,modules.get(i).lecDay2)) {
+
+                        return i;
+
+                    } else if (module.labSlot != null) {
+                        if (checkTimeDayConflict(module.labBegin, module.labEnd,
+                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.labDay,modules.get(i).lecDay2)) {
+                            return i;
+                        }
+                    } else if (module.lecSlot2 != null) {
+                        if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
+                                modules.get(i).lecBegin2, modules.get(i).lecEnd2,
+                                module.lecDay2,modules.get(i).lecDay2)) {
+                            return i;
+                        }
+                    }
+                } else if (module.lecSlot2 != null) {
+                    if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
+                            modules.get(i).lecBegin, modules.get(i).lecEnd,module.lecDay2,modules.get(i).lecDay)) {
+
+                        return i;
+
+                    } else if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
+                            modules.get(i).tutBegin, modules.get(i).tutEnd,module.lecDay2,modules.get(i).tutDay)) {
+
+                        return i;
+
+                    } else if (module.labSlot != null) {
+                        if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
+                                modules.get(i).labBegin, modules.get(i).labEnd,module.lecDay2,modules.get(i).labDay)) {
+                            return i;
+                        }
+                    }
+                }
             }
+
         }
         return -1;
     }
@@ -306,6 +354,8 @@ public class TimeTable {
                 todayList.add(module.tutText());
             } else if (module.labDay == weekDay) {
                 todayList.add(module.labText());
+            } else if (module.lecDay2 == weekDay) {
+                todayList.add(module.lecText2());
             }
         }
         for (Task task : taskList.getTaskList()) {
@@ -351,9 +401,9 @@ public class TimeTable {
 
     public static boolean checkDateTimeConflict(LocalDateTime beginA, LocalDateTime endA,
                                                 LocalDateTime beginB, LocalDateTime endB) {
-        if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
+        if (beginA.isAfter(beginB) && beginA.isBefore(endB)) {
             return true;
-        } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
+        } else if (beginB.isAfter(beginA) && beginB.isBefore(endA)) {
             return true;
         } else if (beginA.isEqual(beginB)) {
             return true;
@@ -363,9 +413,9 @@ public class TimeTable {
     }
 
     public static boolean checkTimeConflict(LocalTime beginA, LocalTime endA, LocalTime beginB, LocalTime endB) {
-        if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
+        if (beginA.isAfter(beginB) && beginA.isBefore(endB)) {
             return true;
-        } else if (beginB.isAfter(beginA) || beginB.isBefore(endA)) {
+        } else if (beginB.isAfter(beginA) && beginB.isBefore(endA)) {
             return true;
         } else if (beginA.equals(beginB)) {
             return true;
@@ -391,6 +441,13 @@ public class TimeTable {
                 if (weekday == module.labDay) {
                     if (checkTimeConflict(insertEvent.beginTime.toLocalTime(),
                             insertEvent.endTime.toLocalTime(), module.labBegin, module.labEnd)) {
+                        return true;
+                    }
+                }
+            } else if (module.lecSlot2 != null) {
+                if (weekday == module.lecDay2) {
+                    if (checkTimeConflict(insertEvent.beginTime.toLocalTime(),
+                            insertEvent.endTime.toLocalTime(), module.lecBegin2, module.lecEnd2)) {
                         return true;
                     }
                 }

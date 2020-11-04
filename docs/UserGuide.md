@@ -1,5 +1,5 @@
 # User Guide
-CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
+CEGMods is a desktop application to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
 ## Content page
 ### [1. Quick Start](#1-quick-start-1)
 ### [2. Features](#2-features-1)
