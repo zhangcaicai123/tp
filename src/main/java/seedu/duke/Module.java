@@ -64,24 +64,23 @@ public class Module {
             this.tutBegin = beginTime(this.tutTime);
             this.tutEnd = endTime(this.tutTime);
             this.tutDuration = setInterval(this.tutBegin, this.tutEnd);
-            if (!TimeTable.checkTimeDayConflict(lecBegin,lecEnd,tutBegin,tutEnd,this.lecDay,this.tutDay)
-                    && !TimeTable.checkTimeDayConflict(lecBegin2,lecEnd2,tutBegin,tutEnd,
+            if (TimeTable.checkTimeDayConflict(lecBegin,lecEnd,tutBegin,tutEnd,this.lecDay,this.tutDay)
+                    || TimeTable.checkTimeDayConflict(lecBegin2,lecEnd2,tutBegin,tutEnd,
                     this.lecDay2,this.tutDay)) {
-                if (this.labSlot != null) {
-                    String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
-                    this.labDay = weekOfDay(labDay);
-                    this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();
-                    this.labBegin = beginTime(this.labTime);
-                    this.labEnd = endTime(this.labTime);
-                    this.labDuration = setInterval(this.labBegin, this.labEnd);
-                    if (TimeTable.checkTimeDayConflict(lecBegin,lecEnd,labBegin,labEnd,this.lecDay,this.labDay)
-                            || TimeTable.checkTimeDayConflict(labBegin,labEnd,tutBegin,tutEnd,
-                            this.labDay,this.tutDay)) {
-                        isSetSlotSuccess = false;
-                    }
-                }
-            } else {
                 isSetSlotSuccess = false;
+            }
+            if (this.labSlot != null) {
+                String labDay = this.labSlot.substring(0, this.labSlot.indexOf(" "));
+                this.labDay = weekOfDay(labDay);
+                this.labTime = this.labSlot.substring(this.labSlot.indexOf(" ")).trim();
+                this.labBegin = beginTime(this.labTime);
+                this.labEnd = endTime(this.labTime);
+                this.labDuration = setInterval(this.labBegin, this.labEnd);
+                if (TimeTable.checkTimeDayConflict(lecBegin,lecEnd,labBegin,labEnd,this.lecDay,this.labDay)
+                        || TimeTable.checkTimeDayConflict(labBegin,labEnd,tutBegin,tutEnd,
+                        this.labDay,this.tutDay)) {
+                    isSetSlotSuccess = false;
+                }
             }
             if (!isSetSlotSuccess) {
                 System.out.println(lineCutOff);
@@ -164,12 +163,12 @@ public class Module {
             if (lecSlot2 != null) {
                 moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot + "|" + labSlot + "|" + lecSlot2;
             } else {
-                moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot + "|" + labSlot + "|";
+                moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot + "|" + labSlot;
             }
         } else if (lecSlot2 != null) {
             moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot + "|" + null + "|" + lecSlot2;
         } else {
-            moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot + "|";
+            moduleToAdd = moduleCode + "|" + lecSlot + "|" + tutSlot;
         }
         return moduleToAdd;
     }
