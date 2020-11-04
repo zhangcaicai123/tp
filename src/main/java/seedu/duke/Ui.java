@@ -36,9 +36,10 @@ public class Ui {
                 + "9. View project task list: mod/<MODULE_CODE> project task list\n"
                 + "10. View project progress: mod/<MODULE_CODE> progress\n"
                 + "11. View task list: task list\n"
-                + "12. Delete task: delete <TASK_INDEX>\n"
-                + "13. Mark task as done: done <TASK_INDEX>\n"
-                + "14. Exit CEGMods: exit"
+                + "12. Mark a task as done: done task/<TASK_INDEX>\n"
+                + "13. Delete task: delete <TASK_INDEX>\n"
+                + "14. Mark task as done: done <TASK_INDEX>\n"
+                + "15. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
     }
