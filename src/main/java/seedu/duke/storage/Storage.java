@@ -274,7 +274,11 @@ public class Storage {
             module.moduleCode = texts[0];
             module.lecSlot = texts[1];
             module.tutSlot = texts[2];
-            module.labSlot = texts[3];
+            if (texts[3] != null) {
+                module.labSlot = texts[3];
+            } else {
+                module.labSlot = null;
+            }
             module.lecSlot2 = texts[4];
         }
         module.setSlot();
