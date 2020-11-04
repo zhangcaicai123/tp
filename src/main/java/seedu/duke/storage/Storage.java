@@ -270,6 +270,12 @@ public class Storage {
             module.lecSlot = texts[1];
             module.tutSlot = texts[2];
             module.labSlot = texts[3];
+        } else if (texts.length == 5) {
+            module.moduleCode = texts[0];
+            module.lecSlot = texts[1];
+            module.tutSlot = texts[2];
+            module.labSlot = texts[3];
+            module.lecSlot2 = texts[4];
         }
         module.setSlot();
         return module;
