@@ -114,27 +114,28 @@ public class Module {
     }
 
     public int weekOfDay(String day) {
+        day = day.toLowerCase();
         int dayValue = 0;
         switch (day) {
-        case "Sun":
+        case "sun":
             dayValue = 7;
             break;
-        case "Mon":
+        case "mon":
             dayValue = 1;
             break;
-        case "Tue":
+        case "tue":
             dayValue = 2;
             break;
-        case "Wed":
+        case "wed":
             dayValue = 3;
             break;
-        case "Thur":
+        case "thur":
             dayValue = 4;
             break;
-        case "Fri":
+        case "fri":
             dayValue = 5;
             break;
-        case "Sat":
+        case "sat":
             dayValue = 6;
             break;
         default:

@@ -70,7 +70,7 @@ public class TimeTable {
                     System.out.println("Does this module have another lecture slot?[Y/N]");
                     String isHaveAnotherLec = in.nextLine();
                     if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
-                        System.out.print("Another lab slot: ");
+                        System.out.print("Another lecture slot: ");
                         module.lecSlot2 = in.nextLine();
                     }
                     System.out.print("Tutorial slot: ");
