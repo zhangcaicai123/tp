@@ -92,7 +92,7 @@ public class TimeTable {
                 System.out.println(lineCutOff);
                 isModuleExist = false;
             }
-            if(isModuleExist) {
+            if (isModuleExist) {
                 module.setSlot();
                 if (module.isSetSlotSuccess) {
                     int moduleIndex = checkInsertion(module);
@@ -106,8 +106,8 @@ public class TimeTable {
                         System.out.println("Noted! I have added this module.");
                         System.out.println("Is there any task you want to add for this module? Y/N");
                         String isHaveTask = in.nextLine();
-                        while (!isHaveTask.equalsIgnoreCase("Y") &&
-                                !isHaveTask.equalsIgnoreCase("N")) {
+                        while (!isHaveTask.equalsIgnoreCase("Y")
+                                && !isHaveTask.equalsIgnoreCase("N")) {
                             System.out.println("Is there any task you want to add for this module? Y/N");
                             isHaveTask = in.nextLine();
                         }
