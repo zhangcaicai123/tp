@@ -54,7 +54,7 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-    public static void printAddTaskInformation () {
+    public static void printAddTaskInformation() {
         Scanner in = new Scanner(System.in);
         System.out.println("Is there any task you want to add for this module? Y/N");
         String isHaveTask = in.nextLine();
@@ -82,7 +82,7 @@ public class TimeTable {
         }
     }
 
-    public static void addModuleToStorage (Module module) throws IOException {
+    public static void addModuleToStorage(Module module) throws IOException {
         String moduleToAdd;
         moduleToAdd = module.toString();
         Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
