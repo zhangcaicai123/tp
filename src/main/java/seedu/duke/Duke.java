@@ -19,6 +19,9 @@ public class Duke {
     TimeTable modules;
     Parser parser = new Parser();
 
+    /**
+     * Runs java file.
+     */
     void run() {
 
         try {
@@ -39,6 +42,12 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Runs main.
+     *
+     * @param args User input.
+     */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
         new Duke().run();

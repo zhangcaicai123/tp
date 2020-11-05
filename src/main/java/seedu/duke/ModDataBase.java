@@ -12,6 +12,11 @@ public class ModDataBase {
 
     public static HashMap<String, Module> modules = new HashMap<>();
 
+    /**
+     * Convert module from Json object to local module object.
+     *
+     * @param module JSON object module.
+     */
     public static void parseModule(JSONObject module) {
 
         Module mod = new Module();
@@ -23,6 +28,12 @@ public class ModDataBase {
 
     }
 
+    /**
+     * Read module from storage and retrieve information from JSON.
+     *
+     * @throws IOException If unable to read data from storage.
+     * @throws ParseException If unable to parse data from storage.
+     */
     public static void getModFromFile() throws IOException, ParseException {
 
         JSONParser parser = new JSONParser();

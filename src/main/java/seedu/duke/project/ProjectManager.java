@@ -9,6 +9,11 @@ public class ProjectManager {
     static String lineCutOff = "_______________________________________________________";
     private static final ArrayList<ProjectTask> projectTasks = new ArrayList<>();
 
+    /**
+     * Adds project task to project tasks arraylist
+     *
+     * @param command User input.
+     */
     public static ProjectTask addProjectTask(String command) {
 
         String modName;
@@ -41,6 +46,11 @@ public class ProjectManager {
         return projectTask;
     }
 
+    /**
+     * Converts task to string for printing.
+     *
+     * @param command User input.
+     */
     public static void printProjectTaskList(String command) {
         String modName;
         modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
@@ -54,6 +64,11 @@ public class ProjectManager {
         }
     }
 
+    /**
+     * Prints progress of project.
+     *
+     * @param command User input.
+     */
     public static void printProgress(String command) {
         String modName;
         int numDone = 0;

@@ -13,6 +13,13 @@ public class Parser {
 
     static boolean isExit = false;
 
+    /**
+     * Runs parsing on user commands.
+     *
+     * @param userCommand User Command.
+     * @param taskList  Task List.
+     * @param storage Storage.
+     */
     public void parse(String userCommand, TaskList taskList, Storage storage) {
 
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");

@@ -25,10 +25,20 @@ public class TimeTable {
     public TimeTable() {
     }
 
+    /**
+     * Constructs Timetable class object.
+     *
+     * @param loadedList  Loaded timetable arraylist.
+     */
     public TimeTable(ArrayList<Module> loadedList) {
         this.modules = loadedList;
     }
 
+    /**
+     * Prints module's code, lecture, tutorial and lab (if applicable) details.
+     *
+     * @param module  Module selected.
+     */
     public static void printModule(Module module) {
         System.out.println("Module: " + module.moduleCode);
         System.out.println("Lecture Slot: " + module.lecSlot);
@@ -37,6 +47,12 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
+    /**
+     * Creates and adds module to data file.
+     *
+     * @param command Command of user input.
+     * @throws IOException If there is no matching module.
+     */
     public static void addModule(String command) throws IOException {
         String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
         boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
@@ -89,6 +105,13 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Returns the index of the module added.
+     * Returns -1 if there is a conflict in the module with another module in timetable.
+     *
+     * @param module Newly added module.
+     * @return i index of module, unless there is a conflict, then -1.
+     */
     public static int checkInsertion(Module module) {
         int i;
         if (modules.size() > 1) {
@@ -153,6 +176,13 @@ public class TimeTable {
         return -1;
     }
 
+    /**
+     * Adds the chosen module should there be a conflict.
+     *
+     * @param module Module.
+     * @param moduleIndex Index of module.
+     * @throws IOException If invalid input.
+     */
     public static void checkModule(Module module, int moduleIndex) throws IOException {
         System.out.println("OOPS!!! There is a time conflict.");
         System.out.println(lineCutOff);
@@ -169,6 +199,12 @@ public class TimeTable {
         System.out.println("Got it! I have add " + userCommand + " to timetable.");
     }
 
+    /**
+     * Deletes a module.
+     * Prints statement of error if there is invalid module input.
+     *
+     * @param line User input.
+     */
     public static void deleteModule(String line) {
         try {
             String modCode = line.substring(line.indexOf('/') + 1).toUpperCase();
@@ -194,6 +230,12 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Fetches timetable.
+     *
+     * @param taskList Task list.
+     * @throws ParseException If unable to parse taskList content.
+     */
     public static void printTodayTimetable(TaskList taskList) throws ParseException {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         int todayMonth = (calendar.get(Calendar.MONTH) + 1);
@@ -202,6 +244,14 @@ public class TimeTable {
         printDailyTimetable(todayMonth, todayDay, todayYear, taskList);
     }
 
+    /**
+     * Prints daily timetable.
+     *
+     * @param month  Month.
+     * @param day Day.
+     * @param year Year
+     * @throws ParseException If unable to parse input.
+     */
     public static void printDailyTimetable(int month, int day, int year, TaskList taskList) throws ParseException {
         System.out.println(lineCutOff);
         String date = String.format("%4d-%02d-%02d", year, month, day);
@@ -214,6 +264,11 @@ public class TimeTable {
 
     }
 
+    /**
+     * Fetches today's deadlines.
+     *
+     * @param taskList Task list.
+     */
     public static void printTodayDeadline(TaskList taskList) {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         int todayMonth = (calendar.get(Calendar.MONTH) + 1);
@@ -222,6 +277,13 @@ public class TimeTable {
         printDailyDeadline(todayMonth, todayDay, todayYear, taskList);
     }
 
+    /**
+     * Prints today's deadlines.
+     *
+     * @param day Day.
+     * @param month Month.
+     * @param year Year.
+     */
     public static void printDailyDeadline(int month, int day, int year, TaskList taskList) {
         String date = String.format("%4d-%02d-%02d", year, month, day);
         System.out.println(lineCutOff);
@@ -233,6 +295,11 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Fetches this week's deadlines.
+     *
+     * @param taskList Task list of deadlines.
+     */
     public static void printWeeklyDeadline(TaskList taskList) {
         int week = 7;
         int day = 0;
@@ -247,6 +314,13 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Prints this week's timetable.
+     *
+     * @param taskList Task list.
+     *
+     * @throws ParseException  If unable to parse input.
+     */
     public static void printWeeklyTimetable(TaskList taskList) throws ParseException {
         int week = 7;
         int day = 0;
@@ -261,6 +335,14 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Returns arraylist of today's events.
+     *
+     * @param date Date of event.
+     * @param taskList Task list.
+     * @return todayList Today's events.
+     * @throws ParseException  If unable to parse input.
+     */
     public static ArrayList<String> todayList(String date, TaskList taskList) throws ParseException {
         ArrayList<String> todayList = new ArrayList<>();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -287,6 +369,13 @@ public class TimeTable {
         return todayList;
     }
 
+    /**
+     * Returns arraylist of today's deadlines.
+     *
+     * @param date Date of deadlines.
+     * @param taskList Task list.
+     * @return todayDeadline Today's deadlines.
+     */
     public static ArrayList<String> todayDeadline(String date, TaskList taskList) {
         ArrayList<String> todayDeadline = new ArrayList<>();
         for (Task task : taskList.getTaskList()) {
@@ -300,6 +389,14 @@ public class TimeTable {
         return todayDeadline;
     }
 
+    /**
+     * Returns existing event if there is an conflict.
+     * If there is no conflict, null is returned.
+     *
+     * @param insertEvent New event.
+     * @param taskList Task list of current events.
+     * @return existEvent current event, if existing.
+     */
     public static Event checkEventConflict(Event insertEvent, TaskList taskList) {
         for (Task task : taskList.getTaskList()) {
             if (task instanceof Event) {
@@ -316,6 +413,15 @@ public class TimeTable {
         return null;
     }
 
+    /**
+     * Returns boolean if there is datetime conflict.
+     *
+     * @param beginA Start of event A.
+     * @param beginB Start of event B.
+     * @param endA End of event A.
+     * @param endB End of event B.
+     * @return boolean.
+     */
     public static boolean checkDateTimeConflict(LocalDateTime beginA, LocalDateTime endA,
                                                 LocalDateTime beginB, LocalDateTime endB) {
         if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
@@ -329,6 +435,15 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Returns boolean if there is time conflict.
+     *
+     * @param beginA Start of todo A.
+     * @param beginB Start of todo B.
+     * @param endA End of todo A.
+     * @param endB End of todo B.
+     * @return boolean.
+     */
     public static boolean checkTimeConflict(LocalTime beginA, LocalTime endA, LocalTime beginB, LocalTime endB) {
         if (beginA.isAfter(beginB) || beginA.isBefore(endB)) {
             return true;
@@ -341,6 +456,12 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Returns boolean if there is module with event conflict.
+     *
+     * @param insertEvent newEvent.
+     * @return boolean.
+     */
     public static boolean checkEventModuleConflict(Event insertEvent) {
         int weekday = insertEvent.beginTime.getDayOfWeek().getValue();
         for (Module module : modules) {
@@ -366,6 +487,15 @@ public class TimeTable {
         return false;
     }
 
+    /**
+     * Returns boolean if there is time-day conflict.
+     *
+     * @param beginA Start of event A.
+     * @param beginB Start of event B.
+     * @param endA End of event A.
+     * @param endB End of event B.
+     * @return boolean.
+     */
     public static boolean checkTimeDayConflict(LocalTime beginA, LocalTime endA,
                                                LocalTime beginB, LocalTime endB,
                                                int weekDayA, int weekDayB) {

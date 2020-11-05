@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 public class Command {
 
+
     public static void addModule(String userCommand) throws IOException {
         TimeTable.addModule(userCommand);
     }
