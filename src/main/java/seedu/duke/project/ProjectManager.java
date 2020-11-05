@@ -11,7 +11,7 @@ public class ProjectManager {
     private static final ArrayList<ProjectTask> projectTasks = new ArrayList<>();
 
     /**
-     * Adds project task to project tasks arraylist
+     * Adds project task to project tasks arraylist.
      *
      * @param command User input.
      */

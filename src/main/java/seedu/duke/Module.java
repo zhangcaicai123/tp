@@ -132,10 +132,9 @@ public class Module {
     }
 
     /**
-     * Returns int depending on day value entered.
+     * Returns second lecture time, module code.
      *
-     * @param day Day.
-     * @return dayValue Int value representing day.
+     * @return String of lecture text.
      */
     public String lecText2() {
         return this.lecTime2 + " " + this.moduleCode + " lecture";

@@ -99,6 +99,12 @@ public class TimeTable {
         Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
     }
 
+    /**
+     * Creates and adds module to data file.
+     *
+     * @param command Command of user input.
+     * @throws IOException If there is no matching module.
+     */      
     public static void addModule(String command) throws IOException {
         String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
         boolean isModuleAdded = isModuleAdded(moduleCode);
