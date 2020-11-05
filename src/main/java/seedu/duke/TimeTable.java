@@ -47,41 +47,7 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-
-    /**
-     * Creates and adds module to data file.
-     *
-     * @param command Command of user input.
-     * @throws IOException If there is no matching module.
-     */
-    public static void addModule(String command) throws IOException {
-        String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
-        boolean isModuleExit = ModDataBase.modules.containsKey(moduleCode);
-        Scanner in = new Scanner(System.in);
-        Module module = new Module();
-        try {
-            if (isModuleExit) {
-                System.out.println(lineCutOff);
-                System.out.println("Module code: " + ModDataBase.modules.get(moduleCode).moduleCode);
-                System.out.println("Title: " + ModDataBase.modules.get(moduleCode).title);
-                System.out.println("Description: " + ModDataBase.modules.get(moduleCode).description);
-                System.out.println(lineCutOff);
-                module = ModDataBase.modules.get(moduleCode);
-                System.out.println("Please enter your time slots for lectures, tutorials, and labs for this module.");
-                System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
-                System.out.println("If the time slot does not exit, please enter null.");
-                System.out.print("Lecture slot: ");
-                module.lecSlot = in.nextLine();
-                System.out.print("Tutorial slot: ");
-                module.tutSlot = in.nextLine();
-                System.out.println("Does this modules have lab?[Y/N]");
-                String isHaveLab = in.nextLine();
-                if (isHaveLab.equalsIgnoreCase("Y")) {
-                    System.out.print("Lab slot: ");
-                    module.labSlot = in.nextLine();
-                }
-            } else {
-              
+    
     public static boolean isModuleAdded(String moduleCode) {
         for (int i = 0;i < modules.size(); i++) {
             if (modules.get(i).moduleCode.equals(moduleCode)) {
