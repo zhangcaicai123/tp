@@ -36,9 +36,15 @@ public class Module {
     Duration lecDuration2;
     boolean isSetSlotSuccess = true;
 
-    public Module() {
+    /**
+     * Creates Module class object.
+     */
+    public Module(){
     }
 
+    /**
+     * Adds lecture, tutorial and lab slot timings to module.
+     */
     public void setSlot() {
         try {
             String lecDay = this.lecSlot.substring(0, this.lecSlot.indexOf(" "));
@@ -98,18 +104,38 @@ public class Module {
         }
     }
 
+    /**
+     * Returns lecture time, module code.
+     *
+     * @return String of lecture text.
+     */
     public String lecText() {
         return this.lecTime + " " + this.moduleCode + " lecture";
     }
 
+    /**
+     * Returns tutorial time, module code.
+     *
+     * @return String of tutorial text.
+     */
     public String tutText() {
         return this.tutTime + " " + this.moduleCode + " tutorial";
     }
 
+    /**
+     * Returns lab time, module code.
+     *
+     * @return String of lab text.
+     */
     public String labText() {
         return this.labTime + " " + this.moduleCode + " lab";
     }
 
+    /**
+     * Returns second lecture time, module code.
+     *
+     * @return String of lecture text.
+     */
     public String lecText2() {
         return this.lecTime2 + " " + this.moduleCode + " lecture";
     }
@@ -147,18 +173,42 @@ public class Module {
 
     }
 
+    /**
+     * Returns begin time after parsing.
+     *
+     * @param timeInterval Time interval entered by user.
+     * @return LocalTime beginTime.
+     */
     public LocalTime beginTime(String timeInterval) {
         return LocalTime.parse(timeInterval.substring(0, timeInterval.indexOf("-")).trim());
     }
 
+    /**
+     * Returns end time after parsing.
+     *
+     * @param timeInterval Time interval entered by user.
+     * @return LocalTime endTime.
+     */
     public LocalTime endTime(String timeInterval) {
         return LocalTime.parse(timeInterval.substring(timeInterval.indexOf("-") + 1).trim());
     }
 
+    /**
+     * Returns interval duration after parsing.
+     *
+     * @param begin Interval begin time.
+     * @param end Interval end time.
+     * @return Duration of interval.
+     */
     public Duration setInterval(LocalTime begin, LocalTime end) {
         return Duration.between(begin, end);
     }
 
+    /**
+     * Converts module details to string for data saving.
+     *
+     * @return moduleToAdd.
+     */
     public String toString() {
         String moduleToAdd;
         if (labSlot != null) {

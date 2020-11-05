@@ -5,15 +5,17 @@ import seedu.duke.task.Task;
 public class Ui {
     static String lineCutOff = "_______________________________________________________";
 
+    /**
+     * Prints the logo of CEGMods and prompts for command 'help'.
+     */
     public static void printWelcomeMessage() {
         String logo =
-                  "#######  #######  #######  ###     ###               # \n"
-                + "#        #        #     #  #  #   #  #               # \n"
-                + "#        #        #        #   # #   #               # \n"
-                + "#        #######  # #####  #   # #   #  ######  ######  #####\n"
-                + "#        #        #     #  #   # #   #  #    #  #    #  ##   \n"
-                + "#        #        #     #  #   # #   #  #    #  #    #    ## \n"
-                + "#######  #######  #######  #   ###   #  ######  ######  #####";
+            " ██████╗███████╗ ██████╗ ███╗   ███╗ ██████╗ ██████╗ ███████╗\n" 
+            + "██╔════╝██╔════╝██╔════╝ ████╗ ████║██╔═══██╗██╔══██╗██╔════╝\n" 
+            + "██║     █████╗  ██║  ███╗██╔████╔██║██║   ██║██║  ██║███████╗\n" 
+            + "██║     ██╔══╝  ██║   ██║██║╚██╔╝██║██║   ██║██║  ██║╚════██║\n" 
+            + "╚██████╗███████╗╚██████╔╝██║ ╚═╝ ██║╚██████╔╝██████╔╝███████║\n" 
+            + " ╚═════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝\n";
 
 
         System.out.println(lineCutOff);
@@ -23,6 +25,9 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
+    /**
+     * Prints content of help message.
+     */
     public static void printHelpMessage() {
         System.out.println(lineCutOff);
         System.out.println("1. Add a module: add mod/<MODULE_CODE>\n"
@@ -44,12 +49,21 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
+    /**
+     * Prints content of bye message.
+     */
     public static void printByeMessage() {
         System.out.println(lineCutOff);
         System.out.println("Bye! Have a nice day with CEG!");
         System.out.println(lineCutOff);
     }
 
+    /**
+     * Prints error message if delete index is out of bound.
+     * If it is not a delete exception, prints standard error message.
+     *
+     * @param command  Command input by user.
+     */
     public static void dealWithException(String command) {
         if (command.contains("delete")) {
             System.out.println(" OOPS!!! The delete index is out of bound.");
@@ -59,10 +73,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints statement that there is file loading error.
+     */
     public void showLoadingError() {
         System.out.printf("\tThere are some errors when loading file.%n");
     }
 
+    /**
+     * Print affirmative statement of task being marked done.
+     *
+     * @param task Task that is marked done.
+     */
     public static void printMarkMessage(Task task) {
         System.out.println(lineCutOff);
         System.out.printf(" \tNice! I've marked this task as done:%n");
