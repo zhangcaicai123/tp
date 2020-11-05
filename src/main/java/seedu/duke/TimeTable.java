@@ -267,9 +267,9 @@ public class TimeTable {
         System.out.println("Got it! I have add " + userCommand + " to timetable.");
     }
 
-    public static void deleteModule(String line) {
+    public static void deleteModule(String command) {
         try {
-            String modCode = line.substring(line.indexOf('/') + 1).toUpperCase();
+            String modCode = command.substring(command.indexOf('/') + 1).toUpperCase();
             if (modules.size() == 0) {
                 throw new NoSuchElementException();
             } else {

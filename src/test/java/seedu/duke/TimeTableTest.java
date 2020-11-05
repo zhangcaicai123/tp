@@ -36,4 +36,17 @@ public class TimeTableTest {
                     + "_______________________________________________________", e.getMessage());
         }
     }
+
+    @Test
+    void deleteModule() {
+        TimeTable table = new TimeTable();
+        String command = "delete mod/CS2113";
+        try {
+            table.deleteModule(command);
+        } catch (NoSuchElementException e) {
+            assertEquals("_______________________________________________________\n"
+                    + "OOPS!!! There is no such module.\n"
+                    + "_______________________________________________________", e.getMessage());
+        }
+    }
 }
