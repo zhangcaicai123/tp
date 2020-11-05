@@ -5,12 +5,6 @@ public class ExceptionMessage extends Exception {
         System.out.println("    ____________________________________________________________");
     }
 
-    /*public static void printIllegalCommandExceptionMessage() {
-        printLine();
-        System.out.printf("\t  OOPS!!! I'm sorry, but I don't know what that means :-(%n");
-        printLine();
-    }
-*/
     public static void printEmptyDescriptionExceptionMessage(String option) {
         printLine();
         System.out.printf("\t  OOPS!!! The description of a %s cannot be empty.%n", option);
