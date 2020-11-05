@@ -1,12 +1,12 @@
 # User Guide
-CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
+CEGMods is a desktop application to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
 ## Content page
 ### [1. Quick Start](#1-quick-start-1)
 ### [2. Features](#2-features-1)
 #### [2.1 Adding a Module: `add mod`](#21-adding-a-module-add-mod-1)
 #### [2.2 Deleting a Module: `delete mod`](#22-deleting-a-module-delete-mod-1)
 #### [2.3 Viewing Timetable: `timetable`](#23-viewing-timetable-timetable-1)
-#### [2.4 Viewing To-Do List: `task list`](#24-viewing-to-do-list-task-list-1)
+#### [2.4 Viewing Task List: `task list`](#24-viewing-to-do-list-task-list-1)
 #### [2.5 Adding a Task:](#25-adding-a-task-1)
 ##### [2.5.1 Adding a Todo Task: `todo`](#251-adding-a-todo-task-todo-1) 
 ##### [2.5.2 Adding a Deadline Task: `deadline`](#252-adding-a-deadline-deadline)
@@ -155,7 +155,7 @@ _______________________________________________________
 
 ```
 
-### 2.4 Viewing To-Do List: `task list`
+### 2.4 Viewing Task List: `task list`
 This will view the to-do list.
 
 Format: `task list`

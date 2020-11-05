@@ -1,5 +1,6 @@
 package seedu.duke.project;
 
+import seedu.duke.TimeTable;
 import seedu.duke.task.ProjectTask;
 
 import java.util.ArrayList;
@@ -28,22 +29,38 @@ public class ProjectManager {
         String by;
         by = command.substring(command.indexOf("by/")).substring(3).trim();
 
-        System.out.println(lineCutOff);
-        System.out.println("Is there any material you need for this project task?");
-        System.out.println("Enter your materials or NA");
+        boolean isModuleAdded = TimeTable.isModuleAdded(modName);
+        boolean isAddModule = false;
         Scanner in = new Scanner(System.in);
+        if (!isModuleAdded) {
+            System.out.println("Are you sure you want to add this project subtask?\n"
+                    + "It seems that you did not add this module. Y/N");
+            String isAdd = in.nextLine();
+            if (isAdd.equalsIgnoreCase("Y")) {
+                isAddModule = true;
+            }
+        } else {
+            isAddModule = true;
+        }
+        if (isAddModule) {
+            System.out.println(lineCutOff);
+            System.out.println("Is there any material you need for this project task?");
+            System.out.println("Enter your materials or NA");
 
-        String material = in.nextLine();
-        ProjectTask projectTask = new ProjectTask(modName, description, by, material);
 
-        System.out.println("Module: " + projectTask.getModName());
-        System.out.println("ProjectTask: " + projectTask.getDescription());
-        System.out.println("By: " + projectTask.getBy());
-        System.out.println("Materials: " + projectTask.getMaterial());
-        System.out.println(lineCutOff);
+            String material = in.nextLine();
+            ProjectTask projectTask = new ProjectTask(modName, description, by, material);
 
-        projectTasks.add(projectTask);
-        return projectTask;
+            System.out.println("Module: " + projectTask.getModName());
+            System.out.println("ProjectTask: " + projectTask.getDescription());
+            System.out.println("By: " + projectTask.getBy());
+            System.out.println("Materials: " + projectTask.getMaterial());
+            System.out.println(lineCutOff);
+
+            projectTasks.add(projectTask);
+            return projectTask;
+        }
+        return null;
     }
 
     /**

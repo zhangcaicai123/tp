@@ -9,16 +9,19 @@ public class Ui {
      * Prints the logo of CEGMods and prompts for command 'help'.
      */
     public static void printWelcomeMessage() {
-        System.out.println(lineCutOff);
-        System.out.println("Hello, this is \n " +
-                " ██████╗███████╗ ██████╗ ███╗   ███╗ ██████╗ ██████╗ ███████╗\n" +
+        String logo =
+                  " ██████╗███████╗ ██████╗ ███╗   ███╗ ██████╗ ██████╗ ███████╗\n" +
                 "██╔════╝██╔════╝██╔════╝ ████╗ ████║██╔═══██╗██╔══██╗██╔════╝\n" +
                 "██║     █████╗  ██║  ███╗██╔████╔██║██║   ██║██║  ██║███████╗\n" +
                 "██║     ██╔══╝  ██║   ██║██║╚██╔╝██║██║   ██║██║  ██║╚════██║\n" +
                 "╚██████╗███████╗╚██████╔╝██║ ╚═╝ ██║╚██████╔╝██████╔╝███████║\n" +
-                " ╚═════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝\n" +
-                "What can I do for you?\n" +
-                "Enter 'help' to get more information.");
+                " ╚═════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝\n" ";
+
+
+        System.out.println(lineCutOff);
+        System.out.println(logo);
+        System.out.println("Hello, this is CEGMods! What can I do for you?\n"
+                + "Enter 'help' to get more information.");
         System.out.println(lineCutOff);
     }
 
@@ -38,9 +41,10 @@ public class Ui {
                 + "9. View project task list: mod/<MODULE_CODE> project task list\n"
                 + "10. View project progress: mod/<MODULE_CODE> progress\n"
                 + "11. View task list: task list\n"
-                + "12. Delete task: delete <TASK_INDEX>\n"
-                + "13. Mark task as done: done <TASK_INDEX>\n"
-                + "14. Exit CEGMods: exit"
+                + "12. Mark a task as done: done task/<TASK_INDEX>\n"
+                + "13. Delete task: delete <TASK_INDEX>\n"
+                + "14. Mark task as done: done <TASK_INDEX>\n"
+                + "15. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
     }

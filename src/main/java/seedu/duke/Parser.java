@@ -30,7 +30,7 @@ public class Parser {
         boolean isAddProjectTaskCommand =
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isDeleteModule = userCommand.contains("delete mod/");
-        boolean isDeleteTask = userCommand.contains("delete");
+        boolean isDeleteTask = Pattern.matches("^delete task/\\d",userCommand);
         boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
@@ -38,7 +38,7 @@ public class Parser {
         boolean isPrintTodayDeadline = userCommand.equals("today deadline");
         boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
         boolean isPrintTaskList = userCommand.equals("task list");
-        boolean isMarkAsDone = Pattern.matches("^done.*", userCommand);
+        boolean isMarkAsDone = Pattern.matches("^done task/\\d", userCommand);
         boolean isFind = Pattern.matches("^find.*", userCommand);
 
         try {
@@ -130,7 +130,7 @@ public class Parser {
                 throw new DukeException();
 
             }
-        } catch (DukeException | ParseException | IOException e) {
+        } catch (DukeException | ParseException | IOException | org.json.simple.parser.ParseException e) {
 
             Ui.dealWithException(userCommand);
 
