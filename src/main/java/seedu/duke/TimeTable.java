@@ -99,7 +99,7 @@ public class TimeTable {
         Storage.appendToFileModule(moduleToAdd + System.lineSeparator());
     }
 
-     /**
+    /**
      * Creates and adds module to data file.
      *
      * @param command Command of user input.
