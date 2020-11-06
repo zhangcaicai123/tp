@@ -3,7 +3,6 @@ package seedu.duke.command;
 import seedu.duke.TimeTable;
 import seedu.duke.Ui;
 import seedu.duke.exception.EmptyDescriptionException;
-import seedu.duke.exception.EmptyIndexException;
 import seedu.duke.exception.ExceptionMessage;
 import seedu.duke.exception.EmptyTimeException;
 import seedu.duke.exception.EmptyFindException;
@@ -19,9 +18,6 @@ import seedu.duke.tasklist.TaskList;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
-import java.lang.NullPointerException;
-import java.lang.NumberFormatException;
-import java.nio.channels.IllegalChannelGroupException;
 import java.text.ParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
