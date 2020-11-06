@@ -38,7 +38,7 @@ public class Ui {
                 + " while user input are colored " + ANSI_BLUE + "blue.\n" + ANSI_RESET
                 + "Please enter using the format as stated strictly!\n"
                 + "1. Add a module:" + ANSI_GREEN + " add mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
-                + "2. Delete a module: "+ ANSI_GREEN + "delete mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
+                + "2. Delete a module: " + ANSI_GREEN + "delete mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
                 + "3. Add a task to do: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
                 + "4. Add a deadline: " + ANSI_GREEN + "deadline" + ANSI_BLUE + " <DESCRIPTION>" + ANSI_GREEN + "/by"
                 + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
@@ -50,7 +50,7 @@ public class Ui {
                 + ANSI_GREEN + "ptask/" + ANSI_BLUE + "<DESCRIPTION> " + ANSI_GREEN + "by/" + ANSI_BLUE
                 + "<DEADLINE>" + " \n" + ANSI_RESET
                 + "9. View project task list: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
-                + ANSI_GREEN +" project " + "task list\n" + ANSI_RESET
+                + ANSI_GREEN + " project " + "task list\n" + ANSI_RESET
                 + "10. View project progress: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
                 + ANSI_GREEN + " progress\n" + ANSI_RESET
                 + "11. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
