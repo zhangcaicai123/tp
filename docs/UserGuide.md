@@ -325,15 +325,15 @@ _______________________________________________________
 ## 3. FAQ
 
 ## 4. Command Summary
-Feature | Command 
---------|-----------------
-Adding a Module| `add mod/<MODULE_CODE>` 
-Deleting a Module| `delete m/<MODULE_CODE>` 
-Viewing Timetable| `today timetable`, `weekly timetable` 
-Viewing To-Do List| `task list` 
-Adding a Todo Task| `todo <DESCRIPTION>` 
-Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`
-Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`
-Marking a Task as Done| `done <TASK_INDEX>`
-Exiting the Program| `exit`
-Viewing Help| `help`
+|Feature | Command |
+|--------|----------------- |
+|Adding a Module| `add mod/<MODULE_CODE>`|
+|Deleting a Module| `delete m/<MODULE_CODE>`|
+|Viewing Timetable| `today timetable`, `weekly timetable`|
+|Viewing To-Do List| `task list`|
+|Adding a Todo Task| `todo <DESCRIPTION>`| 
+|Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`|
+|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`|
+|Marking a Task as Done| `done <TASK_INDEX>`|
+|Exiting the Program| `exit`|
+|Viewing Help| `help`|
