@@ -5,6 +5,7 @@ import seedu.duke.exception.DukeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.tasklist.TaskList;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Duke {
@@ -36,8 +37,12 @@ public class Duke {
             System.out.println("Please check your Internet Connection.");
         }
         while (!Parser.isExit) {
-            userCommand = in.nextLine();
-            parser.parse(userCommand, tasks, storage);
+            try {
+                userCommand = in.nextLine();
+                parser.parse(userCommand, tasks, storage);
+            } catch ( NoSuchElementException e){
+            }
+
         }
     }
 
