@@ -78,12 +78,8 @@ public class Ui {
      * @param command  Command input by user.
      */
     public static void dealWithException(String command) {
-        if (command.contains("delete")) {
-            System.out.println(" OOPS!!! The delete index is out of bound.");
-        } else {
-            System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. "
-                    + "Please follow the input format correctly."));
-        }
+        System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. "
+                + "Please follow the input format correctly."));
     }
 
     /**

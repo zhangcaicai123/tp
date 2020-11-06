@@ -17,12 +17,6 @@ public class ExceptionMessage extends Exception {
         printLine();
     }
 
-    public static void printEmptyIndexExceptionMessage() {
-        printLine();
-        System.out.printf("\t  OOPS!!! You did not type the index of the task.%n");
-        printLine();
-    }
-
     public static void printEmptyKeywordMessage() {
         printLine();
         System.out.printf("\t  OOPS!!! You did not type the keyword.%n");
