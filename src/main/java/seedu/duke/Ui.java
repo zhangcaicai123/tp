@@ -95,10 +95,10 @@ public class Ui {
      * @param task Task that is marked done.
      */
     public static void printMarkMessage(Task task) {
-        System.out.println(lineCutOff);
+        System.out.println(" \t" + lineCutOff);
         System.out.printf(" \tNice! I've marked this task as done:%n");
         System.out.println("\t  " + task);
-        System.out.println(lineCutOff);
+        System.out.println(" \t" + lineCutOff);
     }
 
 }

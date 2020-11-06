@@ -49,8 +49,9 @@ public class TaskList {
      * @param taskIndex the index of task which needs to be deleted
      */
     public void deleteTask(int taskIndex) {
+        Task task = taskList.get(taskIndex);
         taskList.remove(taskIndex);
-        printDeleteMessage(taskIndex);
+        printDeleteMessage(task);
     }
 
     /**
@@ -122,12 +123,12 @@ public class TaskList {
     /**
      * Print the message of deleting a task.
      *
-     * @param index the index of task that needs to be deleted
+     * @param task the task that needs to be deleted
      */
-    public void printDeleteMessage(int index) {
+    public void printDeleteMessage(Task task) {
         showLine();
         System.out.printf("\tNoted. I've removed this task:%n");
-        System.out.printf("\t   %s%n", this.taskList.get(index));
+        System.out.printf("\t   %s%n", task);
     }
 
 
