@@ -43,9 +43,8 @@ public class Ui {
                 + "10. View project progress: mod/<MODULE_CODE> progress\n"
                 + "11. View task list: task list\n"
                 + "12. Mark a task as done: done task/<TASK_INDEX>\n"
-                + "13. Delete task: delete <TASK_INDEX>\n"
-                + "14. Mark task as done: done <TASK_INDEX>\n"
-                + "15. Exit CEGMods: exit"
+                + "13. Delete task: delete task/<TASK_INDEX>\n"
+                + "14. Exit CEGMods: exit"
         );
         System.out.println(lineCutOff);
     }
@@ -66,12 +65,8 @@ public class Ui {
      * @param command  Command input by user.
      */
     public static void dealWithException(String command) {
-        if (command.contains("delete")) {
-            System.out.println(" OOPS!!! The delete index is out of bound.");
-        } else {
-            System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. "
-                    + "Please follow the input format correctly."));
-        }
+        System.out.println((" OOPS!!! I'm sorry, but I don't know what that means. "
+                + "Please follow the input format correctly."));
     }
 
     /**
