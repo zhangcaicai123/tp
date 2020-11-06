@@ -27,10 +27,9 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 3. Copy the file to the folder you want to use as the home folder for your CEGmods
 4. Open a command window. Run the java -version command to ensure you are using Java 11. 
 5. Launch the jar file using the java -jar command (do not use double-clicking).
-
 6. Type `help` in the command box as prompted and press Enter to execute it. You will see the  commands available.
-
 6. Refer to the Features below for details of each command.
+
 ## 2. Features
 ### 2.1 Adding a Module: `add mod`
 You can add a module to the module list and timetable by typing in the module code and its time slots of lectures and tutorials (the time slot of lab is optional).
