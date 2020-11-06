@@ -334,7 +334,7 @@ public class Command {
      * @return index the index of task that user wants to delete or mark as done
      * @throws IllegalStateException If user does not input any integer
      */
-    public static int getIndex(String command){
+    public static int getIndex(String command) {
         String pattern = "(done|delete)( task/)(\\d+)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);

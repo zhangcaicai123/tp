@@ -40,7 +40,8 @@ public class Duke {
             try {
                 userCommand = in.nextLine();
                 parser.parse(userCommand, tasks, storage);
-            } catch ( NoSuchElementException e){
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
             }
 
         }
