@@ -62,15 +62,15 @@ public class Command {
      * @param command  user input command
      */
     public static void addToDo(TaskList taskList, Storage storage, String command) {
-        try {
-            Todo taskToAdd = new Todo(getTodo(command));
-            taskList.addTask(taskToAdd);
-            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
-        } catch (NumberFormatException | NullPointerException e) {
-            //ExceptionMessage.printEmptyDescriptionExceptionMessage("todo");
-            System.out.printf("\t  OOPS!!! The description of a todo cannot be empty.%n");
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+        String task = getTodo(command);
+        Todo taskToAdd = new Todo(task);
+        if (task != null) {
+            try {
+                taskList.addTask(taskToAdd);
+                storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 
@@ -213,14 +213,19 @@ public class Command {
      *
      * @param command user input
      * @return the description of user's input todo task
-     * @throws EmptyDescriptionException If description is null
+     * @throws IllegalStateException If description is null
      */
     public static String getTodo(String command) {
         String todoPattern = "^todo (.*)";
         Pattern r = Pattern.compile(todoPattern);
         Matcher m = r.matcher(command);
         m.find();
-        return m.group(1).trim();
+        try {
+            return m.group(1).trim();
+        } catch (IllegalStateException e) {
+            System.out.println("\t  OOPS!!! The description of a todo cannot be empty.\n");
+        }
+        return null;
     }
 
     /**
