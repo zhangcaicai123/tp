@@ -38,7 +38,7 @@ public class TimeTableTest {
     }
 
     @Test
-    void deleteModule() {
+    void deleteModule_noSuchModule_exceptionThrown() {
         TimeTable table = new TimeTable();
         String command = "delete mod/CS2113";
         try {
