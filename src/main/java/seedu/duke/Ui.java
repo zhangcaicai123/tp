@@ -39,7 +39,7 @@ public class Ui {
                 + "Please enter using the format as stated strictly!\n"
                 + "1. Add a module:" + ANSI_GREEN + " add mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
                 + "2. Delete a module: " + ANSI_GREEN + "delete mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
-                + "3. Add a task to do: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
+                + "3. Add a to do task: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
                 + "4. Add a deadline: " + ANSI_GREEN + "deadline" + ANSI_BLUE + " <DESCRIPTION>" + ANSI_GREEN + "/by"
                 + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
                 + "5. Add an event: " + ANSI_GREEN + "event" + ANSI_BLUE + " <DESCRIPTION> "
@@ -55,9 +55,8 @@ public class Ui {
                 + ANSI_GREEN + " progress\n" + ANSI_RESET
                 + "11. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
                 + "12. Mark a task as done: " + ANSI_GREEN + "done task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "13. Delete task: " + ANSI_GREEN + "delete" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "14. Mark task as done: " + ANSI_GREEN + "done" + ANSI_BLUE + " <TASK_INDEX>\n" + ANSI_RESET
-                + "15. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
+                + "13. Delete a task: " + ANSI_GREEN + "delete task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
+                + "14. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
         );
         System.out.println(lineCutOff);
     }
