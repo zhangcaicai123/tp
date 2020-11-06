@@ -31,7 +31,7 @@ public class Parser {
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isDeleteModule = userCommand.contains("delete mod/");
         boolean isDeleteTask = userCommand.contains("delete task/");
-        boolean isMarkAsDone = Pattern.matches("^done task/\\d", userCommand);
+        boolean isMarkAsDone = userCommand.contains("done task/");
         boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
