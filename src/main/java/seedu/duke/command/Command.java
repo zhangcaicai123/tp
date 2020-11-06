@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 import java.lang.NullPointerException;
 import java.lang.NumberFormatException;
+import java.nio.channels.IllegalChannelGroupException;
 import java.text.ParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -168,7 +169,7 @@ public class Command {
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
      * @param command  user input command
-     * @throws EmptyIndexException if no index is input
+     * @throws IllegalStateException if no index is input
      */
     public static void done(TaskList taskList, Storage storage, String command) {
         try {
@@ -181,8 +182,8 @@ public class Command {
             System.out.printf("\t  OOPS!!! You seem to input wrong index of the task.%n");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-        } catch (EmptyIndexException e) {
-            ExceptionMessage.printEmptyIndexExceptionMessage();
+        } catch (IllegalStateException e) {
+            System.out.printf("\t  OOPS!!! You did not type or type wrong index of the task.%n");
         }
     }
 
@@ -192,6 +193,7 @@ public class Command {
      * @param taskList the list of all tasks input
      * @param storage  the file stores all tasks in the list
      * @param command  user input command
+     * @throws IllegalStateException if no index is input
      */
     public static void deleteTask(TaskList taskList, Storage storage, String command) {
         try {
@@ -203,8 +205,8 @@ public class Command {
             System.out.printf("\t  OOPS!!! You seem to input wrong index of the task.%n");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-        } catch (EmptyIndexException e) {
-            ExceptionMessage.printEmptyIndexExceptionMessage();
+        } catch (IllegalStateException e) {
+            System.out.printf("\t  OOPS!!! You did not type or type wrong index of the task.%n");
         }
     }
 
@@ -334,15 +336,15 @@ public class Command {
      *
      * @param command  user input command
      * @return index the index of task that user wants to delete or mark as done
-     * @throws EmptyIndexException If user does not input any integer
+     * @throws IllegalStateException If user does not input any integer
      */
-    public static int getIndex(String command) throws EmptyIndexException {
+    public static int getIndex(String command){
         String pattern = "(done|delete)( task/)(\\d+)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
         int index;
         if (Pattern.matches("done|delete task/ *", command)) {
-            throw new EmptyIndexException();
+            throw new IllegalStateException();
         } else {
             m.find();
             index = Integer.parseInt(m.group(3));

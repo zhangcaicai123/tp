@@ -49,8 +49,8 @@ public class TaskList {
      * @param taskIndex the index of task which needs to be deleted
      */
     public void deleteTask(int taskIndex) {
-        printDeleteMessage(taskIndex);
         taskList.remove(taskIndex);
+        printDeleteMessage(taskIndex);
     }
 
     /**
