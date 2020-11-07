@@ -1,5 +1,5 @@
 # User Guide
-CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
+CEGMods is a desktop application to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
 ## Content page
 ### [1. Quick Start](#1-quick-start-1)
 ### [2. Features](#2-features-1)
@@ -27,10 +27,9 @@ CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (C
 3. Copy the file to the folder you want to use as the home folder for your CEGmods
 4. Open a command window. Run the java -version command to ensure you are using Java 11. 
 5. Launch the jar file using the java -jar command (do not use double-clicking).
-
 6. Type `help` in the command box as prompted and press Enter to execute it. You will see the  commands available.
-
 6. Refer to the Features below for details of each command.
+
 ## 2. Features
 ### 2.1 Adding a Module: `add mod`
 You can add a module to the module list and timetable by typing in the module code and its time slots of lectures and tutorials (the time slot of lab is optional).
@@ -326,16 +325,15 @@ _______________________________________________________
 ## 3. FAQ
 
 ## 4. Command Summary
-Feature                              |Command                                               |
-|---                                   |---                                                   |
-| Adding a Module                    |`add mod/<MODULE_CODE>`                             |
-| Deleting a Module                    |`delete m/<MODULE_CODE>`                             |
-| Viewing Timetable                  |`today timetable`, `weekly timetable`  |
-| Viewing To-Do List                   |`task list`     |
-| Adding a Todo Task	                        |`todo <DESCRIPTION>` 
-| Adding a Deadline Task	                        |`deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`   |
-| Adding an Event Task	                        |`event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>` | 
-| Marking a Task as Done               |`done <TASK_INDEX>`                                      |
-| Deleting a Task  |`delete <TASK_INDEX>`                                    |
-| Exiting the Program                       |`exit`                                                |
-| Viewing Help                                 |`help`                                                 |
+|Feature | Command |
+|--------|----------------- |
+|Adding a Module| `add mod/<MODULE_CODE>`|
+|Deleting a Module| `delete m/<MODULE_CODE>`|
+|Viewing Timetable| `today timetable`, `weekly timetable`|
+|Viewing To-Do List| `task list`|
+|Adding a Todo Task| `todo <DESCRIPTION>`| 
+|Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`|
+|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`|
+|Marking a Task as Done| `done <TASK_INDEX>`|
+|Exiting the Program| `exit`|
+|Viewing Help| `help`|

@@ -5,19 +5,31 @@ public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Constructs deadline object.
+     */
     public Deadline(String description) {
         super(description);
     }
 
+    /**
+     * Assigns deadline of object.
+     */
     public void setBy(String by) {
         this.by = by;
     }
 
+    /**
+     * Converts deadline to string for printing.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by + ")";
     }
 
+    /**
+     * Converts deadline to string for storing.
+     */
     @Override
     public String text() {
         return "D " + super.text() + " | " + by;
