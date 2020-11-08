@@ -20,6 +20,14 @@ public class Deadline extends Task {
     }
 
     /**
+     * Gets the deadline of task.
+     * @return deadline date time
+     */
+    public String getBy() {
+        return this.by;
+    }
+
+    /**
      * Converts deadline to string for printing.
      */
     @Override
