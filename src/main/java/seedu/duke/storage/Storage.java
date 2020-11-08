@@ -126,7 +126,9 @@ public class Storage {
             //Event
             taskToLoad = new Event(description);
             time = texts[3];
+            String duration = texts[4];
             ((Event) taskToLoad).setAt(time);
+            ((Event) taskToLoad).setDuration(Long.parseLong(duration));
         } else if (text.startsWith("P")) {
             //Project task
             String material = texts[5];
