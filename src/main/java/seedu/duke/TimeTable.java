@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Collections;
 
 import seedu.duke.storage.Storage;
+import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
 import seedu.duke.task.Task;
 import seedu.duke.tasklist.TaskList;
@@ -386,7 +387,7 @@ public class TimeTable {
     public static void printDailyDeadline(int month, int day, int year, TaskList taskList) {
         String date = String.format("%4d-%02d-%02d", year, month, day);
         System.out.println(lineCutOff);
-        System.out.println("Today's Deadline (haven't done):");
+        System.out.println(date + " Deadline (haven't done):");
         System.out.println(lineCutOff);
         ArrayList<String> deadlineList = todayDeadline(date, taskList);
         for (String ddl : deadlineList) {
@@ -482,7 +483,8 @@ public class TimeTable {
         for (Task task : taskList.getTaskList()) {
             //deadline task
             if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
-                if (date.equals("date")) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().substring(0,deadline.getBy().indexOf(" ")).trim().equals(date)) {
                     todayDeadline.add(task.text());
                 }
             }
