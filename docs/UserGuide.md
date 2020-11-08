@@ -13,13 +13,14 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 ##### [2.5.3 Adding a Event Task: `event`](#253-adding-an-event-event)
 #### [2.6 Marking a Task as Done: `done`](#26-marking-a-task-as-done-done-1)
 #### [2.7 Deleting a Task: `delete`](#27-deleting-a-task-delete-1)
-#### [2.8 Adding a Project Task: `projectTask`](#28-adding-a-project-task-projecttask-1)
-#### [2.9 Viewing project task list: `project task list`](#29-viewing-project-task-list-project-task-list-1)
-#### [2.10 Viewing project progress: `project progress`](#210-viewing-project-progress-project-progress-1)
-#### [2.11 Exiting the Program: `exit`](#211-exiting-the-program-exit-1)
-#### [2.12 Viewing Help: `help`](#212-viewing-help-help-1)
-### [3. FAQ](#3-faq-1)
-### [4. Command Summary](#4-command-summary-1)
+#### [2.8 Finding a Task with Keyword: `find`](#28-Finding-a-Task-with-Keyword-find1)
+#### [2.9 Adding a Project Task: `project task`](#29-Adding-a-Project-Task-project-task1)
+#### [2.10 Viewing project task list: `project task list`](#210-Viewing-project-task-list-project-task-list1)
+#### [2.11 Viewing project progress: `project progress`](#211-Viewing-project-progress-project-progress1)
+#### [2.12 Exiting the Program: `exit`](#212-Exiting-the-Program-exit1)
+#### [2.13 Viewing Help: `help`](#213-Viewing-Help-help1)
+### [3. FAQ](#3-FAQ1)
+### [4. Command Summary](#4-Command-Summary1)
 
 ## 1. Quick Start
 1. Ensure you have Java 11 installed in your Computer.
@@ -163,9 +164,11 @@ Constraint: The task list must contain at least 1 task.
 
 Expected outcome:
 ```
-Here is the list of your tasks:
-1.lab report
-...
+____________________________________________________________
+     Here are the tasks in your list:
+      1.[T][T]debug project
+      2.[D][F]project (by:2020-11-09 00:00)
+____________________________________________________________
 ```
 ### 2.5 Adding a Task
 #### 2.5.1 Adding a Todo Task: `todo`
@@ -214,8 +217,8 @@ ____________________________________________________________
 ### 2.6 Marking a Task as Done: `done`
 This will mark a task as done.
 
-Format: `done <TASK_INDEX>`
-Example of usage: `done 2`
+Format: `done task/<TASK_INDEX>`
+Example of usage: `done task/2`
 
 Expected outcome:
 ```
@@ -228,8 +231,8 @@ _______________________________________________________
 ### 2.7 Deleting a Task: `delete`
 This will delete a task from task list.
 
-Format: `delete <TASK_INDEX>`
-Example of usage: `delete 1`
+Format: `delete task/<TASK_INDEX>`
+Example of usage: `delete task/1`
 
 Expected outcome:
 ```
@@ -239,7 +242,20 @@ ____________________________________________________________
     Now you have 1 task in the list.
     ____________________________________________________________
 ```
-### 2.8 Adding a Project Task: `projectTask`
+### 2.8 Finding a Task with Keyword `find`
+This will find a task from task list with the keyword.
+
+Format: `find <KEYWORD>`
+Example of usage: `find book`
+
+Expected outcome:
+```
+____________________________________________________________
+	Here are the matching tasks in your list:
+	1.[T][F]read book
+____________________________________________________________
+```
+### 2.9 Adding a Project Task: `projectTask`
 This will add a subtask of a specific project to the task list.
 
 Format: `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>`
@@ -263,7 +279,7 @@ _______________________________________________________
     ____________________________________________________________
 
 ```
-### 2.9 Viewing project task list: `project task list`
+### 2.10 Viewing project task list: `project task list`
 This will view the project task list.
 
 Format: `mod/<MODULE_CODE> project task list`
@@ -275,7 +291,7 @@ CG2271
 
 1. [P][F]write report (by:Fri 23:59) material: NA
 ```
-### 2.10 Viewing project progress: `project progress`
+### 2.11 Viewing project progress: `project progress`
 This will view the progress of a specific project.
 
 Format: `mod/<MODULE_CODE> progress`
@@ -286,7 +302,7 @@ Expected outcome:
 CG2271
 You have done 0/1 (0.00%).
 ```
-### 2.11 Exiting the Program: `exit`
+### 2.12 Exiting the Program: `exit`
 This will exit the program.
 
 Format: `exit`
@@ -297,7 +313,7 @@ _______________________________________________________
 Bye! Have a nice day with CEG!
 _______________________________________________________
 ```
-### 2.12 Viewing Help: `help`
+### 2.13 Viewing Help: `help`
 This will view help message.
 
 Format: `help`
@@ -330,10 +346,15 @@ _______________________________________________________
 |Adding a Module| `add mod/<MODULE_CODE>`|
 |Deleting a Module| `delete m/<MODULE_CODE>`|
 |Viewing Timetable| `today timetable`, `weekly timetable`|
-|Viewing To-Do List| `task list`|
+|Viewing Task List| `task list`|
 |Adding a Todo Task| `todo <DESCRIPTION>`| 
 |Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`|
-|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`|
+|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`| 
 |Marking a Task as Done| `done <TASK_INDEX>`|
+|Deleting a Task| `delete <TASK_INDEX>`|
+|Finding a Task| `find/ <KEYWORD>`|
+|Adding a Project Task| `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>`|
+|Viewing Project Task List| `mod/<MODULE_CODE> project task list`|
+|Viewing project progress| `mod/<MODULE_CODE> progress`|
 |Exiting the Program| `exit`|
 |Viewing Help| `help`|
