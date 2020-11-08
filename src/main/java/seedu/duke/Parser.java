@@ -13,6 +13,13 @@ public class Parser {
 
     static boolean isExit = false;
 
+    /**
+     * Runs parsing on user commands.
+     *
+     * @param userCommand User Command.
+     * @param taskList  Task List.
+     * @param storage Storage.
+     */
     public void parse(String userCommand, TaskList taskList, Storage storage) {
 
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
@@ -23,7 +30,8 @@ public class Parser {
         boolean isAddProjectTaskCommand =
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
         boolean isDeleteModule = userCommand.contains("delete mod/");
-        boolean isDeleteTask = Pattern.matches("^delete task/\\d",userCommand);
+        boolean isDeleteTask = userCommand.contains("delete task/");
+        boolean isMarkAsDone = userCommand.contains("done task/");
         boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
         boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
         boolean isPrintProjectTaskList = userCommand.contains("project task list");
@@ -31,7 +39,6 @@ public class Parser {
         boolean isPrintTodayDeadline = userCommand.equals("today deadline");
         boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
         boolean isPrintTaskList = userCommand.equals("task list");
-        boolean isMarkAsDone = Pattern.matches("^done task/\\d", userCommand);
         boolean isFind = Pattern.matches("^find.*", userCommand);
 
         try {

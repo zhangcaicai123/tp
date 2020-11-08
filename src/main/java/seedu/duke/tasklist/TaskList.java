@@ -8,6 +8,9 @@ public class TaskList {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Constructs TaskList object.
+     */
     public TaskList() {
     }
 
@@ -16,11 +19,15 @@ public class TaskList {
      *
      * @param loadedList the task list loaded from
      */
-
     public TaskList(ArrayList<Task> loadedList) {
         this.taskList = loadedList;
     }
 
+    /**
+     * Returns taskList arraylist.
+     *
+     * @return taskList arraylist.
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
@@ -41,10 +48,10 @@ public class TaskList {
      *
      * @param taskIndex the index of task which needs to be deleted
      */
-
     public void deleteTask(int taskIndex) {
-        printDeleteMessage(taskIndex);
+        Task task = taskList.get(taskIndex);
         taskList.remove(taskIndex);
+        printDeleteMessage(task);
     }
 
     /**
@@ -53,15 +60,22 @@ public class TaskList {
      * @param index the index of task
      * @return task
      */
-
     public Task get(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Prints line.
+     */
     private static void showLine() {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Returns size of taskList arraylist.
+     *
+     * @return size of taskList.
+     */
     public int size() {
         return this.taskList.size();
     }
@@ -109,12 +123,12 @@ public class TaskList {
     /**
      * Print the message of deleting a task.
      *
-     * @param index the index of task that needs to be deleted
+     * @param task the task that needs to be deleted
      */
-    public void printDeleteMessage(int index) {
+    public void printDeleteMessage(Task task) {
         showLine();
         System.out.printf("\tNoted. I've removed this task:%n");
-        System.out.printf("\t   %s%n", this.taskList.get(index));
+        System.out.printf("\t   %s%n", task);
     }
 
 
@@ -124,7 +138,6 @@ public class TaskList {
      * @param keyword keyword to find task
      * @return the list of tasks which contain the keyword
      */
-
     private ArrayList<Task> find(String keyword) {
         ArrayList<Task> findList = new ArrayList<>();
         for (Task task : this.taskList) {
@@ -140,7 +153,6 @@ public class TaskList {
      *
      * @param keyword keyword to find task
      */
-
     public void printSearchResult(String keyword) {
         ArrayList<Task> results = find(keyword);
         showLine();
