@@ -49,7 +49,7 @@ public class Ui {
                 + ANSI_GREEN + "/at" + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
                 + "9. Mark a task as done: " + ANSI_GREEN + "done task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
                 + "10. Delete a task: " + ANSI_GREEN + "delete task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "11. Find a task with keyword: " + ANSI_GREEN + "find " + ANSI_BLUE + "<KEYWORD>\n" +ANSI_RESET
+                + "11. Find a task with keyword: " + ANSI_GREEN + "find " + ANSI_BLUE + "<KEYWORD>\n" + ANSI_RESET
                 + "12. Add a project subtask: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE> "
                 + ANSI_GREEN + "ptask/" + ANSI_BLUE + "<DESCRIPTION> " + ANSI_GREEN + "by/" + ANSI_BLUE
                 + "<DEADLINE>" + " \n" + ANSI_RESET
