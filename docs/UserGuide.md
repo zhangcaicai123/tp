@@ -29,7 +29,7 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 4. Open a command window. Run the java -version command to ensure you are using Java 11. 
 5. Launch the jar file using the java -jar command (do not use double-clicking).
 6. Type `help` in the command box as prompted and press Enter to execute it. You will see the  commands available.
-6. Refer to the Features below for details of each command.
+7. Refer to the Features below for details of each command.
 
 ## 2. Features
 ### 2.1 Adding a Module: `add mod`
