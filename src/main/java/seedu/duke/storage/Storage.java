@@ -183,9 +183,9 @@ public class Storage {
      * @param index the index of task in the list that needs to be deleted
      * @throws IOException if cannot open, read or write the file
      */
-    public void deleteTaskFromFile(int index) throws IOException {
+    public static void deleteTaskFromFile(int index) throws IOException {
         File newFile = new File(directory + "/data-new.txt");
-        File f = new File(this.filePathOfTask);
+        File f = new File(filePathOfTask);
         BufferedReader reader = new BufferedReader(new FileReader(f));
         PrintWriter writer = new PrintWriter(newFile);
         String line;

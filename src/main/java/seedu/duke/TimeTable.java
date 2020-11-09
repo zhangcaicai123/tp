@@ -6,16 +6,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.NoSuchElementException;
-import java.util.Locale;
-import java.util.Collections;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.duke.exception.EmptyTimeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
@@ -125,7 +119,8 @@ public class TimeTable {
                     System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = checkSlotsFormat(in.nextLine());
-                    System.out.println("Does this module have another lecture slot?[Y/N]");
+                    System.out.println("Does this module have another lecture slot?" +
+                            "([Y] for yes,type any other character for no)");
                     String isHaveAnotherLec = in.nextLine();
                     if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
                         System.out.print("Another lecture slot: ");
@@ -133,7 +128,7 @@ public class TimeTable {
                     }
                     System.out.print("Tutorial slot: ");
                     module.tutSlot = checkSlotsFormat(in.nextLine());
-                    System.out.println("Does this module have lab?[Y/N]");
+                    System.out.println("Does this module have lab? ([Y] for yes,type any other character for no)");
                     String isHaveLab = in.nextLine();
                     if (isHaveLab.equalsIgnoreCase("Y")) {
                         System.out.print("Lab slot: ");
@@ -483,15 +478,35 @@ public class TimeTable {
      */
     public static ArrayList<String> todayDeadline(String date, TaskList taskList) {
         ArrayList<String> todayDeadline = new ArrayList<>();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Task task : taskList.getTaskList()) {
             //deadline task
-            if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
+            if (task.text().startsWith("D")) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getBy().substring(0,deadline.getBy().indexOf(" ")).trim().equals(date)) {
-                    todayDeadline.add(task.toString());
+                    deadlines.add(deadline);
                 }
             }
         }
+        Collections.sort(deadlines, (deadline1, deadline2) -> {
+
+            if(deadline1.remainingTime() < deadline2.remainingTime())
+            {
+                return 1;
+            }
+            else if(deadline1.remainingTime() == deadline1.remainingTime())
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        });
+        for (Deadline deadline: deadlines) {
+            todayDeadline.add(deadline.toString());
+        }
+
         return todayDeadline;
     }
 
@@ -644,4 +659,5 @@ public class TimeTable {
             }
         }
     }
+
 }

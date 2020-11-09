@@ -17,8 +17,8 @@ public class Parser {
      * Runs parsing on user commands.
      *
      * @param userCommand User Command.
-     * @param taskList  Task List.
-     * @param storage Storage.
+     * @param taskList    Task List.
+     * @param storage     Storage.
      */
     public void parse(String userCommand, TaskList taskList, Storage storage) {
 
@@ -41,6 +41,12 @@ public class Parser {
         boolean isPrintWeeklyDeadline = Pattern.matches("^this[\\s]+week[\\s]+deadline[\\s]*", userCommand);
         boolean isPrintTaskList = Pattern.matches("^task[\\s]+list[\\s]*", userCommand);
         boolean isFind = Pattern.matches("^find.*", userCommand);
+        boolean isPrintUndoneList = Pattern.matches("^print undone task list", userCommand);
+        boolean isDeleteDoneTask = Pattern.matches("^delete done task", userCommand);
+        boolean isPrintToDoList = Pattern.matches("^print todo list", userCommand);
+        boolean isPrintEventList = Pattern.matches("^print event list", userCommand);
+        boolean isPrintDeadlineList = Pattern.matches("^print deadline list", userCommand);
+        boolean isClearDeadlines = Pattern.matches("^clear deadlines", userCommand);
 
         try {
             if (isPrintHelpCommand) {
@@ -125,7 +131,33 @@ public class Parser {
                 Command.find(taskList, userCommand);
 
             } else if (isPrintTaskList) {
+
                 TaskList.printList();
+
+            } else if (isPrintUndoneList) {
+
+                TaskList.printUndoneList();
+
+            } else if (isDeleteDoneTask) {
+
+                TaskList.deleteDoneTask();
+
+            } else if (isPrintToDoList) {
+
+                TaskList.printTodoList();
+
+            } else if (isPrintEventList) {
+
+                TaskList.printEventList();
+
+            } else if (isPrintDeadlineList) {
+
+                TaskList.printDeadlineList();
+
+            } else if (isClearDeadlines) {
+
+                TaskList.clearDeadlines();
+
             } else {
 
                 throw new DukeException();

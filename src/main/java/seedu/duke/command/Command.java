@@ -241,6 +241,7 @@ public class Command {
         if (Pattern.matches("^(event|deadline)[\\s]*(/at|/by)[\\s\\S]*", command)) {
             throw new EmptyDescriptionException();
         }
+        m.find();
         return m.group(2).trim();
 
     }
