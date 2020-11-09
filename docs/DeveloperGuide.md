@@ -1,26 +1,27 @@
 
 # Developer Guide 
 ## Table of content
-### [1. Introduction](#1-Introduction1)
-#### [1.1 Software Overview](#11-Software-Overview1)
-#### [1.2 Purpose](#12-Purpose1)
-#### [1.3 Scope](#13-Scope1)
-### [2. Setting up and getting started](#2-Setting-up-and-getting-started1)
-### [3. Design](#3-Design1)
-#### [3.1 Architecture](#31-Architecture1)
-#### [3.2 Classes](#32-Classes1)
-##### [3.2.1 Ui class](#321-Ui-class1)
-##### [3.2.2 Parser class](#322-Parser-class1)
-##### [3.2.3 Module class](#323-Module-class1)
-##### [3.2.4 Task class](#324-Task-class1)
-##### [3.2.5 TimeTable class](#325-TimeTable-class1)
-### [4. Implementation](#4-Implementation1)
-### [5. Testing](#5-Testing1)
-### [6. Appendix: Requirements](#6-Appendix-Requirements1)
-#### [6.1 Product scope](#61-Product-scope1)
-#### [6.1.1 Target user profile](#611-Target-user-profile1)
-#### [6.1.2 Value proposition](#612-Value-proposition1)
-#### [6.2 User stories](#62-User-stories1)
+### [1. Introduction](#1-introduction-1)
+#### [1.1 Software Overview](#11-software-overview-1)
+#### [1.2 Purpose](#12-purpose-1)
+#### [1.3 Scope](#13-scope-1)
+### [2. Setting up and getting started](#2-setting-up-and-getting-started-1)
+### [3. Design](#3-design-1)
+#### [3.1 Architecture](#31-architecture-1)
+#### [3.2 Classes](#32-classes-1)
+##### [3.2.1 Ui class](#321-ui-class-1)
+##### [3.2.2 Parser class](#322-parser-class-1)
+##### [3.2.3 Module class](#323-module-class-1)
+##### [3.2.4 Task class](#324-task-class-1)
+##### [3.2.5 TimeTable class](#325-timetable-class-1)
+### [4. Implementation](#4-implementation-1)
+### [5. Documentation, logging, testing, configuration, dev-ops](#5-documentation-logging-testing-configuration-dev-ops-1)
+### [Appendix A: Product Scope](#appendix-a-product-scope-1)
+#### [Target user profile](#target-user-profile-1)
+#### [Value proposition](#value-proposition-1)
+### [Appendix B: User Stories](#appendix-b-user-stories-1)
+### [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements-1)
+### [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing-1)
 
 
 
@@ -110,9 +111,27 @@ The ***sequence diagram*** below shows the interaction between these classes whe
 The user enters the command: `delete m/<MODULE_CODE>` to delete a module in the timetable. The `Parser` class will make sense of the command and enable the `deleteModule()` method in the `TimeTable` class.
     
 
-## 5. Testing
-- Running tests
-- Types of tests
+## 5. Documentation, logging, testing, configuration, dev-ops
+### Setting up and maintaining the project website:
+* We use [Jekyll](https://jekyllrb.com/) to manage documentation.
+* The `docs/` folder is used for documentation.
+* To learn how set it up and maintain the project website, follow the guide [*[se-edu/guides] Using Jekyll for project documentation*](https://se-education.org/guides/tutorials/jekyll.html).
+
+
+### Style guidance:
+* Follow the [*Google developer documentation style guide*](https://developers.google.com/style).
+* Also relevant is the [*[se-edu/guides] Markdown coding standard*](https://se-education.org/guides/conventions/markdown.html).
+
+### Diagrams:
+* See the [*[se-edu/guides] Using PlantUML*](https://se-education.org/guides/tutorials/plantUml.html).
+
+### Converting a document to the PDF format:
+
+See the guide [*[se-edu/guides] Saving web documents as PDF files*](https://se-education.org/guides/tutorials/savingPdf.html).
+- Testing guide
+- Logging guide
+- Configuration guide
+- DevOps guide
 
 Running tests
 -
@@ -128,16 +147,15 @@ Types of tests
 -
 This project has three types of tests: ...
 
-## 6. Appendix: Requirements
-### 6.1 Product scope
-#### 6.1.1 Target user profile
+## Appendix A: Product Scope
+#### Target user profile
 This application is intended for users who
 - are NUS Computer Engineering Students
 - have a large variety of lesson (lab, tutorial, lecture, webcast) and commitment types (CCA, external commitments)
 - have a certain type of homework based on standard formats (pre-lecture/ post-lecture/ pre-tutorial/ post-tutorial/ pre-lab/ post-lab)
 - have various projects ongoing at the same time (individual, team, for technical modules and non-technical modules)
 - are reasonably comfortable using CLI apps
-#### 6.1.2 Value proposition 
+#### Value proposition 
 - Manages Tasks based on:
     - the module: eg. CS2113T, CG2271, CS2101 (can be colour-coded according to modules)
     - tasks unrelated to modules can be placed under “others”
@@ -151,7 +169,8 @@ This application is intended for users who
 - Manages Project based on:
     - Deadlines of subtasks (subclass of task but for projects)
     - Percentage of completion 
-### 6.2 User stories
+    
+## Appendix B: User Stories
 
 | Priority level| As a/an | I want to | so that I can
 | -------- | -------- | -------- |-------- |
@@ -169,5 +188,19 @@ This application is intended for users who
 |nice-to-have|user|add alarm to remind the upcoming event|I won't forget or miss relevant events
 |nice-to-have|user|add periodic zoom links for online lectures/tutorials|I can join the zoom session quickly before the class
 |nice-to-have|user|share project schedule and details with teammates|I can cooperate with my teammate better
+
+## Appendix C: Non-Functional Requirements
+The following statements describe the non-functional requirements for the application:
+1. CEGMods should be able to work on any mainstream OS which has Java 11 or a higher version of Java installed.
+2. The system should not take more than 5s to run for every command.
+3. The user is expected to have a basic idea about the modules in NUS.
+4. A user comfortable with faster typing speed than average should be able to use this program with ease.
+
+    
+## Appendix D: Glossary
+- Mainstream OS: Windows, Linux, macOS
+
+## Appendix E: Instructions for manual testing
+This portion contains instructions on how to perform manual testing.
 
 

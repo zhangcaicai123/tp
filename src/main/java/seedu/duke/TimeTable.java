@@ -6,16 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.Locale;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.duke.exception.EmptyTimeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
@@ -85,9 +84,9 @@ public class TimeTable {
             if (taskType.equalsIgnoreCase("T")) {
                 System.out.println("Add a task to do: todo <DESCRIPTION>");
             } else if (taskType.equalsIgnoreCase("D")) {
-                System.out.println("Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>");
+                System.out.println("Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>");
             } else if (taskType.equalsIgnoreCase("E")) {
-                System.out.println("Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>");
+                System.out.println("Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>");
             } else if (taskType.equalsIgnoreCase("P")) {
                 System.out.println("Add a project subtask: mod/<MODULE_CODE> "
                         + "ptask/<DESCRIPTION> by/<DEADLINE>");
@@ -122,10 +121,11 @@ public class TimeTable {
                     module = ModDataBase.modules.get(moduleCode);
                     System.out.println("Please enter your time slots for lectures, tutorials, "
                             + "and labs (optional) for this module.");
-                    System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
+                    System.out.println("The format of the time slots is: Day HH:mm-HH:mm (Eg. Thur 12:00-13:00)");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = checkSlotsFormat(in.nextLine());
-                    System.out.println("Does this module have another lecture slot?[Y/N]");
+                    System.out.println("Does this module have another lecture slot?"
+                            + "([Y] for yes,type any other character for no)");
                     String isHaveAnotherLec = in.nextLine();
                     if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
                         System.out.print("Another lecture slot: ");
@@ -133,7 +133,7 @@ public class TimeTable {
                     }
                     System.out.print("Tutorial slot: ");
                     module.tutSlot = checkSlotsFormat(in.nextLine());
-                    System.out.println("Does this module have lab?[Y/N]");
+                    System.out.println("Does this module have lab? ([Y] for yes,type any other character for no)");
                     String isHaveLab = in.nextLine();
                     if (isHaveLab.equalsIgnoreCase("Y")) {
                         System.out.print("Lab slot: ");
@@ -483,15 +483,30 @@ public class TimeTable {
      */
     public static ArrayList<String> todayDeadline(String date, TaskList taskList) {
         ArrayList<String> todayDeadline = new ArrayList<>();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Task task : taskList.getTaskList()) {
             //deadline task
-            if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
+            if (task.text().startsWith("D")) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getBy().substring(0,deadline.getBy().indexOf(" ")).trim().equals(date)) {
-                    todayDeadline.add(task.toString());
+                    deadlines.add(deadline);
                 }
             }
         }
+        Collections.sort(deadlines, (deadline1, deadline2) -> {
+
+            if (deadline1.remainingTime() < deadline2.remainingTime()) {
+                return 1;
+            } else if (deadline1.remainingTime() == deadline1.remainingTime()) {
+                return 0;
+            } else {
+                return -1;
+            }
+        });
+        for (Deadline deadline: deadlines) {
+            todayDeadline.add(deadline.toString());
+        }
+
         return todayDeadline;
     }
 
@@ -633,15 +648,16 @@ public class TimeTable {
                     return slots;
                 } else {
                     System.out.println("The begin time cannot be after the end time.");
-                    System.out.println("Please enter correct slots with DDD HH:MM-HH:MM format");
+                    System.out.println("Please enter correct slots with DDD HH:mm-HH:mm format");
                     Scanner in = new Scanner(System.in);
                     slots = in.nextLine();
                 }
             } else {
-                System.out.println("Please enter the slot again with DDD HH:MM-HH:MM format: (e.g.Fri 11:00-12:00)");
+                System.out.println("Please enter the slot again with DDD HH:mm-HH:mm format: (e.g.Fri 11:00-12:00)");
                 Scanner in = new Scanner(System.in);
                 slots = in.nextLine();
             }
         }
     }
+
 }
