@@ -84,9 +84,9 @@ public class TimeTable {
             if (taskType.equalsIgnoreCase("T")) {
                 System.out.println("Add a task to do: todo <DESCRIPTION>");
             } else if (taskType.equalsIgnoreCase("D")) {
-                System.out.println("Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>");
+                System.out.println("Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>");
             } else if (taskType.equalsIgnoreCase("E")) {
-                System.out.println("Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>");
+                System.out.println("Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>");
             } else if (taskType.equalsIgnoreCase("P")) {
                 System.out.println("Add a project subtask: mod/<MODULE_CODE> "
                         + "ptask/<DESCRIPTION> by/<DEADLINE>");
@@ -121,7 +121,7 @@ public class TimeTable {
                     module = ModDataBase.modules.get(moduleCode);
                     System.out.println("Please enter your time slots for lectures, tutorials, "
                             + "and labs (optional) for this module.");
-                    System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
+                    System.out.println("The format of the time slots is: Day HH:mm-HH:mm (Eg. Thur 12:00-13:00)");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = checkSlotsFormat(in.nextLine());
                     System.out.println("Does this module have another lecture slot?"
@@ -648,12 +648,12 @@ public class TimeTable {
                     return slots;
                 } else {
                     System.out.println("The begin time cannot be after the end time.");
-                    System.out.println("Please enter correct slots with DDD HH:MM-HH:MM format");
+                    System.out.println("Please enter correct slots with DDD HH:mm-HH:mm format");
                     Scanner in = new Scanner(System.in);
                     slots = in.nextLine();
                 }
             } else {
-                System.out.println("Please enter the slot again with DDD HH:MM-HH:MM format: (e.g.Fri 11:00-12:00)");
+                System.out.println("Please enter the slot again with DDD HH:mm-HH:mm format: (e.g.Fri 11:00-12:00)");
                 Scanner in = new Scanner(System.in);
                 slots = in.nextLine();
             }
