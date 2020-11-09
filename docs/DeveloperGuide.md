@@ -27,7 +27,6 @@
 ### [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing-1)
 
 
-
 ## 1. Introduction
 ### 1.1 Software Overview
 CEGMods is a command line (CLI) application that helps computer engineering (CEG) students to manage their modules, tasks and projects. 
@@ -68,8 +67,8 @@ Please ensure you have Java 11 installed in you computer.
    
 ## 3. Design 
 ### 3.1 Architecture
-The ***Architecture diagram*** given below shows the major components, and explains the structure of the software system.
-[![Architecture diagram](https://iili.io/3Ei2Vf.md.png)](https://freeimage.host/i/3Ei2Vf)
+The ***Class diagram*** given below shows the interaction between major classes, and explains the structure of the software system.
+[![F2bCN9.md.png](https://iili.io/F2bCN9.md.png)](https://freeimage.host/i/F2bCN9)
 
 ### 3.2 Classes
     
@@ -133,11 +132,11 @@ The `Timetable` class shows the timetable for all the module slots and tasks. It
 This section provides details on the implementations of certain features.
     
 ### Feature: Add a module
-
+    
 The user type in command in `module mod/<MODULE_CODE> lec/<LECTURE_DAY> <LECTURE_TIME> tut/<TUTORIAL_DAY> <TUTORIAL_TIME> lab/<LAB_DAY> <LAB_TIME>` this form to add a module into the timetable. The time slot of lab is optional. The program will detect whether the user command is in this form, and store module data in arraylist `modules` in `Timetable` class after Ui passing command and calling `addModule()` in Parser class.
 
 The ***sequence diagram*** below shows the interaction between these classes when the user adds a module.
-[![3GRaM7.md.png](https://iili.io/3GRaM7.md.png)](https://freeimage.host/i/3GRaM7)
+[![F2bWSp.md.png](https://iili.io/F2bWSp.md.png)](https://freeimage.host/i/F2bWSp)
 
 ### Feature: Delete a module
 The user enters the command: `delete mod/<MODULE_CODE>` to delete a module in the timetable. The `Parser` class will take this user command and pass it to `Command` class to enable the `deleteModule()` method in the `TimeTable` class.
@@ -190,6 +189,16 @@ Here are the steps to create a new release.
 2. Generate a fat JAR file using Gradle (i.e., gradlew shadow).
 3. Tag the repo with the version number. e.g. v0.1
 4. Create a new release using GitHub. Upload the JAR file you created. 
+    
+#### Build Automation
+We use Gradle for tasks related to build automation, such as running tests, and checking code for style compliance.
+
+To run all build-related tasks:
+1. Open a terminal in the project’s root directory.
+2. Run the command:
+* Windows: `gradlew build`
+* MacOS/Linux: `./gradlew build`
+3. A message stating BUILD SUCCESSFUL will be shown in the terminal if all tasks run successfully. Otherwise, use the error report provided to resolve the issue before trying again.
 
 ## Appendix A: Product Scope
 #### Target user profile
@@ -261,4 +270,4 @@ There are two ways to run tests.
 Types of tests
 -
 This project has 1 type of tests: 
-1. Unit testing
+1. Unit testing：targeting the lowest level methods/classes.
