@@ -27,7 +27,7 @@ class CommandTest {
 
     @Test
     void getTask_returnDescription() throws EmptyDescriptionException, EmptyTimeException {
-        String userCommand1= "event team meeting /at 2020-11-09 17:25";
+        String userCommand1 = "event team meeting /at 2020-11-09 17:25";
         String userCommand2 = "deadline assignment /by 2020-11-09 23:59";
         assertEquals("team meeting",Command.getTask(userCommand1));
         assertEquals("2020-11-09 17:25",Command.getTime(userCommand1));
