@@ -235,12 +235,13 @@ public class Command {
      * @throws EmptyDescriptionException If description is null
      */
     public static String getTask(String command) throws EmptyDescriptionException {
-        String pattern = "(event|deadline)( .* )(/at|/by)( .*)";
+        String pattern = "(event|deadline)([\\s\\S]+)(/at|/by)(.*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
         if (Pattern.matches("^(event|deadline)[\\s]*(/at|/by)[\\s\\S]*", command)) {
             throw new EmptyDescriptionException();
         }
+        m.find();
         return m.group(2).trim();
 
     }
