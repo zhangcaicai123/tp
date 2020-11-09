@@ -21,6 +21,7 @@
 #### [Value proposition](#value-proposition-1)
 ### [Appendix B: User Stories](#appendix-b-user-stories-1)
 ### [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements-1)
+### [Appendix D: Glossary](#appendix-d-glossary-1)
 ### [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing-1)
 
 

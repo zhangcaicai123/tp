@@ -3,13 +3,14 @@ package seedu.duke.project;
 import seedu.duke.ModDataBase;
 import seedu.duke.TimeTable;
 import seedu.duke.task.ProjectTask;
+import seedu.duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProjectManager {
     static String lineCutOff = "_______________________________________________________";
-    private static final ArrayList<ProjectTask> projectTasks = new ArrayList<>();
+    public static ArrayList<ProjectTask> projectTasks = new ArrayList<>();
 
     /**
      * Adds project task to project tasks arraylist.
@@ -34,8 +35,6 @@ public class ProjectManager {
         boolean isModuleAdded = TimeTable.isModuleAdded(modName);
         boolean isAddModule = false;
         Scanner in = new Scanner(System.in);
-
-
         if (!isModuleCode) {
             System.out.println("This is not a valid module code");
         } else if (description.isBlank() || by.isBlank()) {
@@ -78,7 +77,7 @@ public class ProjectManager {
      *
      * @param command User input.
      */
-    public static void printProjectTaskList(String command) {
+    public static void printProjectTaskList(String command) throws StringIndexOutOfBoundsException {
         String modName;
         int numOfTask = 0;
         modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
