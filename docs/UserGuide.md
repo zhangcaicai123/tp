@@ -342,7 +342,7 @@ _______________________________________________________
 
 ## 4. Command Summary
 |Feature | Command |
-|--------|----------------- |
+|---|--- |
 |Adding a Module| `add mod/<MODULE_CODE>`|
 |Deleting a Module| `delete m/<MODULE_CODE>`|
 |Viewing Timetable| `today timetable`, `weekly timetable`|
