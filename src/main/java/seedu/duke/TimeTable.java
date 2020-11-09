@@ -6,7 +6,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import java.util.Locale;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -119,8 +124,8 @@ public class TimeTable {
                     System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = checkSlotsFormat(in.nextLine());
-                    System.out.println("Does this module have another lecture slot?" +
-                            "([Y] for yes,type any other character for no)");
+                    System.out.println("Does this module have another lecture slot?"
+                            + "([Y] for yes,type any other character for no)");
                     String isHaveAnotherLec = in.nextLine();
                     if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
                         System.out.print("Another lecture slot: ");
@@ -490,16 +495,11 @@ public class TimeTable {
         }
         Collections.sort(deadlines, (deadline1, deadline2) -> {
 
-            if(deadline1.remainingTime() < deadline2.remainingTime())
-            {
+            if (deadline1.remainingTime() < deadline2.remainingTime()) {
                 return 1;
-            }
-            else if(deadline1.remainingTime() == deadline1.remainingTime())
-            {
+            } else if (deadline1.remainingTime() == deadline1.remainingTime()) {
                 return 0;
-            }
-            else
-            {
+            } else {
                 return -1;
             }
         });

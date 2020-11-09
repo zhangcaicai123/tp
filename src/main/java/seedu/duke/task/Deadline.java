@@ -36,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + by +")"
+        return "[D]" + super.toString() + " (by:" + by + ")"
                 + " [Remaining time: " + calculateDeadline() + "]";
     }
 
@@ -56,7 +56,7 @@ public class Deadline extends Task {
         long days = duration.toDays();
         long hours = duration.minusDays(days).toHours();
         long minutes = duration.minusDays(days).minusHours(hours).toMinutes();
-        if(now.isAfter(deadline)) {
+        if (now.isAfter(deadline)) {
             return "0";
         } else {
             return days + " days " + hours + " hours " + minutes + " minutes";
