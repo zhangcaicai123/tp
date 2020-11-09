@@ -49,7 +49,7 @@ public class Ui {
                 + "3. View today's timetable: " + ANSI_GREEN + "today timetable\n" + ANSI_RESET
                 + "4. View weekly timetable:" + ANSI_GREEN + " this week timetable\n" + ANSI_RESET
                 + "5. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
-                + "6. Add a to do task: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
+                + "6. Add a todo task: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
                 + "7. Add a deadline: " + ANSI_GREEN + "deadline" + ANSI_BLUE + " <DESCRIPTION> " + ANSI_GREEN + "/by"
                 + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
                 + "8. Add an event: " + ANSI_GREEN + "event" + ANSI_BLUE + " <DESCRIPTION> "
@@ -67,7 +67,13 @@ public class Ui {
                 + "15. View today's deadline: " + ANSI_GREEN + "today deadline\n" + ANSI_RESET
                 + "16. View this week deadline:" + ANSI_GREEN + " this week deadline\n" + ANSI_RESET
                 + "17. View all modules' information: " + ANSI_GREEN + "check modules\n" + ANSI_RESET
-                + "18. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
+                + "18. View to do list: " + ANSI_GREEN + "print todo list\n" + ANSI_RESET
+                + "19. View event list: " + ANSI_GREEN + "print event list\n" + ANSI_RESET
+                + "20. View deadline list: " + ANSI_GREEN + "print deadline list\n" + ANSI_RESET
+                + "21. View undone task list: " + ANSI_GREEN + "print undone task list\n" + ANSI_RESET
+                + "22. Clear past deadlines: " + ANSI_GREEN + "clear deadlines\n" + ANSI_RESET
+                + "23. Delete done tasks: " + ANSI_GREEN + "delete done tasks\n" + ANSI_RESET
+                + "24. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
         );
         System.out.println(lineCutOff);
     }
