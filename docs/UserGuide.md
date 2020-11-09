@@ -346,7 +346,7 @@ _______________________________________________________
 |---|--- |
 |Adding a Module| `add mod/<MODULE_CODE>`|
 |Deleting a Module| `delete m/<MODULE_CODE>`|
-|Viewing Timetable| `today timetable`, `weekly timetable`|
+|Viewing Timetable| `today timetable`, `this week timetable`|
 |Viewing Task List| `task list`|
 |Adding a Todo Task| `todo <DESCRIPTION>`| 
 |Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`|
