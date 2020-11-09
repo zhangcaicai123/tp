@@ -28,7 +28,7 @@ public class Parser {
         boolean isAddTask = Pattern.matches("^(todo|deadline|event) [\\S\\s]+",
                 userCommand);
         boolean isAddProjectTaskCommand =
-                Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
+                Pattern.matches("^mod/[\\S\\s]+ptask/[\\S\\s]+by/[\\s\\S]+", userCommand);
         boolean isDeleteModule = Pattern.matches("^delete[\\s]+mod/[\\S\\s]+", userCommand);
         boolean isDeleteTask = Pattern.matches("^delete[\\s]+task/[\\S\\s]+", userCommand);
         boolean isMarkAsDone = Pattern.matches("^done[\\s]+task/[\\S\\s]+", userCommand);
@@ -104,7 +104,6 @@ public class Parser {
                 }
 
             } else if (isAddProjectTaskCommand) {
-
                 Command.addProjectTask(userCommand, taskList, storage);
 
             } else if (isPrintProjectTaskList) {
