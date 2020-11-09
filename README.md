@@ -1,6 +1,6 @@
 # Duke project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
 
 ## Setting up in Intellij
 
@@ -15,16 +15,23 @@ Prerequisites: JDK 11 (use the exact version), update Intellij to the most recen
    > Task :classes
    
    > Task :Duke.main()
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   _______________________________________________________
+                      __ _                      _           
+      __      ___    / _` |  _ __     ___    __| |    ___   
+     / _|    / -_)   \__, | | '  \   / _ \  / _` |   (_-<   
+     \__|_   \___|   |___/  |_|_|_|  \___/  \__,_|   /__/_  
+   _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+   "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+   Hello, this is CEGMods! What can I do for you?
+   Enter 'help' to get more information.
+   _______________________________________________________
+   Task list has been loaded successfully.
+   Module list has been loaded successfully.
+   Today is 2020-11-09
+   Now is 22:12
+   Currently you don't have any event!
    
-   What is your name?
-   ```
-   Type some word and press enter to let the execution proceed to the end.
+Type `help` and press enter to let the execution to proceed.
 
 ## Build automation using Gradle
 
