@@ -33,7 +33,7 @@ public class Task {
      * Returns status icons of task.
      */
     public String getStatusIcon() {
-        return (isDone ? "T" : "F"); //return tick or X symbols
+        return (isDone ? "T" : "F");
     }
 
     /**
