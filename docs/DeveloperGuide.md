@@ -91,13 +91,29 @@ The `Parser` class deals with making sense of the user's command and execute the
   
 #### 3.2.3 Module class
 The Module class contains the information of a module, including the title, description, and time slots of lectures, tutorials and labs.
+
 #### 3.2.4 Task class
 The `Task` class contains the information of a task, including the todo, event and deadline tasks.
-
+- add new `task` 
+- add `at` or `by` for task
+- get `done` status for task
 #### 3.2.5 TimeTable class
 The `Timetable` class shows the timetable for all the module slots and tasks. It also stores `Module` details in an arraylist and checks whether there is a time conflict between two classes.
-       
-
+- print today `timetable`   
+- print weekly `timetable`
+- print upcoming `deadline`
+- add `module` into `timetable`
+- check time conflict for `module` and `event`    
+#### 3.2.5 TaskList class
+- print the `tasklist`
+- add `task` into `tasklist`
+- remove `task` from `module`
+- print `todo list`
+- print `event list`
+- print `undone list`
+- print `deadline list`
+- clear past `deadline`
+- delete `done task`
 ## 4. Implementation
 This section provides details on the implementations of certain features.
     
@@ -111,7 +127,7 @@ The ***sequence diagram*** below shows the interaction between these classes whe
 ### Feature: Delete a module
 The user enters the command: `delete m/<MODULE_CODE>` to delete a module in the timetable. The `Parser` class will make sense of the command and enable the `deleteModule()` method in the `TimeTable` class.
     
-
+### Feature: 
 ## 5. Documentation, logging, testing, configuration, dev-ops
 ### Setting up and maintaining the project website:
 * We use [Jekyll](https://jekyllrb.com/) to manage documentation.
