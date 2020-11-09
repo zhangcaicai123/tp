@@ -62,8 +62,8 @@ public class Event extends Task {
      */
     @Override
     public String text() {
-        return "E " + super.text() + " | " + at + "-"
-                + endTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+        return "E " + super.text() + " | " + at + " | "
+                + duration;
     }
 
     /**

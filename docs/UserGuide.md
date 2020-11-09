@@ -13,11 +13,12 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 ##### [2.5.3 Adding a Event Task: `event`](#253-adding-an-event-event)
 #### [2.6 Marking a Task as Done: `done`](#26-marking-a-task-as-done-done-1)
 #### [2.7 Deleting a Task: `delete`](#27-deleting-a-task-delete-1)
-#### [2.8 Adding a Project Task: `projectTask`](#28-adding-a-project-task-projecttask-1)
-#### [2.9 Viewing project task list: `project task list`](#29-viewing-project-task-list-project-task-list-1)
-#### [2.10 Viewing project progress: `project progress`](#210-viewing-project-progress-project-progress-1)
-#### [2.11 Exiting the Program: `exit`](#211-exiting-the-program-exit-1)
-#### [2.12 Viewing Help: `help`](#212-viewing-help-help-1)
+#### [2.8 Finding a Task with Keyword: `find`](#28-finding-a-task-with-keyword-find-1)
+#### [2.9 Adding a Project Task: `project task`](#29-adding-a-project-task-project-task-1)
+#### [2.10 Viewing project task list: `project task list`](#210-viewing-project-task-list-project-task-list-1)
+#### [2.11 Viewing project progress: `project progress`](#211-viewing-project-progress-project-progress-1)
+#### [2.12 Exiting the Program: `exit`](#212-exiting-the-program-exit-1)
+#### [2.13 Viewing Help: `help`](#213-viewing-help-help-1)
 ### [3. FAQ](#3-faq-1)
 ### [4. Command Summary](#4-command-summary-1)
 
@@ -50,7 +51,7 @@ Description: Real-time systems must respond quickly to inputs from the environme
 _______________________________________________________
 Please enter your time slots for lectures, tutorials, and labs for this module.
 Please enter your time slots for lectures, tutorials, and labs for this module.
-The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)
+The format of the time slots is: Day HH:mm-HH:mm (Eg. Thur 12:00-13:00)
 If the time slot does not exit, please enter null.
 ```
 **Step 2:** Type in the lecture slot and tutorial slot of this module, and indicate whether there is lab for this module as prompted.
@@ -163,9 +164,11 @@ Constraint: The task list must contain at least 1 task.
 
 Expected outcome:
 ```
-Here is the list of your tasks:
-1.lab report
-...
+____________________________________________________________
+     Here are the tasks in your list:
+      1.[T][T]debug project
+      2.[D][F]project (by:2020-11-09 00:00)
+____________________________________________________________
 ```
 ### 2.5 Adding a Task
 #### 2.5.1 Adding a Todo Task: `todo`
@@ -184,7 +187,7 @@ ____________________________________________________________
 ```
 #### 2.5.2 Adding a Deadline: `deadline`
 This will add a deadline to the task list.
-Format: `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>`
+Format: `deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>`
 Example of usage: `deadline lab report /by 2020-11-26 00:00`
 
 Expected outcome:
@@ -197,7 +200,7 @@ ____________________________________________________________
 ```
 #### 2.5.3 Adding an Event: `event`
 This will add an event to the task list.
-Format: `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`
+Format: `event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>`
 Example of usage: 
 `event team meeting /at 2020-09-10 10:00`
 Please type the duration of the event in hours:(e.g. 1, 0.5)
@@ -214,8 +217,8 @@ ____________________________________________________________
 ### 2.6 Marking a Task as Done: `done`
 This will mark a task as done.
 
-Format: `done <TASK_INDEX>`
-Example of usage: `done 2`
+Format: `done task/<TASK_INDEX>`
+Example of usage: `done task/2`
 
 Expected outcome:
 ```
@@ -228,8 +231,8 @@ _______________________________________________________
 ### 2.7 Deleting a Task: `delete`
 This will delete a task from task list.
 
-Format: `delete <TASK_INDEX>`
-Example of usage: `delete 1`
+Format: `delete task/<TASK_INDEX>`
+Example of usage: `delete task/1`
 
 Expected outcome:
 ```
@@ -239,7 +242,20 @@ ____________________________________________________________
     Now you have 1 task in the list.
     ____________________________________________________________
 ```
-### 2.8 Adding a Project Task: `projectTask`
+### 2.8 Finding a Task with Keyword `find`
+This will find a task from task list with the keyword.
+
+Format: `find <KEYWORD>`
+Example of usage: `find book`
+
+Expected outcome:
+```
+____________________________________________________________
+	Here are the matching tasks in your list:
+	1.[T][F]read book
+____________________________________________________________
+```
+### 2.9 Adding a Project Task: `projectTask`
 This will add a subtask of a specific project to the task list.
 
 Format: `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>`
@@ -263,7 +279,7 @@ _______________________________________________________
     ____________________________________________________________
 
 ```
-### 2.9 Viewing project task list: `project task list`
+### 2.10 Viewing project task list: `project task list`
 This will view the project task list.
 
 Format: `mod/<MODULE_CODE> project task list`
@@ -275,7 +291,7 @@ CG2271
 
 1. [P][F]write report (by:Fri 23:59) material: NA
 ```
-### 2.10 Viewing project progress: `project progress`
+### 2.11 Viewing project progress: `project progress`
 This will view the progress of a specific project.
 
 Format: `mod/<MODULE_CODE> progress`
@@ -286,7 +302,7 @@ Expected outcome:
 CG2271
 You have done 0/1 (0.00%).
 ```
-### 2.11 Exiting the Program: `exit`
+### 2.12 Exiting the Program: `exit`
 This will exit the program.
 
 Format: `exit`
@@ -297,7 +313,7 @@ _______________________________________________________
 Bye! Have a nice day with CEG!
 _______________________________________________________
 ```
-### 2.12 Viewing Help: `help`
+### 2.13 Viewing Help: `help`
 This will view help message.
 
 Format: `help`
@@ -308,8 +324,8 @@ _______________________________________________________
 1. Add a module: add mod/<MODULE_CODE>
 2. Delete a module: delete mod/<MODULE_CODE>
 3. Add a task to do: todo <DESCRIPTION>
-4. Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>
-5. Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>
+4. Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>
+5. Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>
 6. View today's timetable: today timetable
 7. View weekly timetable: this week timetable
 8. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>
@@ -323,17 +339,28 @@ _______________________________________________________
 ```
 
 ## 3. FAQ
+**Q:** How can I save my data?
+**A:** **CEGMods** automatically saves your data on every action you take. You can find them in /data folder in the same directory you run **CEGMods** in.
+
+**Q:** Can I edit the information in data directory?
+**A:** Yes! As **CEGMods** saves and loads your information from the data directory, editing the files in data folder works. However, we would highly recommend you not to as you may cause data corruption. Use the command line instead if you wish to edit your information!
 
 ## 4. Command Summary
-Feature | Command 
---------|-----------------
-Adding a Module| `add mod/<MODULE_CODE>` 
-Deleting a Module| `delete m/<MODULE_CODE>` 
-Viewing Timetable| `today timetable`, `weekly timetable` 
-Viewing To-Do List| `task list` 
-Adding a Todo Task| `todo <DESCRIPTION>` 
-Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`
-Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`
-Marking a Task as Done| `done <TASK_INDEX>`
-Exiting the Program| `exit`
-Viewing Help| `help`
+
+|Feature | Command |
+|---|--- |
+|Adding a Module| `add mod/<MODULE_CODE>`|
+|Deleting a Module| `delete m/<MODULE_CODE>`|
+|Viewing Timetable| `today timetable`, `this week timetable`|
+|Viewing Task List| `task list`|
+|Adding a Todo Task| `todo <DESCRIPTION>`| 
+|Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm`|
+|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>`| 
+|Marking a Task as Done| `done <TASK_INDEX>`|
+|Deleting a Task| `delete <TASK_INDEX>`|
+|Finding a Task| `find/ <KEYWORD>`|
+|Adding a Project Task| `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>`|
+|Viewing Project Task List| `mod/<MODULE_CODE> project task list`|
+|Viewing project progress| `mod/<MODULE_CODE> progress`|
+|Exiting the Program| `exit`|
+|Viewing Help| `help`|
