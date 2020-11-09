@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.Module;
 import seedu.duke.TimeTable;
 import seedu.duke.Ui;
 import seedu.duke.exception.EmptyDescriptionException;
@@ -19,6 +20,7 @@ import seedu.duke.tasklist.TaskList;
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,8 +83,8 @@ public class Command {
      */
     public static void addDeadline(TaskList taskList, Storage storage, String command) {
         try {
-            String by = getTime(command);
             Deadline taskToAdd = new Deadline(getTask(command));
+            String by = getTime(command);
             taskToAdd.setBy(by);
             taskList.addTask(taskToAdd);
             storage.appendToFile(taskToAdd.text() + System.lineSeparator());
@@ -105,11 +107,11 @@ public class Command {
     public static void addEvent(TaskList taskList, Storage storage, String command) {
         try {
             Scanner in = new Scanner(System.in);
+            Event taskToAdd = new Event(getTask(command));
             String at = getTime(command);
+            taskToAdd.setAt(at);
             System.out.println("Please type the duration of the event in hours:(e.g. 1, 0.5)");
             long duration = Long.parseLong(in.nextLine());
-            Event taskToAdd = new Event(getTask(command));
-            taskToAdd.setAt(at);
             taskToAdd.setDuration(duration);
             Event conflictEvent = TimeTable.checkEventConflict(taskToAdd, taskList);
             if (conflictEvent == null && !TimeTable.checkEventModuleConflict(taskToAdd)) {
@@ -256,7 +258,7 @@ public class Command {
      * @throws EmptyTimeException If no String for time information is found
      */
     public static String getTime(String command) throws EmptyTimeException {
-        String pattern = "(event|deadline)( .* )(/at|/by)( \\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d)";
+        String pattern = "(event|deadline)( .*)(/at|/by)( \\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d)";
         //yyyy-mm-dd HH:MM format
         String time;
         Pattern r = Pattern.compile(pattern);
@@ -297,6 +299,19 @@ public class Command {
         TimeTable.printWeeklyDeadline(taskList);
     }
 
+    public static void printModuleInfo() {
+
+        if (TimeTable.modules.size() != 0) {
+            for (Module module : TimeTable.modules) {
+                System.out.println(TimeTable.lineCutOff);
+                TimeTable.printModule(module);
+                System.out.println(TimeTable.lineCutOff);
+            }
+        } else {
+            System.out.println("You haven't added any modules.");
+        }
+    }
+
     /**
      * Find task in the task list with keyword.
      *
@@ -321,11 +336,12 @@ public class Command {
      * @throws EmptyFindException If no keyword is found
      */
     public static String getFind(String command) throws EmptyFindException {
-        String pattern = "find *";
-        if (Pattern.matches(pattern, command)) {
+
+        String keyword = command.substring(4);
+        if (keyword.isBlank()) {
             throw new EmptyFindException();
         } else {
-            return command.substring(command.indexOf(" ") + 1);
+            return keyword.trim();
         }
     }
 

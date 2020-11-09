@@ -40,7 +40,8 @@ public class Parser {
         boolean isPrintTodayDeadline = Pattern.matches("^today[\\s]+deadline[\\s]*", userCommand);
         boolean isPrintWeeklyDeadline = Pattern.matches("^this[\\s]+week[\\s]+deadline[\\s]*", userCommand);
         boolean isPrintTaskList = Pattern.matches("^task[\\s]+list[\\s]*", userCommand);
-        boolean isFind = Pattern.matches("^find.*", userCommand);
+        boolean isFind = Pattern.matches("^find [\\s\\S]+", userCommand);
+        boolean isCheckModule = Pattern.matches("^check[\\s]+modules[\\s]*",userCommand);
 
         try {
             if (isPrintHelpCommand) {
@@ -126,6 +127,8 @@ public class Parser {
 
             } else if (isPrintTaskList) {
                 TaskList.printList();
+            } else if (isCheckModule) {
+                Command.printModuleInfo();
             } else {
 
                 throw new DukeException();

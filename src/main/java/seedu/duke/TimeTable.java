@@ -23,8 +23,8 @@ import seedu.duke.task.Task;
 import seedu.duke.tasklist.TaskList;
 
 public class TimeTable {
-    private static ArrayList<Module> modules = new ArrayList<>();
-    static String lineCutOff = "_______________________________________________________";
+    public static ArrayList<Module> modules = new ArrayList<>();
+    public static String lineCutOff = "_______________________________________________________";
 
     public TimeTable() {
     }

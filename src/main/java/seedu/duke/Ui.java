@@ -57,7 +57,10 @@ public class Ui {
                 + ANSI_GREEN + " project " + "task list\n" + ANSI_RESET
                 + "14. View project progress: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
                 + ANSI_GREEN + " progress\n" + ANSI_RESET
-                + "15. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
+                + "15. View today's deadline: " + ANSI_GREEN + "today deadline\n" + ANSI_RESET
+                + "16. View this week deadline:" + ANSI_GREEN + " this week deadline\n" + ANSI_RESET
+                + "17. View all modules' information: " + ANSI_GREEN + "check modules\n" + ANSI_RESET
+                + "18. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
         );
         System.out.println(lineCutOff);
     }

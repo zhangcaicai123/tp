@@ -46,7 +46,7 @@ public class ProjectManager {
             String isAdd = in.nextLine();
             if (isAdd.equalsIgnoreCase("Y")) {
                 isAddModule = true;
-            } else if(isAdd.equalsIgnoreCase("N")) {
+            } else if (isAdd.equalsIgnoreCase("N")) {
                 isAddModule = false;
             } else {
                 System.out.println("Sorry, I cannot identify this!");
