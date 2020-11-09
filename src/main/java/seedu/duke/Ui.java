@@ -36,6 +36,7 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
+    //@@author JinYixuan-Au
     /**
      * Prints content of help message.
      */
@@ -72,6 +73,7 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
+    //@@author JinYixuan-Au
     /**
      * Prints content of bye message.
      */
@@ -81,6 +83,7 @@ public class Ui {
         System.out.println(lineCutOff);
     }
 
+    //@@author JinYixuan-Au
     /**
      * Prints error message if delete index is out of bound.
      * If it is not a delete exception, prints standard error message.
@@ -99,6 +102,7 @@ public class Ui {
         System.out.printf("\tThere are some errors when loading file.%n");
     }
 
+    //@@author JinYixuan-Au
     /**
      * Print affirmative statement of task being marked done.
      *

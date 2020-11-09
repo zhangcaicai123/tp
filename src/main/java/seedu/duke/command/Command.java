@@ -53,6 +53,7 @@ public class Command {
         TimeTable.printTodayTimetable(taskList);
     }
 
+    //@@author JinYixuan-Au
     /**
      * Add todo task to the task list.
      *
@@ -164,6 +165,7 @@ public class Command {
         }
     }
 
+    //@@author
     /**
      * Execute done command.
      *
@@ -312,6 +314,7 @@ public class Command {
         }
     }
 
+    //@@author JinYixuan-Au
     /**
      * Find task in the task list with keyword.
      *

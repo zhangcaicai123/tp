@@ -11,6 +11,7 @@ public class Event extends Task {
     protected String at;
     protected long duration;
 
+    //@@author JinYixuan-Au
     /**
      * Constructs Event object.
      *

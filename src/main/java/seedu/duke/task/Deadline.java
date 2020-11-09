@@ -9,6 +9,7 @@ public class Deadline extends Task {
 
     protected String by;
 
+    //@@author JinYixuan-Au
     /**
      * Constructs deadline object.
      */

@@ -1,6 +1,6 @@
 package seedu.duke.task;
 
-
+//@@author JinYixuan-Au
 public class Task {
     protected String description;
     protected boolean isDone;
