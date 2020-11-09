@@ -214,6 +214,9 @@ public class TaskList {
         printNumOfTasksInList();
     }
 
+    /**
+     * Prints all the todo tasks in the list.
+     */
     public static void printTodoList() {
         showLine();
         int num = 0;
@@ -246,6 +249,9 @@ public class TaskList {
         showLine();
     }
 
+    /**
+     * Prints all the events in the list.
+     */
     public static void printEventList() {
         showLine();
         int num = 0;
@@ -277,6 +283,9 @@ public class TaskList {
         showLine();
     }
 
+    /**
+     * Prints all the deadlines in the list.
+     */
     public static void printDeadlineList() {
         showLine();
         int num = 0;
@@ -309,6 +318,10 @@ public class TaskList {
         showLine();
     }
 
+    /**
+     * Clears past deadlines.
+     * @throws IOException if cannot edit the file
+     */
     public static void clearDeadlines() throws IOException {
         ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Task task : taskList) {
