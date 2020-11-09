@@ -51,21 +51,17 @@ public class ProjectManager {
                 System.out.println("Sorry, I cannot identify this!");
             }
         }
-        if (isAddModule) {
+        if (isModuleAdded || isAddModule) {
             System.out.println(lineCutOff);
             System.out.println("Is there any material you need for this project task?");
             System.out.println("Enter your materials or NA");
-
-
             String material = in.nextLine();
             ProjectTask projectTask = new ProjectTask(modName, description, by, material);
-
             System.out.println("Module: " + projectTask.getModName());
             System.out.println("ProjectTask: " + projectTask.getDescription());
             System.out.println("By: " + projectTask.getBy());
             System.out.println("Materials: " + projectTask.getMaterial());
             System.out.println(lineCutOff);
-
             projectTasks.add(projectTask);
             return projectTask;
         }
