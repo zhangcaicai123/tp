@@ -12,7 +12,10 @@ import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.Locale;
 import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import seedu.duke.exception.EmptyTimeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
@@ -29,7 +32,7 @@ public class TimeTable {
     /**
      * Constructs Timetable class object.
      *
-     * @param loadedList  Loaded timetable arraylist.
+     * @param loadedList Loaded timetable arraylist.
      */
     public TimeTable(ArrayList<Module> loadedList) {
         this.modules = loadedList;
@@ -38,7 +41,7 @@ public class TimeTable {
     /**
      * Prints module's code, lecture, tutorial and lab (if applicable) details.
      *
-     * @param module  Module selected.
+     * @param module Module selected.
      */
     public static void printModule(Module module) {
         System.out.println("Module: " + module.moduleCode);
@@ -48,9 +51,9 @@ public class TimeTable {
         System.out.println(lineCutOff);
     }
 
-    
+
     public static boolean isModuleAdded(String moduleCode) {
-        for (int i = 0;i < modules.size(); i++) {
+        for (int i = 0; i < modules.size(); i++) {
             if (modules.get(i).moduleCode.equals(moduleCode)) {
                 return true;
             }
@@ -105,7 +108,7 @@ public class TimeTable {
      *
      * @param command Command of user input.
      * @throws IOException If there is no matching module.
-     */      
+     */
     public static void addModule(String command) throws IOException {
         String moduleCode = command.substring(command.indexOf("/") + 1).toUpperCase();
         boolean isModuleAdded = isModuleAdded(moduleCode);
@@ -121,20 +124,20 @@ public class TimeTable {
                             + "and labs (optional) for this module.");
                     System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
                     System.out.print("Lecture slot: ");
-                    module.lecSlot = in.nextLine();
+                    module.lecSlot = checkSlotsFormat(in.nextLine());
                     System.out.println("Does this module have another lecture slot?[Y/N]");
                     String isHaveAnotherLec = in.nextLine();
                     if (isHaveAnotherLec.equalsIgnoreCase("Y")) {
                         System.out.print("Another lecture slot: ");
-                        module.lecSlot2 = in.nextLine();
+                        module.lecSlot2 = checkSlotsFormat(in.nextLine());
                     }
                     System.out.print("Tutorial slot: ");
-                    module.tutSlot = in.nextLine();
+                    module.tutSlot = checkSlotsFormat(in.nextLine());
                     System.out.println("Does this module have lab?[Y/N]");
                     String isHaveLab = in.nextLine();
                     if (isHaveLab.equalsIgnoreCase("Y")) {
                         System.out.print("Lab slot: ");
-                        module.labSlot = in.nextLine();
+                        module.labSlot = checkSlotsFormat(in.nextLine());
                     }
                     module.setSlot();
                     if (module.isSetSlotSuccess) {
@@ -177,33 +180,33 @@ public class TimeTable {
 
                 if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
                         modules.get(i).lecBegin, modules.get(i).lecEnd,
-                        module.lecDay,modules.get(i).lecDay)) {
+                        module.lecDay, modules.get(i).lecDay)) {
 
                     return i;
 
                 } else if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
                         modules.get(i).tutBegin, modules.get(i).tutEnd,
-                        module.lecDay,modules.get(i).tutDay)) {
+                        module.lecDay, modules.get(i).tutDay)) {
 
                     return i;
 
                 } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
                         modules.get(i).lecBegin, modules.get(i).lecEnd,
-                        module.tutDay,modules.get(i).lecDay)) {
+                        module.tutDay, modules.get(i).lecDay)) {
                     return i;
                 } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
                         modules.get(i).tutBegin, modules.get(i).tutEnd,
-                        module.tutDay,modules.get(i).tutDay)) {
+                        module.tutDay, modules.get(i).tutDay)) {
                     return i;
                 }
                 if (module.labSlot != null) {
                     if (checkTimeDayConflict(module.labBegin, module.labEnd,
-                            modules.get(i).lecBegin, modules.get(i).lecEnd,module.labDay,modules.get(i).lecDay)) {
+                            modules.get(i).lecBegin, modules.get(i).lecEnd, module.labDay, modules.get(i).lecDay)) {
 
                         return i;
 
                     } else if (checkTimeDayConflict(module.labBegin, module.labEnd,
-                            modules.get(i).tutBegin, modules.get(i).tutEnd,module.labDay,modules.get(i).tutDay)) {
+                            modules.get(i).tutBegin, modules.get(i).tutEnd, module.labDay, modules.get(i).tutDay)) {
 
                         return i;
 
@@ -211,12 +214,12 @@ public class TimeTable {
                 }
                 if (modules.get(i).labSlot != null) {
                     if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd,module.lecDay,modules.get(i).labDay)) {
+                            modules.get(i).labBegin, modules.get(i).labEnd, module.lecDay, modules.get(i).labDay)) {
 
                         return i;
 
                     } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd,module.tutDay,modules.get(i).labDay)) {
+                            modules.get(i).labBegin, modules.get(i).labEnd, module.tutDay, modules.get(i).labDay)) {
 
                         return i;
 
@@ -224,47 +227,49 @@ public class TimeTable {
                 }
                 if (modules.get(i).labSlot != null && module.labSlot != null) {
                     if (checkTimeDayConflict(module.labBegin, module.labEnd,
-                            modules.get(i).labBegin, modules.get(i).labEnd,module.labDay,modules.get(i).labDay)) {
+                            modules.get(i).labBegin, modules.get(i).labEnd, module.labDay, modules.get(i).labDay)) {
                         return i;
                     }
                 }
                 if (modules.get(i).lecSlot2 != null) {
                     if (checkTimeDayConflict(module.lecBegin, module.lecEnd,
-                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.lecDay,modules.get(i).lecDay2)) {
+                            modules.get(i).lecBegin2, modules.get(i).lecEnd2, module.lecDay, modules.get(i).lecDay2)) {
 
                         return i;
 
                     } else if (checkTimeDayConflict(module.tutBegin, module.tutEnd,
-                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.tutDay,modules.get(i).lecDay2)) {
+                            modules.get(i).lecBegin2, modules.get(i).lecEnd2, module.tutDay, modules.get(i).lecDay2)) {
 
                         return i;
 
                     } else if (module.labSlot != null) {
                         if (checkTimeDayConflict(module.labBegin, module.labEnd,
-                            modules.get(i).lecBegin2, modules.get(i).lecEnd2,module.labDay,modules.get(i).lecDay2)) {
+                                modules.get(i).lecBegin2, modules.get(i).lecEnd2,
+                                module.labDay, modules.get(i).lecDay2)) {
                             return i;
                         }
                     } else if (module.lecSlot2 != null) {
                         if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
                                 modules.get(i).lecBegin2, modules.get(i).lecEnd2,
-                                module.lecDay2,modules.get(i).lecDay2)) {
+                                module.lecDay2, modules.get(i).lecDay2)) {
                             return i;
                         }
                     }
                 } else if (module.lecSlot2 != null) {
                     if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
-                            modules.get(i).lecBegin, modules.get(i).lecEnd,module.lecDay2,modules.get(i).lecDay)) {
+                            modules.get(i).lecBegin, modules.get(i).lecEnd, module.lecDay2, modules.get(i).lecDay)) {
 
                         return i;
 
                     } else if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
-                            modules.get(i).tutBegin, modules.get(i).tutEnd,module.lecDay2,modules.get(i).tutDay)) {
+                            modules.get(i).tutBegin, modules.get(i).tutEnd, module.lecDay2, modules.get(i).tutDay)) {
 
                         return i;
 
                     } else if (module.labSlot != null) {
                         if (checkTimeDayConflict(module.lecBegin2, module.lecEnd2,
-                                modules.get(i).labBegin, modules.get(i).labEnd,module.lecDay2,modules.get(i).labDay)) {
+                                modules.get(i).labBegin, modules.get(i).labEnd,
+                                module.lecDay2, modules.get(i).labDay)) {
                             return i;
                         }
                     }
@@ -278,7 +283,7 @@ public class TimeTable {
     /**
      * Adds the chosen module should there be a conflict.
      *
-     * @param module Module.
+     * @param module      Module.
      * @param moduleIndex Index of module.
      * @throws IOException If invalid input.
      */
@@ -346,9 +351,9 @@ public class TimeTable {
     /**
      * Prints daily timetable.
      *
-     * @param month  Month.
-     * @param day Day.
-     * @param year Year
+     * @param month Month.
+     * @param day   Day.
+     * @param year  Year
      * @throws ParseException If unable to parse input.
      */
     public static void printDailyTimetable(int month, int day, int year, TaskList taskList) throws ParseException {
@@ -379,9 +384,9 @@ public class TimeTable {
     /**
      * Prints today's deadlines.
      *
-     * @param day Day.
+     * @param day   Day.
      * @param month Month.
-     * @param year Year.
+     * @param year  Year.
      */
     public static void printDailyDeadline(int month, int day, int year, TaskList taskList) {
         String date = String.format("%4d-%02d-%02d", year, month, day);
@@ -417,8 +422,7 @@ public class TimeTable {
      * Prints this week's timetable.
      *
      * @param taskList Task list.
-     *
-     * @throws ParseException  If unable to parse input.
+     * @throws ParseException If unable to parse input.
      */
     public static void printWeeklyTimetable(TaskList taskList) throws ParseException {
         int week = 7;
@@ -437,10 +441,10 @@ public class TimeTable {
     /**
      * Returns arraylist of today's events.
      *
-     * @param date Date of event.
+     * @param date     Date of event.
      * @param taskList Task list.
      * @return todayList Today's events.
-     * @throws ParseException  If unable to parse input.
+     * @throws ParseException If unable to parse input.
      */
     public static ArrayList<String> todayList(String date, TaskList taskList) throws ParseException {
         ArrayList<String> todayList = new ArrayList<>();
@@ -473,7 +477,7 @@ public class TimeTable {
     /**
      * Returns arraylist of today's deadlines.
      *
-     * @param date Date of deadlines.
+     * @param date     Date of deadlines.
      * @param taskList Task list.
      * @return todayDeadline Today's deadlines.
      */
@@ -496,7 +500,7 @@ public class TimeTable {
      * If there is no conflict, null is returned.
      *
      * @param insertEvent New event.
-     * @param taskList Task list of current events.
+     * @param taskList    Task list of current events.
      * @return existEvent current event, if existing.
      */
     public static Event checkEventConflict(Event insertEvent, TaskList taskList) {
@@ -520,8 +524,8 @@ public class TimeTable {
      *
      * @param beginA Start of event A.
      * @param beginB Start of event B.
-     * @param endA End of event A.
-     * @param endB End of event B.
+     * @param endA   End of event A.
+     * @param endB   End of event B.
      * @return boolean.
      */
     public static boolean checkDateTimeConflict(LocalDateTime beginA, LocalDateTime endA,
@@ -542,8 +546,8 @@ public class TimeTable {
      *
      * @param beginA Start of todo A.
      * @param beginB Start of todo B.
-     * @param endA End of todo A.
-     * @param endB End of todo B.
+     * @param endA   End of todo A.
+     * @param endB   End of todo B.
      * @return boolean.
      */
     public static boolean checkTimeConflict(LocalTime beginA, LocalTime endA, LocalTime beginB, LocalTime endB) {
@@ -601,18 +605,43 @@ public class TimeTable {
      *
      * @param beginA Start of event A.
      * @param beginB Start of event B.
-     * @param endA End of event A.
-     * @param endB End of event B.
+     * @param endA   End of event A.
+     * @param endB   End of event B.
      * @return boolean.
      */
     public static boolean checkTimeDayConflict(LocalTime beginA, LocalTime endA,
                                                LocalTime beginB, LocalTime endB,
                                                int weekDayA, int weekDayB) {
         if (weekDayA == weekDayB) {
-            return checkTimeConflict(beginA,endA,beginB,endB);
+            return checkTimeConflict(beginA, endA, beginB, endB);
         } else {
             return false;
         }
     }
 
+    public static String checkSlotsFormat(String slots) {
+        String pattern = "(^Mon|Monday|Tue|Wuesday|Wed|Wednesday|Thursday|Thur|Thu|Fri|Friday)"
+                + "( \\d\\d:\\d\\d)(-)(\\d\\d:\\d\\d)";
+        //DDD HH:MM-HH:MM format
+        Pattern r = Pattern.compile(pattern);
+        while (true) {
+            Matcher m = r.matcher(slots);
+            if (m.find()) {
+                LocalTime endTime = LocalTime.parse(m.group(4));
+                LocalTime beginTime = LocalTime.parse(m.group(2).trim());
+                if (beginTime.isBefore(endTime)) {
+                    return slots;
+                } else {
+                    System.out.println("The begin time cannot be after the end time.");
+                    System.out.println("Please enter correct slots with DDD HH:MM-HH:MM format");
+                    Scanner in = new Scanner(System.in);
+                    slots = in.nextLine();
+                }
+            } else {
+                System.out.println("Please enter the slot again with DDD HH:MM-HH:MM format: (e.g.Fri 11:00-12:00)");
+                Scanner in = new Scanner(System.in);
+                slots = in.nextLine();
+            }
+        }
+    }
 }

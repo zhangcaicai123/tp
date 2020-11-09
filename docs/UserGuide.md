@@ -51,7 +51,7 @@ Description: Real-time systems must respond quickly to inputs from the environme
 _______________________________________________________
 Please enter your time slots for lectures, tutorials, and labs for this module.
 Please enter your time slots for lectures, tutorials, and labs for this module.
-The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)
+The format of the time slots is: Day HH:mm-HH:mm (Eg. Thur 12:00-13:00)
 If the time slot does not exit, please enter null.
 ```
 **Step 2:** Type in the lecture slot and tutorial slot of this module, and indicate whether there is lab for this module as prompted.
@@ -187,7 +187,7 @@ ____________________________________________________________
 ```
 #### 2.5.2 Adding a Deadline: `deadline`
 This will add a deadline to the task list.
-Format: `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>`
+Format: `deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>`
 Example of usage: `deadline lab report /by 2020-11-26 00:00`
 
 Expected outcome:
@@ -200,7 +200,7 @@ ____________________________________________________________
 ```
 #### 2.5.3 Adding an Event: `event`
 This will add an event to the task list.
-Format: `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`
+Format: `event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>`
 Example of usage: 
 `event team meeting /at 2020-09-10 10:00`
 Please type the duration of the event in hours:(e.g. 1, 0.5)
@@ -324,8 +324,8 @@ _______________________________________________________
 1. Add a module: add mod/<MODULE_CODE>
 2. Delete a module: delete mod/<MODULE_CODE>
 3. Add a task to do: todo <DESCRIPTION>
-4. Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM>
-5. Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>
+4. Add a deadline: deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>
+5. Add an event: event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>
 6. View today's timetable: today timetable
 7. View weekly timetable: this week timetable
 8. Add a project subtask: mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>
@@ -341,15 +341,16 @@ _______________________________________________________
 ## 3. FAQ
 
 ## 4. Command Summary
+
 |Feature | Command |
-|--------|----------------- |
+|---|--- |
 |Adding a Module| `add mod/<MODULE_CODE>`|
 |Deleting a Module| `delete m/<MODULE_CODE>`|
-|Viewing Timetable| `today timetable`, `weekly timetable`|
+|Viewing Timetable| `today timetable`, `this week timetable`|
 |Viewing Task List| `task list`|
 |Adding a Todo Task| `todo <DESCRIPTION>`| 
-|Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH-MM`|
-|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH-MM>`| 
+|Adding a Deadline Task| `deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm`|
+|Adding an Event Task| `event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>`| 
 |Marking a Task as Done| `done <TASK_INDEX>`|
 |Deleting a Task| `delete <TASK_INDEX>`|
 |Finding a Task| `find/ <KEYWORD>`|
