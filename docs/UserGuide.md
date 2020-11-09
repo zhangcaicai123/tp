@@ -5,9 +5,9 @@ CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (C
 ### [2. Features](#2-features-1)
 #### [2.1 Adding a Module: `add mod`](#21-adding-a-module-add-mod-1)
 #### [2.2 Deleting a Module: `delete mod`](#22-deleting-a-module-delete-mod-1)
-#### [2.3 Checking Modules: `check mod`](#23-checking-modules-check-mod-1)
+#### [2.3 Checking Modules: `check modules`](#23-checking-modules-check-mod-1)
 #### [2.4 Viewing Timetable: `timetable`](#24-viewing-timetable-timetable-1)
-#### [2.5 Viewing To-Do List: `task list`](#25-viewing-to-do-list-task-list-1)
+#### [2.5 Viewing Task List: `task list`](#25-viewing-task-list-task-list-1)
 #### [2.6 Adding a Task:](#26-adding-a-task-1)
 ##### [2.6.1 Adding a Todo Task: `todo`](#261-adding-a-todo-task-todo-1) 
 ##### [2.6.2 Adding a Deadline Task: `deadline`](#262-adding-a-deadline-deadline)
@@ -24,9 +24,10 @@ CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (C
 #### [2.16 Viewing the undone task list: `print undone task list`](#216-viewing-the-undone-task-list-print-undone-task-list-1)
 #### [2.17 Clearing past deadlines: `clear deadlines`](#217-clearing-past-deadlines-clear-deadlines-1)
 #### [2.18 Delete done tasks: `delete done task`](#218-delete-done-tasks-delete-done-task-1)
-#### [2.19 Check added modules:`check modules`](#219-check-added-modulescheck-modules-1)
-#### [2.20 Exiting the Program: `exit`](#220-exiting-the-program-exit-1)
-#### [2.21 Viewing Help: `help`](#221-viewing-help-help-1)
+#### [2.19 Viewing today's deadlines: `today deadline`](#219-exiting-the-program-exit-1)
+#### [2.20 Viewing this week's deadlines: `this week deadline`](#219-exiting-the-program-exit-1)
+#### [2.21 Exiting the Program: `exit`](#221-exiting-the-program-exit-1)
+#### [2.22 Viewing Help: `help`](#222-viewing-help-help-1)
 ### [3. FAQ](#3-faq-1)
 ### [4. Command Summary](#4-command-summary-1)
 
@@ -151,7 +152,7 @@ Expected outcome:
 Noted. I've removed this module.
 ```
 
-### 2.3 Checking modules: `check mod`
+### 2.3 Checking modules: `check modules`
 This will check all the modules existing in the module list.
 
 Format: `check modules`
@@ -223,7 +224,7 @@ _______________________________________________________
 
 ```
 
-### 2.5 Viewing To-Do List: `task list`
+### 2.5 Viewing Task List: `task list`
 This will view the to-do list.
 
 Format: `task list`
@@ -461,63 +462,51 @@ You have deleted all the done tasks from task list.
     ____________________________________________________________
 
 ```
-### 2.19 Check added modules:`check modules`
-Format:`check modules`
+### 2.19 Viewing today's deadline: `today deadline`
+This will print out today's deadline that is not done and the remaining time left to complete.
 
-Expected outcomes:
+Format: `today deadline`
+
+Expected outcome:
 ```
-check modules
 _______________________________________________________
-Module: CS2030
-Lecture Slot: Fri 08:00-10:00
-Tutorial Slot: Tue 08:00-10:00
-Lab Slot: null
+2020-11-09 Deadline (haven't done):
 _______________________________________________________
+[D][F]Homework (by:2020-11-09 23:59) [Remaining time: 0 days 2 hours 29 minutes]
+```
+### 2.20 Viewing this week's deadline `this week deadline`
+This will print out this week's deadline that is not done and the remaining time left to complete.
+
+Format: `this week deadline`
+
+Expected outcome:
+```
 _______________________________________________________
+2020-11-09 Deadline (haven't done):
 _______________________________________________________
-Module: CS2113T
-Lecture Slot: Fri 16:00-18:00
-Tutorial Slot: Fri 11:00-12:00
-Lab Slot: null
+[D][F]Homework (by:2020-11-09 23:59) [Remaining time: 0 days 2 hours 27 minutes]
 _______________________________________________________
-_______________________________________________________
-_______________________________________________________
-Module: CS2101
-Lecture Slot: Mon 10:00-12:00
-Tutorial Slot: Thur 10:00-12:00
-Lab Slot: null
+2020-11-10 Deadline (haven't done):
 _______________________________________________________
 _______________________________________________________
+2020-11-11 Deadline (haven't done):
 _______________________________________________________
-Module: ST2334
-Lecture Slot: Tue 14:00-16:00
-Tutorial Slot: Mon 13:00-14:00
-Lab Slot: null
+[D][F]Homework2 (by:2020-11-11 12:00) [Remaining time: 1 days 14 hours 28 minutes]
 _______________________________________________________
-_______________________________________________________
-_______________________________________________________
-Module: GEH1036
-Lecture Slot: Tue 18:00-20:00
-Tutorial Slot: Wed 15:00-16:00
-Lab Slot: null
+2020-11-12 Deadline (haven't done):
 _______________________________________________________
 _______________________________________________________
-_______________________________________________________
-Module: CS2102
-Lecture Slot: Tue 12:00-14:00
-Tutorial Slot: Wed 11:00-12:00
-Lab Slot: null
+2020-11-13 Deadline (haven't done):
 _______________________________________________________
 _______________________________________________________
+2020-11-14 Deadline (haven't done):
 _______________________________________________________
-Module: CS1231
-Lecture Slot: Mon 08:00-09:00
-Tutorial Slot: Tue 21:00-22:00
-Lab Slot: null
 _______________________________________________________
+2020-11-15 Deadline (haven't done):
 _______________________________________________________
 ```
-### 2.20 Exiting the Program: `exit`
+
+### 2.21 Exiting the Program: `exit`
 This will exit the program.
 
 Format: `exit`
@@ -528,7 +517,7 @@ _______________________________________________________
 Bye! Have a nice day with CEG!
 _______________________________________________________
 ```
-### 2.21 Viewing Help: `help`
+### 2.22 Viewing Help: `help`
 This will view help message.
 
 Format: `help`
@@ -562,10 +551,12 @@ _______________________________________________________
 
 
 ## 4. Command Summary
+
 |Feature                              |Command                                               |
 |---                                   |---                                                   |
 | Adding a Module                    |`add mod/<MODULE_CODE>`                             |
 | Deleting a Module                    |`delete m/<MODULE_CODE>`                             |
+| Checking Modules | `check mod` |
 | Viewing Timetable                  |`today timetable`, `this week timetable`  |
 | Viewing Task List                   |`task list`     |
 | Adding a Todo Task	                        |`todo <DESCRIPTION>` 
@@ -573,9 +564,17 @@ _______________________________________________________
 | Adding an Event Task	                        |`event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>` | 
 | Marking a Task as Done               |`done <TASK_INDEX>`                                      |
 | Deleting a Task  |`delete <TASK_INDEX>`                                    |
-| Finding a Task    |`find/ <KEYWORD>`                                              |
+| Finding a Task with Keyword   |`find/ <KEYWORD>`                                              |
 | Adding a Project Task   |  `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<DEADLINE>`       |
 | Viewing Project Task List  |  `mod/<MODULE_CODE> project task list`                      |
 | Viewing project progress   |    `mod/<MODULE_CODE> progress`                                  |
+| Viewing to do list | `print todo list` |
+| Viewing event list | `print event list` |
+| Viewing deadline list | `print deadline list` |
+| Viewing the undone task list | `print undone task list` |\
+| Clearing past deadlines | `clear deadlines` |
+| Delete done tasks | `delete done task` |
+| Viewing today's deadlines | `today deadline` |
+| Viewing this week's deadlines | `this week deadline` |
 | Exiting the Program                       |`exit`                                                |
 | Viewing Help                                 |`help`                                                 |
