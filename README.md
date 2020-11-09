@@ -31,7 +31,7 @@ Prerequisites: JDK 11 (use the exact version), update Intellij to the most recen
    Now is 22:12
    Currently you don't have any event!
    
-   Type `help` and press enter to let the execution to proceed.
+Type `help` and press enter to let the execution to proceed.
 
 ## Build automation using Gradle
 

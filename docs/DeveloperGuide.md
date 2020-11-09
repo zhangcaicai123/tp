@@ -14,8 +14,10 @@
 ##### [3.2.3 Module class](#323-module-class-1)
 ##### [3.2.4 Task class](#324-task-class-1)
 ##### [3.2.5 TimeTable class](#325-timetable-class-1)
+##### [3.2.6 TaskList class](#326-tasklist-class-1)
+##### [3.2.7 ProjectManager class](#327-projectmanager-class-1)
 ### [4. Implementation](#4-implementation-1)
-### [5. Documentation, logging, testing, configuration, dev-ops](#5-documentation-logging-testing-configuration-dev-ops-1)
+### [5. Documentation and Dev-ops](#5-Documentation-and-Dev-ops-1)
 ### [Appendix A: Product Scope](#appendix-a-product-scope-1)
 #### [Target user profile](#target-user-profile-1)
 #### [Value proposition](#value-proposition-1)
@@ -70,7 +72,7 @@ The ***Architecture diagram*** given below shows the major components, and expla
 [![Architecture diagram](https://iili.io/3Ei2Vf.md.png)](https://freeimage.host/i/3Ei2Vf)
 
 ### 3.2 Classes
-
+    
 The CEGMods consists of six classes:
 * `Main`
 * `Ui`
@@ -78,9 +80,12 @@ The CEGMods consists of six classes:
 * `Module`
 * `Task`
 * `TimeTable`
+* `Storage`
+* `ProjectManager`
 
 #### 3.2.1 Ui class
-The Ui class reads the uses's input and response relevant messages.
+The Ui class reads the user's input and response relevant messages. It also contains the welcome message and help message to help the user navigate the 
+    
 #### 3.2.2 Parser class
 The `Parser` class deals with making sense of the user's command and execute the command relevantly:
 - add new `Module` into `Timetable`.
@@ -88,7 +93,7 @@ The `Parser` class deals with making sense of the user's command and execute the
 - add new `Task` into tasklist.
 - delete `Task` from tasklist.
 - print out `Timetable` of a certain day or one week.
-  
+    
 #### 3.2.3 Module class
 The Module class contains the information of a module, including the title, description, and time slots of lectures, tutorials and labs.
 
@@ -97,14 +102,18 @@ The `Task` class contains the information of a task, including the todo, event a
 - add new `task` 
 - add `at` or `by` for task
 - get `done` status for task
+
 #### 3.2.5 TimeTable class
 The `Timetable` class shows the timetable for all the module slots and tasks. It also stores `Module` details in an arraylist and checks whether there is a time conflict between two classes.
 - print today `timetable`   
 - print weekly `timetable`
 - print upcoming `deadline`
+- view today's `deadline` and time remaining
+- view this week's `deadline` and time remaining
 - add `module` into `timetable`
 - check time conflict for `module` and `event`    
-#### 3.2.5 TaskList class
+    
+#### 3.2.6 TaskList class
 - print the `tasklist`
 - add `task` into `tasklist`
 - remove `task` from `module`
@@ -114,6 +123,12 @@ The `Timetable` class shows the timetable for all the module slots and tasks. It
 - print `deadline list`
 - clear past `deadline`
 - delete `done task`
+    
+#### 3.2.7 ProjectManager class
+- print the `project tasklist`
+- add `project task` into `project tasklist`
+- print `project progress`
+
 ## 4. Implementation
 This section provides details on the implementations of certain features.
     
@@ -125,44 +140,56 @@ The ***sequence diagram*** below shows the interaction between these classes whe
 [![3GRaM7.md.png](https://iili.io/3GRaM7.md.png)](https://freeimage.host/i/3GRaM7)
 
 ### Feature: Delete a module
-The user enters the command: `delete m/<MODULE_CODE>` to delete a module in the timetable. The `Parser` class will make sense of the command and enable the `deleteModule()` method in the `TimeTable` class.
+The user enters the command: `delete mod/<MODULE_CODE>` to delete a module in the timetable. The `Parser` class will take this user command and pass it to `Command` class to enable the `deleteModule()` method in the `TimeTable` class.
+
+### Feature: Add a task
+The user enters the command: `todo <DESCRIPTION>` to add a todo task in the tasklist.
     
-### Feature: 
-## 5. Documentation, logging, testing, configuration, dev-ops
-### Setting up and maintaining the project website:
+The user enters the command: `deadline <DESCRIPTION> /by <YYYY-MM-DD HH:mm>` to add a deadline in the tasklist.
+    
+The user enters the command: `event <DESCRIPTION> /at <YYYY-MM-DD HH:mm>` to add an event in the tasklist.
+    
+The user enters the command: `mod/<MODULE_CODE> ptask/<DESCRIPTION> by/<TIME_DESCRIPTION>` to add a project subtask in the tasklist.
+    
+The `Parser` class will take the user command and pass it to the `Command` class to enable the `addToDo`/`addDeadline`/`addEvent`/`addProjectTask`/ method, and then call both `addTask` method in `TaskList` class and `appendToFile` method in `Storage` class to update the task list.
+    
+### Feature: Delete a task
+The user enters the command: `delete task/<TASK_INDEX>` to delete a task from the `tasklist`. The `Parser` class will take the user command and pass it to the `Command` class to enable the `deleteTask` method, and then call both the `deleteTask` method in `TaskList` class and `deleteTaskFromFile` method in `Storage` class to update the task list.
+    
+### Feature: Print task list
+The user enters the command: `task list` to view the task list. The `Parser` class will take the user command and pass it to the `TaskList` class to enable the `printList` method.
+
+### Feature: View time table
+The user enters the command: `today timetable` or `this week timetable` to view the the `timetable`. The `Parser` class will take the user command and pass it to the `Command` class to enable the `printTodayTimetable` or `printWeeklyTimetable` method, and then call `printTodayTimetable` or `printWeeklyTimetable` method in `TimeTable` class.
+
+## 5. Documentation and Dev-ops
+
+### Documentation
+#### Setting up and maintaining the project website:
 * We use [Jekyll](https://jekyllrb.com/) to manage documentation.
 * The `docs/` folder is used for documentation.
 * To learn how set it up and maintain the project website, follow the guide [*[se-edu/guides] Using Jekyll for project documentation*](https://se-education.org/guides/tutorials/jekyll.html).
 
 
-### Style guidance:
+#### Style guidance:
 * Follow the [*Google developer documentation style guide*](https://developers.google.com/style).
 * Also relevant is the [*[se-edu/guides] Markdown coding standard*](https://se-education.org/guides/conventions/markdown.html).
 
-### Diagrams:
+#### Diagrams:
 * See the [*[se-edu/guides] Using PlantUML*](https://se-education.org/guides/tutorials/plantUml.html).
 
-### Converting a document to the PDF format:
+#### Converting a document to the PDF format:
 
 See the guide [*[se-edu/guides] Saving web documents as PDF files*](https://se-education.org/guides/tutorials/savingPdf.html).
-- Testing guide
-- Logging guide
-- Configuration guide
-- DevOps guide
+    
+### DevOps Guide
 
-Running tests
--
-There are two ways to run tests.
-
-- **Method 1: Using IntelliJ JUnit test runner**
-    - To run all tests, you can click `src` -> `test`, right-click on the `java` folder and choose `Run 'Tests in 'tp.test''`
-    - To run a subset of tests, you can click `src` -> `test` -> `java` and right-click on a test package, test class, or a test and choose `Run 'ABC'`
-- **Method 2: Using Gradle**
-    - Click `Terminal` to open a new console and type in the command `gradlew clean test` to run a test (Mac/Linux: ./gradlew clean test)
-
-Types of tests
--
-This project has three types of tests: ...
+#### Making a release
+Here are the steps to create a new release.
+1. Update the version number in Main.java.
+2. Generate a fat JAR file using Gradle (i.e., gradlew shadow).
+3. Tag the repo with the version number. e.g. v0.1
+4. Create a new release using GitHub. Upload the JAR file you created. 
 
 ## Appendix A: Product Scope
 #### Target user profile
@@ -219,5 +246,19 @@ The following statements describe the non-functional requirements for the applic
 
 ## Appendix E: Instructions for manual testing
 This portion contains instructions on how to perform manual testing.
+*  [Running tests](#Running-tests)
+*  [Types of tests](#Types-of-tests)
 
+## Running tests
+There are two ways to run tests.
 
+- **Method 1: Using IntelliJ JUnit test runner**
+    - To run all tests, you can click `src` -> `test`, right-click on the `java` folder and choose `Run 'Tests in 'tp.test''`
+    - To run a subset of tests, you can click `src` -> `test` -> `java` and right-click on a test package, test class, or a test and choose `Run 'ABC'`
+- **Method 2: Using Gradle**
+    - Click `Terminal` to open a new console and type in the command `gradlew clean test` to run a test (Mac/Linux: ./gradlew clean test)
+
+Types of tests
+-
+This project has 1 type of tests: 
+1. Unit testing
