@@ -2,6 +2,7 @@ package seedu.duke;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class Module {
     static String lineCutOff = "_______________________________________________________";
@@ -141,33 +142,39 @@ public class Module {
     }
 
     public int weekOfDay(String day) {
-        day = day.toLowerCase();
         int dayValue = 0;
         switch (day) {
-        case "sun":
+        case "Sun":
+        case "Sunday":
             dayValue = 7;
             break;
-        case "mon":
+        case "Mon":
+        case "Monday":
             dayValue = 1;
             break;
-        case "tue":
+        case "Tue":
+        case "Tuesday":
             dayValue = 2;
             break;
-        case "wed":
+        case "Wed":
+        case "Wednesday":
             dayValue = 3;
             break;
-        case "thur":
+        case "Thur":
+        case "Thursday":
+        case "Thu":
             dayValue = 4;
             break;
-        case "fri":
+        case "Fri":
+        case "Friday":
             dayValue = 5;
             break;
-        case "sat":
+        case "Sat":
+        case "Saturday":
             dayValue = 6;
             break;
         default:
             System.out.println("Sorry, the day value was not recognized. ");
-            System.exit(1);
         }
         return dayValue;
 

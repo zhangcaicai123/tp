@@ -59,15 +59,16 @@ public class Command {
      * @param command  user input command
      */
     public static void addToDo(TaskList taskList, Storage storage, String command) {
-        String task = getTodo(command);
-        Todo taskToAdd = new Todo(task);
-        if (task != null) {
-            try {
-                taskList.addTask(taskToAdd);
-                storage.appendToFile(taskToAdd.text() + System.lineSeparator());
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
+
+        try {
+            String task = getTodo(command);
+            Todo taskToAdd = new Todo(task);
+            taskList.addTask(taskToAdd);
+            storage.appendToFile(taskToAdd.text() + System.lineSeparator());
+        } catch (EmptyDescriptionException e) {
+            System.out.println("The description cannot be empty.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
@@ -156,6 +157,8 @@ public class Command {
             ExceptionMessage.printEmptyTimeExceptionMessage("event");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("This is not a valid duration.");
         }
     }
 
@@ -213,17 +216,15 @@ public class Command {
      * @return the description of user's input todo task
      * @throws IllegalStateException If description is null
      */
-    public static String getTodo(String command) {
-        String todoPattern = "^todo (.*)";
-        Pattern r = Pattern.compile(todoPattern);
-        Matcher m = r.matcher(command);
-        m.find();
-        try {
-            return m.group(1).trim();
-        } catch (IllegalStateException e) {
-            System.out.println("\t  OOPS!!! The description of a todo cannot be empty.\n");
+    public static String getTodo(String command) throws EmptyDescriptionException {
+
+        String todoTask = command.substring(4);
+        if (todoTask.isBlank()) {
+            throw new EmptyDescriptionException();
+        } else {
+            return todoTask.trim();
         }
-        return null;
+
     }
 
     /**
@@ -237,11 +238,11 @@ public class Command {
         String pattern = "(event|deadline)( .* )(/at|/by)( .*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
-        if (Pattern.matches("event|deadline *", command)) {
+        if (Pattern.matches("^(event|deadline)[\\s]*(/at|/by)[\\s\\S]*", command)) {
             throw new EmptyDescriptionException();
         }
-        m.find();
         return m.group(2).trim();
+
     }
 
     /**

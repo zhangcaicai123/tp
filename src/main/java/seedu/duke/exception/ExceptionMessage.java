@@ -13,7 +13,7 @@ public class ExceptionMessage extends Exception {
 
     public static void printEmptyTimeExceptionMessage(String option) {
         printLine();
-        System.out.printf("\t  OOPS!!! You haven't set a time for the %s.%n", option);
+        System.out.printf("\t  OOPS!!! You haven't set a time for the %s or the time format is incorrect.%n", option);
         printLine();
     }
 

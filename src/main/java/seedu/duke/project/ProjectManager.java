@@ -1,5 +1,6 @@
 package seedu.duke.project;
 
+import seedu.duke.ModDataBase;
 import seedu.duke.TimeTable;
 import seedu.duke.task.ProjectTask;
 
@@ -29,10 +30,17 @@ public class ProjectManager {
         String by;
         by = command.substring(command.indexOf("by/")).substring(3).trim();
 
+        boolean isModuleCode = ModDataBase.modules.containsKey(modName);
         boolean isModuleAdded = TimeTable.isModuleAdded(modName);
         boolean isAddModule = false;
         Scanner in = new Scanner(System.in);
-        if (!isModuleAdded) {
+
+
+        if (!isModuleCode) {
+            System.out.println("This is not a valid module code");
+        } else if (description.isBlank() || by.isBlank()) {
+            System.out.println("The task description or the deadline is empty.");
+        } else if (!isModuleAdded) {
             System.out.println("Are you sure you want to add this project subtask?\n"
                     + "It seems that you did not add this module. Y/N");
             String isAdd = in.nextLine();
@@ -70,14 +78,25 @@ public class ProjectManager {
      */
     public static void printProjectTaskList(String command) {
         String modName;
+        int numOfTask = 0;
         modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
         modName = modName.substring(4).trim();
-        System.out.println(modName + "\n");
 
-        for (int i = 0; i < projectTasks.size(); i++) {
-            if (projectTasks.get(i).getModName().equals(modName)) {
-                System.out.println(i + 1 + ". " + projectTasks.get(i).toString() + "\n");
+        boolean isModuleCode = ModDataBase.modules.containsKey(modName);
+
+        if (isModuleCode) {
+            System.out.println(modName + "\n");
+            for (int i = 0; i < projectTasks.size(); i++) {
+                if (projectTasks.get(i).getModName().equals(modName)) {
+                    System.out.println(i + 1 + ". " + projectTasks.get(i).toString() + "\n");
+                    numOfTask++;
+                }
             }
+            if (numOfTask == 0) {
+                System.out.println("There are no project tasks of this module.");
+            }
+        } else {
+            System.out.println("This is not a valid module code.");
         }
     }
 
@@ -90,26 +109,30 @@ public class ProjectManager {
         String modName;
         int numDone = 0;
         int numTotal = 0;
-        modName = command.substring(command.indexOf("mod/"), command.indexOf(" "));
+        modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
         modName = modName.substring(4).trim();
 
-        System.out.println(modName);
+        boolean isModuleCode = ModDataBase.modules.containsKey(modName);
 
-        for (ProjectTask projectTask : projectTasks) {
-            if (projectTask.getModName().equals(modName)) {
-                numTotal++;
-                if (projectTask.getStatusIcon().equals("T")) {
-                    numDone++;
+        if (isModuleCode) {
+            System.out.println(modName);
+            for (ProjectTask projectTask : projectTasks) {
+                if (projectTask.getModName().equals(modName)) {
+                    numTotal++;
+                    if (projectTask.getStatusIcon().equals("T")) {
+                        numDone++;
+                    }
                 }
             }
-        }
-
-        if (numTotal == 0) {
-            System.out.println("WELL DONE! 100% progress!");
+            if (numTotal == 0) {
+                System.out.println("There are no project tasks of this module.");
+            } else {
+                float progress = (float) numDone / numTotal * 100;
+                System.out.println("You have done " + numDone + "/" + numTotal
+                        + " (" + String.format("%.2f", progress) + "%).");
+            }
         } else {
-            float progress = (float) numDone / numTotal * 100;
-            System.out.println("You have done " + numDone + "/" + numTotal
-                    + " (" + String.format("%.2f", progress) + "%).");
+            System.out.println("This is not a valid module code.");
         }
     }
 }
