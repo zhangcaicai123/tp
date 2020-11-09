@@ -13,14 +13,14 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 ##### [2.5.3 Adding a Event Task: `event`](#253-adding-an-event-event)
 #### [2.6 Marking a Task as Done: `done`](#26-marking-a-task-as-done-done-1)
 #### [2.7 Deleting a Task: `delete`](#27-deleting-a-task-delete-1)
-#### [2.8 Finding a Task with Keyword: `find`](#28-Finding-a-Task-with-Keyword-find1)
-#### [2.9 Adding a Project Task: `project task`](#29-Adding-a-Project-Task-project-task1)
-#### [2.10 Viewing project task list: `project task list`](#210-Viewing-project-task-list-project-task-list1)
-#### [2.11 Viewing project progress: `project progress`](#211-Viewing-project-progress-project-progress1)
-#### [2.12 Exiting the Program: `exit`](#212-Exiting-the-Program-exit1)
-#### [2.13 Viewing Help: `help`](#213-Viewing-Help-help1)
-### [3. FAQ](#3-FAQ1)
-### [4. Command Summary](#4-Command-Summary1)
+#### [2.8 Finding a Task with Keyword: `find`](#28-finding-a-task-with-keyword-find-1)
+#### [2.9 Adding a Project Task: `project task`](#29-adding-a-project-task-project-task-1)
+#### [2.10 Viewing project task list: `project task list`](#210-viewing-project-task-list-project-task-list-1)
+#### [2.11 Viewing project progress: `project progress`](#211-viewing-project-progress-project-progress-1)
+#### [2.12 Exiting the Program: `exit`](#212-exiting-the-program-exit-1)
+#### [2.13 Viewing Help: `help`](#213-viewing-help-help-1)
+### [3. FAQ](#3-faq-1)
+### [4. Command Summary](#4-Command-Summary-1)
 
 ## 1. Quick Start
 1. Ensure you have Java 11 installed in your Computer.
@@ -339,6 +339,11 @@ _______________________________________________________
 ```
 
 ## 3. FAQ
+**Q:** How can I save my data?
+**A:** **CEGMods** automatically saves your data on every action you take. You can find them in /data folder in the same directory you run **CEGMods** in.
+
+**Q:** Can I edit the information in data directory?
+**A:** Yes! As **CEGMods** saves and loads your information from the data directory, editing the files in data folder works. However, we would highly recommend you not to as you may cause data corruption. Use the command line instead if you wish to edit your information!
 
 ## 4. Command Summary
 |Feature | Command |
