@@ -121,9 +121,8 @@ public class TimeTable {
                     printModuleDetails(moduleCode);
                     module = ModDataBase.modules.get(moduleCode);
                     System.out.println("Please enter your time slots for lectures, tutorials, "
-                            + "and labs for this module.");
+                            + "and labs (optional) for this module.");
                     System.out.println("The format of the time slots is: Day HH:MM-HH:MM (Eg. Thur 12:00-13:00)");
-                    System.out.println("If the time slot does not exit, please enter null.");
                     System.out.print("Lecture slot: ");
                     module.lecSlot = checkSlotsFormat(in.nextLine());
                     System.out.println("Does this module have another lecture slot?[Y/N]");
@@ -488,8 +487,8 @@ public class TimeTable {
             //deadline task
             if (task.text().startsWith("D") && task.getStatusIcon().equals("F")) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getBy().substring(0, deadline.getBy().indexOf(" ")).trim().equals(date)) {
-                    todayDeadline.add(task.text());
+                if (deadline.getBy().substring(0,deadline.getBy().indexOf(" ")).trim().equals(date)) {
+                    todayDeadline.add(task.toString());
                 }
             }
         }

@@ -39,24 +39,25 @@ public class Ui {
                 + "Please enter using the format as stated strictly!\n"
                 + "1. Add a module:" + ANSI_GREEN + " add mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
                 + "2. Delete a module: " + ANSI_GREEN + "delete mod/" + ANSI_BLUE + "<MODULE_CODE>\n" + ANSI_RESET
-                + "3. Add a to do task: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
-                + "4. Add a deadline: " + ANSI_GREEN + "deadline" + ANSI_BLUE + " <DESCRIPTION>" + ANSI_GREEN + "/by"
+                + "3. View today's timetable: " + ANSI_GREEN + "today timetable\n" + ANSI_RESET
+                + "4. View weekly timetable:" + ANSI_GREEN + " this week timetable\n" + ANSI_RESET
+                + "5. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
+                + "6. Add a to do task: " + ANSI_GREEN + "todo" + ANSI_BLUE + " <DESCRIPTION>\n" + ANSI_RESET
+                + "7. Add a deadline: " + ANSI_GREEN + "deadline" + ANSI_BLUE + " <DESCRIPTION> " + ANSI_GREEN + "/by"
                 + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
-                + "5. Add an event: " + ANSI_GREEN + "event" + ANSI_BLUE + " <DESCRIPTION> "
+                + "8. Add an event: " + ANSI_GREEN + "event" + ANSI_BLUE + " <DESCRIPTION> "
                 + ANSI_GREEN + "/at" + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
-                + "6. View today's timetable: " + ANSI_GREEN + "today timetable\n" + ANSI_RESET
-                + "7. View weekly timetable:" + ANSI_GREEN + " this week timetable\n" + ANSI_RESET
-                + "8. Add a project subtask: + " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE> "
+                + "9. Mark a task as done: " + ANSI_GREEN + "done task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
+                + "10. Delete a task: " + ANSI_GREEN + "delete task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
+                + "11. Find a task with keyword: " + ANSI_GREEN + "find " + ANSI_BLUE + "<KEYWORD>\n" + ANSI_RESET
+                + "12. Add a project subtask: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE> "
                 + ANSI_GREEN + "ptask/" + ANSI_BLUE + "<DESCRIPTION> " + ANSI_GREEN + "by/" + ANSI_BLUE
                 + "<DEADLINE>" + " \n" + ANSI_RESET
-                + "9. View project task list: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
+                + "13. View project task list: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
                 + ANSI_GREEN + " project " + "task list\n" + ANSI_RESET
-                + "10. View project progress: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
+                + "14. View project progress: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
                 + ANSI_GREEN + " progress\n" + ANSI_RESET
-                + "11. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
-                + "12. Mark a task as done: " + ANSI_GREEN + "done task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "13. Delete a task: " + ANSI_GREEN + "delete task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "14. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
+                + "15. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
         );
         System.out.println(lineCutOff);
     }
