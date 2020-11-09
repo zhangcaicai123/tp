@@ -1,34 +1,34 @@
 # User Guide
 CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (CLI). If you are an NUS CEG student and looking for an app to manage your course and project schedule, CEGMods can help you get all your tasks down in an organized manner.
 ## Content page
-### [1. Quick Start](#1-Quick-Start1)
-### [2. Features](#2-Features1)
-#### [2.1 Adding a Module: `add mod`](#21-Adding-a-Module-add-mod1)
-#### [2.2 Deleting a Module: `delete mod`](#22-Deleting-a-Module-delete-mod1)
-#### [2.3 Checking Modules: `check mod`](#23-Checking-modules-check-mod)
-#### [2.4 Viewing Timetable: `timetable`](#24-Viewing-Timetable-timetable1)
-#### [2.5 Viewing To-Do List: `task list`](#25-Viewing-To-Do-List-task-list1)
-#### [2.6 Adding a Task:](#26-Adding-a-Task1)
-##### [2.6.1 Adding a Todo Task: `todo`](#261-Adding-a-Todo-Task-todo1) 
-##### [2.6.2 Adding a Deadline Task: `deadline`](#262-Adding-a-Deadline-deadline)
-##### [2.6.3 Adding a Event Task: `event`](#263-Adding-an-Event-event)
-#### [2.7 Marking a Task as Done: `done`](#27-Marking-a-Task-as-Done-done1)
-#### [2.8 Deleting a Task: `delete`](#28-Deleting-a-Task-delete1)
-#### [2.9 Finding a Task with Keyword: `find`](#29-Finding-a-Task-with-Keyword-find1)
-#### [2.10 Adding a Project Task: `project task`](#210-Adding-a-Project-Task-project-task1)
-#### [2.11 Viewing project task list: `project task list`](#211-Viewing-project-task-list-project-task-list1)
-#### [2.12 Viewing project progress: `project progress`](#212-Viewing-project-progress-project-progress1)
-#### 2.13 Viewing to do list: `print todo list`
-#### 2.14 Viewing event list: `print event list`
-#### 2.15 Viewing the deadline list: `print deadline list`
-#### 2.16 Viewing the undone task list: `print undone task list`
-#### 2.17 Clearing past deadlines: `clear deadlines`
-#### 2.18 Delete done tasks: `delete done task`
-#### 2.19 Check added modules:`check modules`
-#### [2.20 Exiting the Program: `exit`](#213-Exiting-the-Program-exit1)
-#### [2.21 Viewing Help: `help`](#214-Viewing-Help-help1)
-### [3. FAQ](#3-FAQ1)
-### [4. Command Summary](#4-Command-Summary1)
+### [1. Quick Start](#1-quick-start-1)
+### [2. Features](#2-features-1)
+#### [2.1 Adding a Module: `add mod`](#21-adding-a-module-add-mod-1)
+#### [2.2 Deleting a Module: `delete mod`](#22-deleting-a-module-delete-mod-1)
+#### [2.3 Checking Modules: `check mod`](#23-checking-modules-check-mod-1)
+#### [2.4 Viewing Timetable: `timetable`](#24-viewing-timetable-timetable-1)
+#### [2.5 Viewing To-Do List: `task list`](#25-viewing-to-do-list-task-list-1)
+#### [2.6 Adding a Task:](#26-adding-a-task-1)
+##### [2.6.1 Adding a Todo Task: `todo`](#261-adding-a-todo-task-todo-1) 
+##### [2.6.2 Adding a Deadline Task: `deadline`](#262-adding-a-deadline-deadline)
+##### [2.6.3 Adding a Event Task: `event`](#263-adding-an-event-event)
+#### [2.7 Marking a Task as Done: `done`](#27-marking-a-task-as-done-done-1)
+#### [2.8 Deleting a Task: `delete`](#28-deleting-a-task-delete-1)
+#### [2.9 Finding a Task with Keyword: `find`](#29-finding-a-task-with-keyword-find-1)
+#### [2.10 Adding a Project Task: `project task`](#210-adding-a-project-task-project-task-1)
+#### [2.11 Viewing project task list: `project task list`](#211-viewing-project-task-list-project-task-list-1)
+#### [2.12 Viewing project progress: `project progress`](#212-viewing-project-progress-project-progress-1)
+#### [2.13 Viewing to do list: `print todo list`](#213-viewing-to-do-list-print-todo-list-1)
+#### [2.14 Viewing event list: `print event list`](#214-viewing-event-list-print-event-list-1)
+#### [2.15 Viewing the deadline list: `print deadline list`](#215-viewing-the-deadline-list-print-deadline-list-1)
+#### [2.16 Viewing the undone task list: `print undone task list`](#216-viewing-the-undone-task-list-print-undone-task-list-1)
+#### [2.17 Clearing past deadlines: `clear deadlines`](#217-clearing-past-deadlines-clear-deadlines-1)
+#### [2.18 Delete done tasks: `delete done task`](#218-delete-done-tasks-delete-done-task-1)
+#### [2.19 Check added modules:`check modules`](#219-check-added-modulescheck-modules-1)
+#### [2.20 Exiting the Program: `exit`](#220-exiting-the-program-exit-1)
+#### [2.21 Viewing Help: `help`](#221-viewing-help-help-1)
+### [3. FAQ](#3-faq-1)
+### [4. Command Summary](#4-command-summary-1)
 
 ## 1. Quick Start
 1. Ensure you have Java 11 installed in your Computer.
