@@ -10,7 +10,7 @@ Below are my contributions to the project.
         to manage their schedule.
         - Highlight: This feature requires searching all the module slots and event happened today or this week and 
         sorting them in time order.
-    1. Added the ability to view upcoming deadlines for today and upcoming week
+    1. Added the ability to view upcoming deadlines for today and upcoming week [#118](https://github.com/AY2021S1-CS2113T-F11-2/tp/pull/118)
         - What it does: allow users to view today's deadlines and this week deadlines
         - Justification: This feature helps users to visualize upcoming deadlines with date and time which can remind 
         users to prioritize their work.
