@@ -634,6 +634,11 @@ public class TimeTable {
         }
     }
 
+    /**
+     * Get correct formats slots.
+     * @param slots input slots
+     * @return slots with correct format
+     */
     public static String checkSlotsFormat(String slots) {
         String pattern = "(^Mon|Monday|Tue|Wuesday|Wed|Wednesday|Thursday|Thur|Thu|Fri|Friday)"
                 + "( \\d\\d:\\d\\d)(-)(\\d\\d:\\d\\d)";

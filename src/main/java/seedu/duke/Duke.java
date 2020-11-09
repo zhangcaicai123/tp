@@ -21,7 +21,7 @@ public class Duke {
     /**
      * Runs java file.
      */
-    void run() {
+    void run() throws java.text.ParseException {
 
         try {
             //load tasks in data file to current task list
@@ -36,6 +36,7 @@ public class Duke {
             System.out.println("Some errors occurred during the process of fetching data.");
             System.out.println("Please check your Internet Connection.");
         }
+        Ui.showNow(tasks);
         while (!Parser.isExit) {
             try {
                 userCommand = in.nextLine();
@@ -53,7 +54,7 @@ public class Duke {
      *
      * @param args User input.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws java.text.ParseException {
         Ui.printWelcomeMessage();
         new Duke().run();
     }

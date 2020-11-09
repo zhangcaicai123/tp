@@ -1,6 +1,13 @@
 package seedu.duke;
 
 import seedu.duke.task.Task;
+import seedu.duke.tasklist.TaskList;
+
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Ui {
     static String lineCutOff = "_______________________________________________________";
@@ -104,4 +111,31 @@ public class Ui {
         System.out.println(" \t" + lineCutOff);
     }
 
+    /**
+     * Show current date, time and ongoing event.
+     * @param taskList task list
+     * @throws ParseException if cannot parse date time
+     */
+    public static void showNow(TaskList taskList) throws ParseException {
+        LocalDateTime now = LocalDateTime.now();
+        int num = 0;
+        ArrayList<String> todayList = TimeTable.todayList(now.toLocalDate().toString(),taskList);
+        System.out.println("Today is " + now.toLocalDate().toString());
+        System.out.println("Now is " + now.toLocalTime().getHour() + ":" + now.toLocalTime().getMinute());
+        for (String event : todayList) {
+            String begin = event.substring(0,event.indexOf("-"));
+            String end = event.substring(event.indexOf("-") + 1,event.indexOf(" "));
+            DateTimeFormatter parser = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime beginTime = LocalTime.parse(begin,parser);
+            LocalTime endTime = LocalTime.parse(end,parser);
+            if (now.toLocalTime().isAfter(beginTime) && now.toLocalTime().isBefore(endTime)
+                    || now.toLocalTime().equals(beginTime)) {
+                num++;
+                System.out.println("Your current event is: " + event);
+            }
+        }
+        if (num == 0) {
+            System.out.println("Currently you don't have any event!");
+        }
+    }
 }
