@@ -1,5 +1,6 @@
 package seedu.duke.tasklist;
 
+import seedu.duke.project.ProjectManager;
 import seedu.duke.task.Task;
 
 import java.util.ArrayList;
@@ -49,6 +50,24 @@ public class TaskList {
      * @param taskIndex the index of task which needs to be deleted
      */
     public void deleteTask(int taskIndex) {
+        boolean isExist = false;
+        for (int i = 0; i < ProjectManager.projectTasks.size(); i++) {
+            if (taskList.get(taskIndex) == ProjectManager.projectTasks.get(i)) {
+                ProjectManager.projectTasks.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < ProjectManager.projectTasks.size(); i++) {
+            for (int j = 0; j < taskList.size(); j++) {
+                if (taskList.get(j) == ProjectManager.projectTasks.get(i)) {
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                ProjectManager.projectTasks.remove(i);
+            }
+        }
         Task task = taskList.get(taskIndex);
         taskList.remove(taskIndex);
         printDeleteMessage(task);

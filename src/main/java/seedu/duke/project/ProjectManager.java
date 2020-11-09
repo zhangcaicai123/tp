@@ -2,13 +2,14 @@ package seedu.duke.project;
 
 import seedu.duke.TimeTable;
 import seedu.duke.task.ProjectTask;
+import seedu.duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProjectManager {
     static String lineCutOff = "_______________________________________________________";
-    private static final ArrayList<ProjectTask> projectTasks = new ArrayList<>();
+    public static ArrayList<ProjectTask> projectTasks = new ArrayList<>();
 
     /**
      * Adds project task to project tasks arraylist.
@@ -33,8 +34,8 @@ public class ProjectManager {
         boolean isAddModule = false;
         Scanner in = new Scanner(System.in);
         if (!isModuleAdded) {
-            System.out.println("Are you sure you want to add this project subtask?\n"
-                    + "It seems that you did not add this module. Y/N");
+            System.out.println("It seems that you did not add this module.\n"
+                    + "Are you sure you want to add this project subtask? Y/N");
             String isAdd = in.nextLine();
             if (isAdd.equalsIgnoreCase("Y")) {
                 isAddModule = true;
@@ -68,14 +69,18 @@ public class ProjectManager {
      *
      * @param command User input.
      */
-    public static void printProjectTaskList(String command) {
+    public static void printProjectTaskList(String command) throws StringIndexOutOfBoundsException {
         String modName;
         modName = command.substring(command.indexOf("mod/"), command.indexOf("project"));
-        modName = modName.substring(4).trim();
+        try {
+            modName = modName.substring(4).trim();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(modName + "\n");
 
         for (int i = 0; i < projectTasks.size(); i++) {
-            if (projectTasks.get(i).getModName().equals(modName)) {
+            if (projectTasks.get(i).getModName().equalsIgnoreCase(modName)) {
                 System.out.println(i + 1 + ". " + projectTasks.get(i).toString() + "\n");
             }
         }
@@ -96,7 +101,7 @@ public class ProjectManager {
         System.out.println(modName);
 
         for (ProjectTask projectTask : projectTasks) {
-            if (projectTask.getModName().equals(modName)) {
+            if (projectTask.getModName().equalsIgnoreCase(modName)) {
                 numTotal++;
                 if (projectTask.getStatusIcon().equals("T")) {
                     numDone++;

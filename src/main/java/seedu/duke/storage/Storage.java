@@ -2,6 +2,7 @@ package seedu.duke.storage;
 
 import seedu.duke.Module;
 import seedu.duke.exception.DukeException;
+import seedu.duke.project.ProjectManager;
 import seedu.duke.task.ProjectTask;
 import seedu.duke.task.Event;
 import seedu.duke.task.Task;
@@ -133,6 +134,8 @@ public class Storage {
             modName = texts[3];
             time = texts[4];
             taskToLoad = new ProjectTask(modName, description, time, material);
+            ProjectTask projectTask = new ProjectTask(modName, description, time, material);
+            ProjectManager.projectTasks.add(projectTask);
         } else {
             throw new DukeException();
         }

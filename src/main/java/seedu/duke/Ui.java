@@ -46,9 +46,9 @@ public class Ui {
                 + ANSI_GREEN + "/at" + ANSI_BLUE + " <YYYY-MM-DD HH:mm>\n" + ANSI_RESET
                 + "6. View today's timetable: " + ANSI_GREEN + "today timetable\n" + ANSI_RESET
                 + "7. View weekly timetable:" + ANSI_GREEN + " this week timetable\n" + ANSI_RESET
-                + "8. Add a project subtask: + " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE> "
+                + "8. Add a project subtask: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE> "
                 + ANSI_GREEN + "ptask/" + ANSI_BLUE + "<DESCRIPTION> " + ANSI_GREEN + "by/" + ANSI_BLUE
-                + "<DEADLINE>" + " \n" + ANSI_RESET
+                + "<TIME_DESCRIPTION>" + " \n" + ANSI_RESET
                 + "9. View project task list: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
                 + ANSI_GREEN + " project " + "task list\n" + ANSI_RESET
                 + "10. View project progress: " + ANSI_GREEN + "mod/" + ANSI_BLUE + "<MODULE_CODE>"
@@ -56,7 +56,10 @@ public class Ui {
                 + "11. View task list: " + ANSI_GREEN + "task list\n" + ANSI_RESET
                 + "12. Mark a task as done: " + ANSI_GREEN + "done task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
                 + "13. Delete a task: " + ANSI_GREEN + "delete task/" + ANSI_BLUE + "<TASK_INDEX>\n" + ANSI_RESET
-                + "14. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
+                + "14. Find a task:" + ANSI_GREEN + " find" + ANSI_BLUE + " <TASK_DESCRIPTION>\n" + ANSI_RESET
+                + "15. View today's deadline:" + ANSI_GREEN + " today deadline\n" + ANSI_RESET
+                + "16. View weekly deadline:" + ANSI_GREEN + " this week deadline\n" + ANSI_RESET
+                + "17. Exit CEGMods: " + ANSI_GREEN + "exit" + ANSI_RESET
         );
         System.out.println(lineCutOff);
     }
