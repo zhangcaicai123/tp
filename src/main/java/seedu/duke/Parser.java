@@ -25,20 +25,20 @@ public class Parser {
         boolean isPrintHelpCommand = userCommand.toLowerCase().contains("help");
         boolean isExitCommand = userCommand.toLowerCase().equals("exit");
         boolean isAddModCommand = Pattern.matches("^add[\\s]+mod/[\\S\\s]+", userCommand);
-        boolean isAddTask = Pattern.matches("^(todo|deadline|event).*",
+        boolean isAddTask = Pattern.matches("^(todo|deadline|event) [\\S\\s]+",
                 userCommand);
         boolean isAddProjectTaskCommand =
                 Pattern.matches("^mod/[\\S\\s]+ptask/[\\s\\S]+by/[\\s\\S]+", userCommand);
-        boolean isDeleteModule = userCommand.contains("delete mod/");
-        boolean isDeleteTask = userCommand.contains("delete task/");
-        boolean isMarkAsDone = userCommand.contains("done task/");
-        boolean isPrintWeeklyTimetable = userCommand.equals("this week timetable");
-        boolean isPrintTodayTimeTable = userCommand.equals("today timetable");
-        boolean isPrintProjectTaskList = userCommand.contains("project task list");
-        boolean isPrintProgress = userCommand.toLowerCase().contains("progress");
-        boolean isPrintTodayDeadline = userCommand.equals("today deadline");
-        boolean isPrintWeeklyDeadline = userCommand.equals("this week deadline");
-        boolean isPrintTaskList = userCommand.equals("task list");
+        boolean isDeleteModule = Pattern.matches("^delete[\\s]+mod/[\\S\\s]+", userCommand);
+        boolean isDeleteTask = Pattern.matches("^delete[\\s]+task/[\\S\\s]+", userCommand);
+        boolean isMarkAsDone = Pattern.matches("^done[\\s]+task/[\\S\\s]+", userCommand);
+        boolean isPrintWeeklyTimetable = Pattern.matches("^this[\\s]+week[\\s]+timetable[\\s]*", userCommand);
+        boolean isPrintTodayTimeTable = Pattern.matches("^today[\\s]+timetable[\\s]*", userCommand);
+        boolean isPrintProjectTaskList = Pattern.matches("^mod/[\\S\\s]+project[\\s]+task[\\s]+list[\\s]*", userCommand);
+        boolean isPrintProgress = Pattern.matches("^mod/[\\S\\s]+project[\\s]+progress[\\s]*", userCommand);
+        boolean isPrintTodayDeadline = Pattern.matches("^today[\\s]+deadline[\\s]*", userCommand);
+        boolean isPrintWeeklyDeadline = Pattern.matches("^this[\\s]+week[\\s]+deadline[\\s]*", userCommand);
+        boolean isPrintTaskList = Pattern.matches("^task[\\s]+list[\\s]*", userCommand);
         boolean isFind = Pattern.matches("^find.*", userCommand);
 
         try {
