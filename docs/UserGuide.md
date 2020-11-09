@@ -24,8 +24,10 @@ CEGMods is a desktop to manage NUS CEG's courses via a Command Line Interface (C
 #### [2.16 Viewing the undone task list: `print undone task list`](#216-viewing-the-undone-task-list-print-undone-task-list-1)
 #### [2.17 Clearing past deadlines: `clear deadlines`](#217-clearing-past-deadlines-clear-deadlines-1)
 #### [2.18 Delete done tasks: `delete done task`](#218-delete-done-tasks-delete-done-task-1)
-#### [2.19 Exiting the Program: `exit`](#219-exiting-the-program-exit-1)
-#### [2.20 Viewing Help: `help`](#220-viewing-help-help-1)
+#### [2.19 Viewing today's deadlines: `today deadline`](#219-exiting-the-program-exit-1)
+#### [2.20 Viewing this week's deadlines: `this week deadline`](#219-exiting-the-program-exit-1)
+#### [2.21 Exiting the Program: `exit`](#221-exiting-the-program-exit-1)
+#### [2.22 Viewing Help: `help`](#222-viewing-help-help-1)
 ### [3. FAQ](#3-faq-1)
 ### [4. Command Summary](#4-command-summary-1)
 
@@ -460,7 +462,51 @@ You have deleted all the done tasks from task list.
     ____________________________________________________________
 
 ```
-### 2.19 Exiting the Program: `exit`
+### 2.19 Viewing today's deadline: `today deadline`
+This will print out today's deadline that is not done and the remaining time left to complete.
+
+Format: `today deadline`
+
+Expected outcome:
+```
+_______________________________________________________
+2020-11-09 Deadline (haven't done):
+_______________________________________________________
+[D][F]Homework (by:2020-11-09 23:59) [Remaining time: 0 days 2 hours 29 minutes]
+```
+### 2.20 Viewing this week's deadline `this week deadline`
+This will print out this week's deadline that is not done and the remaining time left to complete.
+
+Format: `this week deadline`
+
+Expected outcome:
+```
+_______________________________________________________
+2020-11-09 Deadline (haven't done):
+_______________________________________________________
+[D][F]Homework (by:2020-11-09 23:59) [Remaining time: 0 days 2 hours 27 minutes]
+_______________________________________________________
+2020-11-10 Deadline (haven't done):
+_______________________________________________________
+_______________________________________________________
+2020-11-11 Deadline (haven't done):
+_______________________________________________________
+[D][F]Homework2 (by:2020-11-11 12:00) [Remaining time: 1 days 14 hours 28 minutes]
+_______________________________________________________
+2020-11-12 Deadline (haven't done):
+_______________________________________________________
+_______________________________________________________
+2020-11-13 Deadline (haven't done):
+_______________________________________________________
+_______________________________________________________
+2020-11-14 Deadline (haven't done):
+_______________________________________________________
+_______________________________________________________
+2020-11-15 Deadline (haven't done):
+_______________________________________________________
+```
+
+### 2.21 Exiting the Program: `exit`
 This will exit the program.
 
 Format: `exit`
@@ -471,7 +517,7 @@ _______________________________________________________
 Bye! Have a nice day with CEG!
 _______________________________________________________
 ```
-### 2.20 Viewing Help: `help`
+### 2.22 Viewing Help: `help`
 This will view help message.
 
 Format: `help`
@@ -528,5 +574,7 @@ _______________________________________________________
 | Viewing the undone task list | `print undone task list` |\
 | Clearing past deadlines | `clear deadlines` |
 | Delete done tasks | `delete done task` |
+| Viewing today's deadlines | `today deadline` |
+| Viewing this week's deadlines | `this week deadline` |
 | Exiting the Program                       |`exit`                                                |
 | Viewing Help                                 |`help`                                                 |
