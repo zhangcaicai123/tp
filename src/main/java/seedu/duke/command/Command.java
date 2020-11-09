@@ -60,7 +60,7 @@ public class Command {
      */
     public static void addToDo(TaskList taskList, Storage storage, String command) {
 
-        try{
+        try {
             String task = getTodo(command);
             Todo taskToAdd = new Todo(task);
             taskList.addTask(taskToAdd);

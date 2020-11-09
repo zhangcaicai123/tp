@@ -34,7 +34,8 @@ public class Parser {
         boolean isMarkAsDone = Pattern.matches("^done[\\s]+task/[\\S\\s]+", userCommand);
         boolean isPrintWeeklyTimetable = Pattern.matches("^this[\\s]+week[\\s]+timetable[\\s]*", userCommand);
         boolean isPrintTodayTimeTable = Pattern.matches("^today[\\s]+timetable[\\s]*", userCommand);
-        boolean isPrintProjectTaskList = Pattern.matches("^mod/[\\S\\s]+project[\\s]+task[\\s]+list[\\s]*", userCommand);
+        boolean isPrintProjectTaskList = Pattern.matches("^mod/[\\S\\s]+project[\\s]+task[\\s]+list[\\s]*",
+                userCommand);
         boolean isPrintProgress = Pattern.matches("^mod/[\\S\\s]+project[\\s]+progress[\\s]*", userCommand);
         boolean isPrintTodayDeadline = Pattern.matches("^today[\\s]+deadline[\\s]*", userCommand);
         boolean isPrintWeeklyDeadline = Pattern.matches("^this[\\s]+week[\\s]+deadline[\\s]*", userCommand);

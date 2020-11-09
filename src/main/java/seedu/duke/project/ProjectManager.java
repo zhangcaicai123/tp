@@ -36,7 +36,7 @@ public class ProjectManager {
         Scanner in = new Scanner(System.in);
 
 
-        if (!isModuleCode){
+        if (!isModuleCode) {
             System.out.println("This is not a valid module code");
         } else if (description.isBlank() || by.isBlank()) {
             System.out.println("The task description or the deadline is empty.");
@@ -84,7 +84,7 @@ public class ProjectManager {
 
         boolean isModuleCode = ModDataBase.modules.containsKey(modName);
 
-        if(isModuleCode) {
+        if (isModuleCode) {
             System.out.println(modName + "\n");
             for (int i = 0; i < projectTasks.size(); i++) {
                 if (projectTasks.get(i).getModName().equals(modName)) {
