@@ -562,6 +562,7 @@ _______________________________________________________
 
 
 ## 4. Command Summary
+
 |Feature                              |Command                                               |
 |---                                   |---                                                   |
 | Adding a Module                    |`add mod/<MODULE_CODE>`                             |
