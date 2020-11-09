@@ -20,7 +20,7 @@ CEGMods is a desktop application to manage NUS CEG's courses via a Command Line 
 #### [2.12 Exiting the Program: `exit`](#212-exiting-the-program-exit-1)
 #### [2.13 Viewing Help: `help`](#213-viewing-help-help-1)
 ### [3. FAQ](#3-faq-1)
-### [4. Command Summary](#4-Command-Summary-1)
+### [4. Command Summary](#4-command-summary-1)
 
 ## 1. Quick Start
 1. Ensure you have Java 11 installed in your Computer.
